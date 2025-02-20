@@ -10,13 +10,33 @@
 
   <!-- google font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
 
   <style>
+    
+    .banner-div {
+  width: 300%;
+  text-align: center; /* Centers the image */
+  background-color: #ffffff; /* Optional: sets a background color */
+  padding: auto auto; /* Optional: adjusts spacing */
+  margin-top: 20px; /* Optional: space from previous content */
+  z-index: 10; /* Adjust if needed relative to other elements */
+}
 
+.banner-image {
+  max-width: 100;
+  height: 100;
+  display: inline-block;
+}
 h1 {
   position: relative;
   z-index: 10;
@@ -44,6 +64,13 @@ h1 {
   }
 }
 
+countdown.teko-<unitequifier> {
+  font-family: "Teko", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: italic;
+}
+
 h2, h3, h4, h5, h6 {
   position: relative; /* Ensures they stay in the flow of the document */
   z-index: 10; /* Puts them above the canvas */
@@ -60,7 +87,19 @@ p {
   z-index: 10; /* Puts them above the canvas */
   color: #ffffff; /* Ensures readability */
 }
+#countdown {
+            font-size: 0.95em;
+            margin-top: 20px;
+            width: 100%;
+            padding: 0px;
+            font-weight: italic;
+            /* background: linear-gradient(135deg, #A6A6A6, #ff4b2b); */
+            display: inline-block;
 
+            box-shadow: 0 0 10px #ff2600; */
+            
+            color: black(0, 0, 0);
+        }
 
     #nnCanvas {
   position: fixed;
@@ -87,10 +126,7 @@ p {
 
 <body class="max-w-[1920px] mx-auto">
   <canvas id="nnCanvas" style="position: fixed; top: 0; left: 0; z-index: -1;" class="w-full h-full"></canvas>
-
   <div class="bg-black text-gray-100 text-[15px]">
-
-
           <div id="collapseMenu"
             class="lg:ml-14 max-lg:hidden lg:!block w-full max-lg:fixed max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50 z-50">
             <button id="toggleClose" class='lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3'>
@@ -110,7 +146,12 @@ p {
       </header>
 
       <div class="max-w-5xl mx-auto text-center relative px-4 sm:px-10 mt-16">
+        
         <h1 class="lg:text-7xl md:text-6xl text-4xl font-semibold mb-6 md:!leading-[80px]">AIKYAM-2025
+          
+          <div class="max-w-5xl mx-auto text-center mt-8">
+            <div id="countdown" class="text-xl font-bold text-red-500" style="font-family: 'Teko', serif;"></div>
+          </div>
           </h1>
         <p class="text-base text-gray-400">AIKYAM 2025 is the annual fest of the Department of AI & ML, JSS Academy of Technical Education, Bangalore.. It is a vibrant celebration of technology, innovation, and culture, bringing together students, professionals, and enthusiasts. The fest features technical workshops, hackathons, e-sports tournaments, cultural performances, and engaging competitions. With a focus on collaboration and creativity, AIKYAM provides a platform for students to showcase their talents and connect with industry leaders.</p>
         <div class="grid sm:grid-cols-3 gap-6 items-center mt-16">
@@ -120,7 +161,9 @@ p {
           </div>
           <div class="flex flex-col items-center text-center">
           </div>
-        
+          <div class="banner-div">
+            <img src="Aikyam.png" alt="Aikyam Banner" class="banner-image">
+          </div>
       </div>
     </div>
 
@@ -233,8 +276,6 @@ p {
         </div>
   
       </div>
-    </footer>
-
   </div>
 
   <script>
@@ -257,9 +298,9 @@ p {
       constructor() {
         this.x = Math.random() * width;
         this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 2;
-        this.vy = (Math.random() - 0.5) * 2;
-        this.radius = 3;
+        this.vx = (Math.random() - 0.5) * 1.5;
+        this.vy = (Math.random() - 0.5) * 1.5;
+        this.radius = 6;
       }
       
       update() {
@@ -274,7 +315,7 @@ p {
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "#FF0000"; // Neon red color for the nodes
+        ctx.fillStyle = "red"; // Neon red color for the nodes
         ctx.fill();
       }
     }
@@ -321,6 +362,37 @@ p {
     }
     
     animate();
+  })();
+  (function() {
+    // Set target date to March 6, 2025 11:00:00
+    const targetDate = new Date("Mar 6, 2025 11:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      // If countdown is finished, display all zeros
+      if (difference < 0) {
+        document.getElementById("countdown").innerHTML = "00d 00h 00m 00s";
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+      // Format with leading zeros for single digit values
+      document.getElementById("countdown").innerHTML =
+        (days < 10 ? "0" + days : days) + "D " +": "+
+        (hours < 10 ? "0" + hours : hours) + "H " +": "+
+        (minutes < 10 ? "0" + minutes : minutes) + "M " +": "+
+        (seconds < 10 ? "0" + seconds : seconds) + "s ";
+    }
+
+    const timerInterval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call
   })();
     var toggleOpen = document.getElementById('toggleOpen');
     var toggleClose = document.getElementById('toggleClose');
