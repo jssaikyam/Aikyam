@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Fest - Landing Page</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Canvas for Background Grid Animation */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Header Styling */
+    header {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      font-size: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Posters Grid */
+    .poster-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .poster {
+      width: 200px;
+      height: 300px;
+      background-size: cover;
+      background-position: center;
+      border: 2px solid #800000;
+      box-shadow: 0 4px 8px rgba(128, 0, 0, 0.5);
+      transition: transform 0.3s;
+    }
+
+    .poster:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas for the digital stadium wave effect -->
+  <canvas id="bgCanvas"></canvas>
+
+  <header>AI FEST 2025 - Sports & AI</header>
+
+  <div class="poster-container" id="posterContainer">
+    <!-- Posters will be inserted dynamically -->
+  </div>
+
+  <script>
+    /***** Digital Stadium Wave Grid Animation *****/
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    const cellSize = 40; // Size of each grid cell
+    let time = 0;
+    const speed = 0.05; // Controls the speed of the wave
+
+    // Adjust canvas size on window resize
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    function animateGrid() {
+      // Clear canvas and apply blur effect
+      ctx.clearRect(0, 0, width, height);
+      ctx.filter = 'blur(5px)'; // Apply blur effect with a 5px blur radius
+
+      // Fill background with black
+      ctx.fillStyle = 'black';
+      ctx.fillRect(0, 0, width, height);
+
+      // Calculate grid dimensions
+      const cols = Math.ceil(width / cellSize);
+      const rows = Math.ceil(height / cellSize);
+
+      // Draw each cell with a wave effect based on its position and time
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * cellSize;
+          const y = row * cellSize;
+          // Compute a wave intensity value (0 to 1) for a smooth diagonal wave
+          const intensity = (Math.sin(col * 0.5 + row * 0.25 + time) + 1) / 2;
+          // Multiply intensity to keep the effect subtle
+          const alpha = intensity * 0.4;
+          ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`;
+          // Draw a slightly smaller cell to create a gap effect
+          ctx.fillRect(x, y, cellSize - 2, cellSize - 2);
+        }
+      }
+
+      time += speed;
+      requestAnimationFrame(animateGrid);
+    }
+
+    animateGrid();
+
+    /***** Dynamic Posters Section *****/
+    const posters = [
+      "posters/Sports/3V3Basketball.png"
+    ];
+    const posterContainer = document.getElementById("posterContainer");
+    posters.forEach(src => {
+      const poster = document.createElement("div");
+      poster.className = "poster";
+      poster.style.backgroundImage = `url('${src}')`;
+      posterContainer.appendChild(poster);
+    });
+  </script>
+</body>
+</html>

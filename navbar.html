@@ -1,0 +1,506 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="AIKYAM 2025 is the annual tech and cultural fest of JSSATEB, featuring hackathons, gaming tournaments, and sports competitions.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <style>
+    .banner-div {
+      width: 100%;
+      text-align: center;
+      background-color: #ffffff;
+      padding: 0px 0;
+      margin-top: 0px;
+      z-index: 10;
+    }
+
+    .banner-image {
+      max-width: 100%;
+      height: auto;
+    }
+    .banner-div {
+      background-color: transparent;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 10;
+      color: #ff0000;
+      font-family: 'Courier New', Courier, monospace;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      animation: typing 2s steps(30) 1s forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-right: 2px solid #ff0000; }
+    }
+
+    #countdown {
+            font-size: 70px;
+            margin-top: 20px;
+            width: 100%;
+            padding: 0px;
+            font-weight: italic;
+            /* background: linear-gradient(135deg, #A6A6A6, #ff4b2b); */
+            display: inline-block;
+
+            box-shadow: 0 0 10px #ff2600; */
+            
+        }
+
+        #nnCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Keep it in the background */
+  }
+  .bg-black {
+    background-color: transparent !important; /* Remove black background */
+  }
+  .max-w-5xl, .max-w-7xl, .footer, .header {
+    position: relative;
+    z-index: 10; /* Bring content above the canvas */
+  }
+
+    #carousel-inner {
+      display: flex;
+      width: 100%;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    #carousel-inner > div {
+      min-width: 100%;
+    }
+
+    body {
+      font-family: Poppins, sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #000;
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .header .logo img {
+        height: 50px;
+    }
+
+    .header .nav {
+        display: flex;
+        gap: 20px;
+    }
+
+    .header .nav a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .header .profile-icon {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: #fff;
+    }
+
+    /* Dropdown menu */
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #222;
+        min-width: 150px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: white;
+        padding: 10px 15px;
+        display: block;
+        text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #575757;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+    .footer {
+      background-color: #000;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .footer .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .footer .social-icons a {
+      color: #fff;
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<body class="max-w-[1920px] mx-auto">
+  <!-- Canvas for Animation -->
+  <canvas id="nnCanvas"></canvas>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">
+        <img src="Aikyam.png" alt="AIKYAM Logo" class="logo">
+    </div>
+    <nav class="nav">
+        <a href="#about">About Us</a>
+        <div class="dropdown">
+            <a href="#events" class="dropbtn">Events ▼</a>
+            <div class="dropdown-content">
+                <a href="event1.html">Event 1</a>
+                <a href="event2.html">Event 2</a>
+                <a href="event3.html">Event 3</a>
+                <a href="event4.html">Event 4</a>
+            </div>
+        </div>
+        <a href="#sponsors">Sponsors</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+    <div class="logo">
+        <img src="Aikyam.png" alt="AIKYAM Logo" class="logo">
+    </div>
+</header>
+
+  <div class="bg-black text-gray-100 text-[15px]">
+    <div class="max-w-5xl mx-auto text-center relative px-4 sm:px-10 mt-16">
+      <h1 class="lg:text-7xl md:text-6xl text-4xl font-semibold mb-6 md:!leading-[80px]">AIKYAM-2025</h1>
+      <div class="max-w-5xl mx-auto text-center mt-8">
+        <div id="countdown" class="text-xl font-bold text-red-500" style="font-family: 'Teko', serif;"></div>
+      </div>
+      <p class="text-base text-gray-400">AIKYAM 2025 is the annual fest of the Department of AI & ML, JSS Academy of Technical Education, Bangalore. It is a vibrant celebration of technology, innovation, and culture, bringing together students, professionals, and enthusiasts. The fest features technical workshops, hackathons, e-sports tournaments, cultural performances, and engaging competitions. With a focus on collaboration and creativity, AIKYAM provides a platform for students to showcase their talents and connect with industry leaders.</p>
+      <div class="banner-div">
+        <img src="Aikyam.png" alt="Aikyam Banner" class="banner-image">
+      </div>
+    </div>
+
+    <h6 class="text-lg mb-6"> Events</h6>
+    <div class="px-4 sm:px-10">
+      <div class="mt-32 max-w-7xl mx-auto">
+        <div class="mb-16 max-w-2xl text-center mx-auto">
+          <section id="aikyam-carousel" class="relative max-w-4xl mx-auto py-8">
+            <div class="overflow-hidden">
+              <div id="carousel-inner" class="flex transition-transform duration-500">
+                <div class="flex-shrink-0 w-full px-4">
+                  <div class="bg-gray-300 h-64 flex items-center justify-center">
+                    <img src="jss navotthana.jpg" alt="JSS Navotthana" class="w-full h-full object-cover" loading="lazy"/>
+                  </div>
+                  <h3 class="mt-4 text-xl font-bold">JSS NAVOTTHANA</h3>
+                  <p>Step into the future of innovation at JSS Navotthana, a 24-hour AI Hackathon designed to push the boundaries of creativity and problem-solving. Collaborate with like-minded innovators, develop cutting-edge AI solutions, and put your skills to the test in a high-energy, competitive environment.</p>
+                </div>
+                <!-- Slide 2 -->
+                <div class="flex-shrink-0 w-full px-4">
+                  <div class="bg-gray-300 h-64 flex items-center justify-center">
+                    <img src="cricket.jpg" alt="Mini Cricket Tournament" class="w-full h-full object-cover" loading="lazy"/>
+                  </div>
+                  <h3 class="mt-4 text-xl font-bold">MINI CRICKET TOURNAMENT🏏</h3>
+                  <p>Get ready for a fast-paced cricket showdown with tennis balls and smaller teams! 🏏 Showcase your batting, bowling, and fielding skills. Compete for the championship trophy, experience thrilling matches, and embrace the spirit of sportsmanship.</p>
+                </div>
+                <!-- Slide 3 -->
+                <div class="flex-shrink-0 w-full px-4">
+                  <div class="bg-gray-300 h-64 flex items-center justify-center">
+                    <img src="carrom.jpg" alt="Carrom Tournament" class="w-full h-full object-cover" loading="lazy"/>
+                  </div>
+                  <h3 class="mt-4 text-xl font-bold">CARROM TOURNAMENT 🎯</h3>
+                  <p>Test your precision and strategy in an exciting Carrom Tournament! An engaging indoor board game, carrom challenges players to flick discs into pockets using skill, focus, and accuracy.</p>
+                </div>
+                <!-- Slide 4 -->
+                <div class="flex-shrink-0 w-full px-4">
+                  <div class="bg-gray-300 h-64 flex items-center justify-center">
+                    <img src="table tennis.jpg" alt="Table Tennis Tournament" class="w-full h-full object-cover" loading="lazy"/>
+                  </div>
+                  <h3 class="mt-4 text-xl font-bold">TABLE TENNIS TOURNAMENT 🏓</h3>
+                  <p>Show off your speed, reflexes, and precision in the Table Tennis Tournament! This fast-paced paddle sport challenges players with intense rallies, strategic spins, and lightning-fast shots.</p>
+                </div>
+                <!-- Slide 5 -->
+                <div class="flex-shrink-0 w-full px-4">
+                  <div class="bg-gray-300 h-64 flex items-center justify-center">
+                    <img src="valorant.jpg" alt="Valorant Tournament" class="w-full h-full object-cover" loading="lazy"/>
+                  </div>
+                  <h3 class="mt-4 text-xl font-bold">VALORANT TOURNAMENT 🎮</h3>
+                  <p>Gear up for an adrenaline-pumping Valorant Tournament, where strategy, precision, and team coordination determine victory! This tactical first-person shooter (FPS) challenges players to outsmart opponents, execute strategic plays, and showcase sharpshooting skills.</p>
+                </div>
+                <!-- Slide 6 -->
+                <div class="flex-shrink-0 w-full px-4">
+                  <div class="bg-gray-300 h-64 flex items-center justify-center">
+                    <img src="tug of war.jpg" alt="Tug of War" class="w-full h-full object-cover" loading="lazy"/>
+                  </div>
+                  <h3 class="mt-4 text-xl font-bold">TUG OF WAR 💪</h3>
+                  <p>Put your strength and teamwork to the test in an intense Tug of War competition! This classic rope-pulling contest challenges teams to work together, strategize, and showcase sheer power to pull their opponents across the line.</p>
+                </div>
+                <!-- Slide 7 -->
+                <div class="flex-shrink-0 w-full px-4">
+                  <div class="bg-gray-300 h-64 flex items-center justify-center">
+                    <img src="tresure hunt.jpg" alt="Treasure Hunt" class="w-full h-full object-cover" loading="lazy"/>
+                  </div>
+                  <h3 class="mt-4 text-xl font-bold">TREASURE HUNT 🔍</h3>
+                  <p>Embark on an exciting adventure where teams race against time to solve clues and uncover hidden treasures! This thrilling challenge will test your teamwork, problem-solving skills, and quick thinking as you navigate through a series of puzzles and riddles.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Navigation Buttons -->
+            <button id="prev" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-red-600 text-white px-3 py-2">Prev</button>
+            <button id="next" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-red-600 text-white px-3 py-2">Next</button>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center items-center min-h-screen">
+      <div class="grid max-sm:grid-cols-1 max-lg:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="max-w-5xl mx-auto text-center mt-8">
+              <div id="countdown" class="text-xl font-bold text-red-500" style="font-family: 'Teko', serif;"></div>
+            </div>
+              <h2 class="text-lg mb-6">About Us</h2>
+              <p class="text-gray-400 mb-3">
+                  JSS Academy of Technical Education, Bangalore (JSSATEB
+                  ) is a distinguished institution committed to delivering high-quality technical education. Offering a diverse range of undergraduate and postgraduate programs in engineering, management, and applied sciences, JSSATEB provides a dynamic and intellectually stimulating learning environment.
+              </p>
+          </div>
+      </div>
+  </div>
+  
+  <section class="py-12">
+    <h2 class="text-3xl font-bold text-center text-orange-600 mb-8">Meet Our Team</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-4">
+        
+        <!-- Team Member Card -->
+        <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <img src="https://via.placeholder.com/100" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+            <h3 class="mt-4 text-lg font-semibold">Alex Smith</h3>
+            <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p class="text-sm font-bold mt-3">Creative Leader</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <img src="https://via.placeholder.com/100" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+            <h3 class="mt-4 text-lg font-semibold">May Brown</h3>
+            <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p class="text-sm font-bold mt-3">Sales Manager</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <img src="https://via.placeholder.com/100" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+            <h3 class="mt-4 text-lg font-semibold">Ann Richmond</h3>
+            <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p class="text-sm font-bold mt-3">Web Developer</p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md p-6 text-center">
+            <img src="https://via.placeholder.com/100" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+            <h3 class="mt-4 text-lg font-semibold">Roxie Swanson</h3>
+            <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <p class="text-sm font-bold mt-3">Web Designer</p>
+        </div>
+
+    </div>
+</section>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="social-icons">
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://www.instagram.com/aikyam_jss?igsh=cTM5dnJyNHl4MW1l" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:aiml.aikyam@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a> 
+   </div>
+    <p>&copy; 2025 AIKYAM. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const carouselInner = document.getElementById('carousel-inner');
+      const totalSlides = carouselInner.children.length;
+      let currentIndex = 0;
+
+      document.getElementById('next').addEventListener('click', function() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+      });
+
+      document.getElementById('prev').addEventListener('click', function() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+      });
+
+      function updateCarousel() {
+        const translateX = -currentIndex * 100;
+        carouselInner.style.transform = 'translateX(' + translateX + '%)';
+      }
+    });
+
+    (function() {
+      const canvas = document.getElementById("nnCanvas");
+      const ctx = canvas.getContext("2d");
+      let width, height;
+
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      }
+
+      window.addEventListener("resize", resize);
+      resize();
+
+      class Particle {
+        constructor() {
+          this.x = Math.random() * width;
+          this.y = Math.random() * height;
+          this.vx = (Math.random() - 0.5) * 1.5;
+          this.vy = (Math.random() - 0.5) * 1.5;
+          this.radius = 6;
+        }
+
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+
+          if (this.x < 0 || this.x > width) this.vx *= -1;
+          if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = "red";
+          ctx.fill();
+        }
+      }
+
+      const particles = [];
+      const particleCount = 50;
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+
+      function connectParticles() {
+        for (let i = 0; i < particleCount; i++) {
+          for (let j = i + 1; j < particleCount; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 150) {
+              ctx.strokeStyle = "rgba(255, 0, 0," + (1 - distance / 150) + ")";
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function animate() {
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, width, height);
+
+        particles.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        connectParticles();
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    })();
+
+    (function() {
+      const targetDate = new Date("Mar 6, 2025 11:00:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        if (difference < 0) {
+          document.getElementById("countdown").innerHTML = "00d 00h 00m 00s";
+          clearInterval(timerInterval);
+          return;
+        }
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+          (days < 10 ? "0" + days : days) + "D " + ": " +
+          (hours < 10 ? "0" + hours : hours) + "H " + ": " +
+          (minutes < 10 ? "0" + minutes : minutes) + "M " + ": " +
+          (seconds < 10 ? "0" + seconds : seconds) + "s ";
+      }
+
+      const timerInterval = setInterval(updateCountdown, 1000);
+      updateCountdown();
+    })();
+
+    var toggleOpen = document.getElementById('toggleOpen');
+    var toggleClose = document.getElementById('toggleClose');
+    var collapseMenu = document.getElementById('collapseMenu');
+
+    function handleClick() {
+      if (collapseMenu.style.display === 'block') {
+        collapseMenu.style.display = 'none';
+      } else {
+        collapseMenu.style.display = 'block';
+      }
+    }
+
+    toggleOpen.addEventListener('click', handleClick);
+    toggleClose.addEventListener('click', handleClick);
+  </script>
+</body>
+
+</html>
