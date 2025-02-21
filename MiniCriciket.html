@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Cricket Event</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    
+    body {
+      overflow: hidden;
+      position: relative;
+      height: 100vh;
+      background: #000000; /* Deep blue sports background */
+    }
+    
+    /* Animated Background with Cricket Balls */
+    .animated-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+    
+    .ball {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background: url('https://imgs.search.brave.com/VRSIX02__dateyneXE36GXDri0luALb_QEt4v6dhSLY/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9wbHVz/cG5nLmNvbS9pbWct/cG5nL2NyaWNrZXQt/YmFsbC1wbmctcmVk/LWNyaWNrZXQtYmFs/bC1wbmctaW1hZ2Ut/Mjg4NzItMTA5MS5w/bmc') no-repeat center/cover;
+      background-color: red; /* Fallback color */
+      border-radius: 50%;
+      opacity: 0.9;
+      animation: moveBall linear infinite;
+    }
+    
+    /* Position & animation durations for each ball */
+    .ball:nth-child(1) { left: 10%; top: -10%; animation-duration: 6s; }
+    .ball:nth-child(2) { left: 30%; top: -15%; animation-duration: 8s; }
+    .ball:nth-child(3) { left: 50%; top: -20%; animation-duration: 7s; }
+    .ball:nth-child(4) { left: 70%; top: -5%; animation-duration: 9s; }
+    .ball:nth-child(5) { left: 90%; top: -30%; animation-duration: 6.5s; }
+    
+    @keyframes moveBall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(120vh) rotate(360deg); }
+    }
+    
+    /* Overlay for text content */
+    .overlay {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
+    }
+    
+    /* Gradient animated text for title */
+    h1 {
+      font-size: 60px;
+      text-transform: uppercase;
+      font-weight: bold;
+      background: linear-gradient(270deg, #ff0000, #00ff00, #0000ff, #ff00ff);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientAnimation 8s ease infinite, fadeIn 1.5s ease-in-out forwards, bounce 1.5s infinite alternate 2s;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+      opacity: 0;
+    }
+    
+    /* Gradient animated text for description */
+    p {
+      font-size: 22px;
+      margin-top: 15px;
+      background: linear-gradient(270deg, #ff00ff, #00ffff, #ffff00, #ff0000);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientAnimation 10s ease infinite, fadeIn 2.5s ease-in-out forwards, floatText 3s infinite alternate 3s;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+      opacity: 0;
+    }
+    
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+    
+    @keyframes floatText {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-5px); }
+    }
+    
+    .cta-button {
+      margin-top: 20px;
+      padding: 15px 35px;
+      font-size: 20px;
+      font-weight: bold;
+      color: white;
+      background: #ff5733;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      opacity: 0;
+      animation: fadeIn 3s ease-in-out forwards 1s, pulse 2s infinite 4s;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    .cta-button:hover {
+      background: #ff2e00;
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background Layer -->
+  <div class="animated-bg">
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+    <div class="ball"></div>
+  </div>
+  
+  <!-- Overlay with Animated Text & Button -->
+  <div class="overlay">
+    <h1>Mini Cricket</h1>
+    <p>A fast-paced and thrilling cricket experience with tennis balls, smaller teams, and intense strategy.</p>
+    <button class="cta-button" onclick="registerNow()">Register Now</button>
+  </div>
+  
+  <script>
+    function registerNow() {
+      alert("Thank you for your interest! Registration details will be available soon.");
+    }
+  </script>
+</body>
+</html>

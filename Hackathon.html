@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI/ML Hackathon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: black;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* AI Animated Background */
+        #animation-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: radial-gradient(circle, rgba(0,0,0,1) 20%, rgba(9,9,121,0.6) 60%, rgba(0,212,255,0.2) 100%);
+        }
+
+        .content {
+            z-index: 2;
+            max-width: 700px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff);
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: glowText 2s infinite alternate;
+        }
+
+        @keyframes glowText {
+            from {
+                text-shadow: 0px 0px 10px rgba(255, 0, 255, 0.8);
+            }
+            to {
+                text-shadow: 0px 0px 20px rgba(0, 255, 255, 0.8);
+            }
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out 1s forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            background: #ff0055;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out 1.5s forwards;
+        }
+
+        .btn:hover {
+            background: #ff3385;
+        }
+
+        /* AI Matrix Animation */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrixCanvas"></canvas> <!-- AI Animated Matrix Background -->
+    
+    <div class="content">
+        <h1>JSS Navotthana</h1>
+        <p>A team-based programming and innovation competition where participants collaborate to solve challenging problems and build creative solutions.</p>
+        <a href="#register" class="btn">Register Now</a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("matrixCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrixChars = "01 JSS Navotthana".split("");
+        const fontSize = 18;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#0F0"; 
+            ctx.font = fontSize + "px monospace";
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 50);
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Table Tennis Event</title>
+  <style>
+    /* Reset default styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #000;
+    }
+    /* Animated gradient background */
+    .animated-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #000, #1a0000, #000);
+      background-size: 400% 400%;
+      animation: bgAnimation 12s ease infinite;
+      z-index: -2;
+    }
+    @keyframes bgAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    /* Bouncing ball element simulating a table tennis ball */
+    .bouncing-ball {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0 0 15px #ff0000;
+      animation: ballMovement 4s ease-in-out infinite;
+    }
+    @keyframes ballMovement {
+      0%   { transform: translate(0, 0); }
+      25%  { transform: translate(80vw, 30vh); }
+      50%  { transform: translate(40vw, 70vh); }
+      75%  { transform: translate(20vw, 30vh); }
+      100% { transform: translate(0, 0); }
+    }
+    /* Centered content styling */
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 20px;
+      color: #fff;
+    }
+    /* Animated gradient text */
+    h1 {
+      font-size: 4rem;
+      background: linear-gradient(45deg, #ff0000, #000000, #ff0000);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientText 3s ease-in-out infinite;
+    }
+    @keyframes gradientText {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      color: #ccc;
+      text-shadow: 1px 1px 5px #000;
+    }
+    .cta-button {
+      margin-top: 40px;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      background-color: rgba(255, 0, 0, 0.8);
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .cta-button:hover {
+      background-color: rgba(255, 0, 0, 1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated CSS Background -->
+  <div class="animated-background"></div>
+  
+  <!-- Animated bouncing ball representing the table tennis ball -->
+  <div class="bouncing-ball"></div>
+  
+  <!-- Main Content -->
+  <div class="content">
+    <h1>Table Tennis</h1>
+    <p>A fast-paced, exciting sport played with a small ball and paddles, focusing on reflexes and quick decision-making.</p>
+    <button class="cta-button">Join the Action</button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valorant Event - Dynamic Image Animations</title>
+  <style>
+    /* Basic Reset & Dark Theme */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      /* background: #000000; */ */
+      font-family: Arial, sans-serif;
+    }
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000000; */ */
+      font-family: Arial, sans-serif;
+    }
+    /* Canvas for Dynamic Animations */
+    #animationCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+    }
+    /* Content Container */
+    .container {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: #000000;
+      padding: 20px;
+    }
+    .animated-text {
+      font-size: 3rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #ff0000, #ffffff, #ff0000);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGradient 5s ease infinite;
+      margin-bottom: 20px;
+    }
+    .description {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin-bottom: 40px;
+    }
+    @keyframes textGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .cta-button {
+      font-size: 1.2rem;
+      padding: 15px 30px;
+      border: 2px solid #ff0000;
+      background: transparent;
+      color: #ff0000;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      cursor: pointer;
+    }
+    .cta-button:hover {
+      background: #ff0000;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas for Animated Images -->
+  <canvas id="animationCanvas"></canvas>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1 class="animated-text">Valorant</h1>
+    <p class="description">
+      A tactical team-based first-person shooter game, where strategy, teamwork, and individual skill come together to achieve victory.
+    </p>
+    <a href="#register" class="cta-button">Register Now</a>
+  </div>
+
+  <script>
+    // Get the canvas and context
+    const canvas = document.getElementById('animationCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Resize canvas to fill the window
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    // List of image URLs (your provided images)
+    const imageSources = [
+      'https://imgs.search.brave.com/Y_Jz0QcozZZTYohvfnTc1lTwDQVXA7FWPFmiqslmFQ0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/MmstNWstc2NyZWVu/c2hvdHMtZnJvbS1y/ZXZlbGF0aW9uLWVw/aXNvZGUtNi1jaW5l/bWF0aWMtdjAtd2M2/czdpc2Z2ZmFhMS5q/cGc_d2lkdGg9MTI4/MCZmb3JtYXQ9cGpw/ZyZhdXRvPXdlYnAm/cz1lYjcxMTRjN2Fk/ODEzZmQ0OTQ2Yzc1/MWFhMTVlZjAwMGNj/MDJmN2Nk',
+      'https://imgs.search.brave.com/_X3qfAQwXyVdIgtV4K-S7xdNail55Zop9Ly9Fpg7aVE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDg3MjMx/ODAuanBn',
+      'https://imgs.search.brave.com/TQa0YQdeRn9V_-yJhAYBqsU8r3Fz89ntRnVObzRhTiI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/b25lZXNwb3J0cy5n/Zy9jZG4tZGF0YS8y/MDIwLzA1L1ZhbG9y/YW50X1Bob2VuaXhP/ZmZpY2lhbEFydFdv/cmstMS0xMDI0eDU3/Ni5qcGc',
+      'https://imgs.search.brave.com/X-YpxlkKs2PQbrW_RWXQbDE_9i915tfkHi4H4C1TCOc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/b25lZXNwb3J0cy5n/Zy9jZG4tZGF0YS8y/MDIwLzA2L1ZhbG9y/YW50X1JleW5hX0hl/YWRlci0xLTEwMjR4/NTc2LmpwZw',
+      'https://imgs.search.brave.com/rXtIMwPERN-phNlIgluymOEGWiteG5DweVUywaNocQo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Rl/c3BvcnRzLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMy8w/Ni9WQUxPUkFOVC1E/ZWFkbG9jay0zLmpw/Zz93PTY0MA',
+      'https://imgs.search.brave.com/-4M6EIymLy-J0j_YKfdpnWaeMgPvj3Mqd3ou2rCOW9w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/MG1nYXpxdGJrdXA0/MS5qcGc_d2lkdGg9/Mzg0MCZmb3JtYXQ9/cGpwZyZhdXRvPXdl/YnAmcz0wOWE2N2Y3/N2I2MzE2ODY4YTg4/NDM2NGUxN2EzNWVk/YzE3YWM3NGY0',
+      'https://imgs.search.brave.com/_ez7sJ7A9qJoy7-_Q5uG-KZ6SARItkTT0wDDCdiHPeM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDYwMTIz/MjYuanBn'
+    ];
+
+    // Class for an animated image object
+    class AnimatedImage {
+      constructor(img) {
+        this.img = img;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 2; // horizontal speed
+        this.vy = (Math.random() - 0.5) * 2; // vertical speed
+        this.angle = Math.random() * 2 * Math.PI;
+        this.angularSpeed = (Math.random() - 0.5) * 0.09;
+        this.scale = Math.random() * 0.5 + 0.5; // scale between 0.5 and 1
+        // Determine drawn width and height based on original image dimensions
+        this.width = this.img.width * this.scale;
+        this.height = this.img.height * this.scale;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.angle += this.angularSpeed;
+
+        // Bounce off the canvas edges
+        if (this.x < 0 || this.x + this.width > canvas.width) {
+          this.vx = -this.vx;
+        }
+        if (this.y < 0 || this.y + this.height > canvas.height) {
+          this.vy = -this.vy;
+        }
+      }
+      draw() {
+        ctx.save();
+        // Move to the center of the image, rotate, then draw the image
+        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+        ctx.rotate(this.angle);
+        ctx.drawImage(this.img, -this.width / 2, -this.height / 2, this.width, this.height);
+        ctx.restore();
+      }
+    }
+
+    let animatedImages = [];
+
+    // Preload images and then create instances of AnimatedImage
+    let loadedImages = [];
+    let imagesToLoad = imageSources.length;
+
+    imageSources.forEach(src => {
+      const img = new Image();
+      img.crossOrigin = "Anonymous";
+      img.src = src;
+      img.onload = () => {
+        loadedImages.push(img);
+        if (loadedImages.length === imagesToLoad) {
+          // For a richer animation, create multiple instances of each image
+          loadedImages.forEach(image => {
+            for (let i = 0; i < 3; i++) {
+              animatedImages.push(new AnimatedImage(image));
+            }
+          });
+          animate();
+        }
+      };
+      img.onerror = () => {
+        console.error("Error loading image: " + src);
+        imagesToLoad--;
+        if (loadedImages.length === imagesToLoad && imagesToLoad > 0) {
+          animate();
+        }
+      };
+    });
+
+    // Animation loop
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      animatedImages.forEach(obj => {
+        obj.update();
+        obj.draw();
+      });
+      requestAnimationFrame(animate);
+    }
+  </script>
+</body>
+</html>
