@@ -2,238 +2,184 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Treasure Hunt</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cultural Events</title>
   <style>
-    /* Reset and base styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background: #000;
-      font-family: 'Arial', sans-serif;
+    /* Reset and base styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    /* Fullscreen canvas for animated background */
-    canvas {
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: #000;
+    }
+    /* Fullscreen canvas for dynamic dancing and singing animation */
+    #bgCanvas {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 1;
     }
-    /* Content container */
+    /* Overlay content styling */
     .content {
       position: relative;
       z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      top: 50%;
-      transform: translateY(-50%);
       padding: 20px;
       color: #fff;
     }
-    /* Gradient animated title */
-    .gradient-text {
+    /* Hover effect for image */
+    .content img {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      border: 5px solid #ff0000;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    .content img:hover {
+      transform: scale(1.1); /* Image zoom effect on hover */
+    }
+
+    /* Neon Gradient Text without Glow */
+    .event-text h1 {
       font-size: 3em;
-      font-weight: bold;
-      background: linear-gradient(45deg, #ff0000, #ff6b6b, #ff0000);
-      background-size: 200% 200%;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #ff0000, #ff6347, #ff1493); /* Neon Red, Neon Orange, and Neon Pink */
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 4s ease infinite;
+      color: transparent;
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    /* Description styling */
-    .description {
+    .event-text p {
       font-size: 1.2em;
-      margin-top: 20px;
-      color: #ccc;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    /* Call-to-action button */
-    .btn {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      color: #fff;
-      background: linear-gradient(45deg, #ff0000, #ff6b6b);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    .btn:hover {
-      background: linear-gradient(45deg, #ff6b6b, #ff0000);
+      line-height: 1.4;
+      max-width: 800px;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body>
-  <!-- Canvas for animated background -->
+  <!-- Fullscreen canvas for dynamic dancing and singing animation -->
   <canvas id="bgCanvas"></canvas>
-
-  <!-- Main content -->
+  
+  <!-- Overlay content -->
   <div class="content">
-    <h1 class="gradient-text">Treasure Hunt</h1>
-    <p class="description">
-      A thrilling adventure game where teams solve clues and search for hidden treasures in an outdoor or indoor location.
-    </p>
-    <button class="btn">Join the Adventure</button>
+    <!-- Replace 'poster.png' with your actual poster image file -->
+    <img src="posters\Cultural Event.png" alt="AIML Fest Poster">
+    <div class="event-text">
+      <h1>Cultural Event</h1>
+      <p>
+        Get ready for a talent explosion! From soulful melodies to electrifying rap, dance, and instrumental magic—this stage is where culture meets creativity. A live band sets the vibe, comedy keeps you laughing, and performances leave you wanting more!
+      </p>
+    </div>
   </div>
 
-  <!-- JavaScript for treasure hunt themed animation -->
   <script>
+    // Set up canvas and context for dynamic background
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
 
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
+    // Resize canvas to fit the screen
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-    // Class to animate dotted map trails (secret clues)
-    class MapPath {
-      constructor() {
-        this.startX = Math.random() * width;
-        this.startY = Math.random() * height;
-        this.points = [];
-        for (let i = 0; i < 6; i++) {
-          this.points.push({
-            x: this.startX + (Math.random() - 0.5) * 300,
-            y: this.startY + (Math.random() - 0.5) * 300
-          });
-        }
-        this.opacity = 1;
-      }
-      update() {
-        this.opacity -= 0.002;
-      }
-      draw() {
-        if (this.opacity <= 0) return;
-        ctx.save();
-        ctx.strokeStyle = `rgba(255, 0, 0, ${this.opacity})`;
-        ctx.lineWidth = 2;
-        ctx.setLineDash([5, 5]);
-        ctx.beginPath();
-        ctx.moveTo(this.startX, this.startY);
-        this.points.forEach(p => ctx.lineTo(p.x, p.y));
-        ctx.stroke();
-        ctx.restore();
+    // VIBGYOR color array
+    const vibgyorColors = [
+      "#8A2BE2", // Violet
+      "#4B0082", // Indigo
+      "#0000FF", // Blue
+      "#008000", // Green
+      "#FFFF00", // Yellow
+      "#FFA500", // Orange
+      "#FF0000"  // Red
+    ];
+
+    // Music note properties for a dancing, singing vibe
+    const notes = [];
+    const noteChars = ["♪", "♫", "♫"];
+    const noteCount = 50;
+
+    function initNotes() {
+      notes.length = 0;
+      for (let i = 0; i < noteCount; i++) {
+        notes.push({
+          baseX: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          speedY: Math.random() * 1 + 0.5, // vertical speed
+          amplitude: Math.random() * 50 + 20, // horizontal sway amplitude
+          frequency: Math.random() * 0.005 + 0.005, // sway frequency
+          phase: Math.random() * 2 * Math.PI, // starting phase for sine wave
+          rotation: Math.random() * 2 * Math.PI, // initial rotation
+          rotationSpeed: (Math.random() - 0.5) * 0.02, // rotation speed
+          fontSize: Math.random() * 20 + 20, // size between 20px and 40px
+          char: noteChars[Math.floor(Math.random() * noteChars.length)],
+          color: vibgyorColors[Math.floor(Math.random() * vibgyorColors.length)] // Random VIBGYOR color
+        });
       }
     }
+    initNotes();
 
-    // Class to animate a treasure chest that appears and "opens"
-    class TreasureChest {
-      constructor() {
-        this.x = Math.random() * (width - 100) + 50;
-        this.y = Math.random() * (height - 100) + 50;
-        this.size = 40;
-        this.opacity = 1;
-        this.openProgress = 0; // 0: closed, 1: fully open
-      }
-      update() {
-        // Gradually "open" the chest and fade out
-        if (this.openProgress < 1) {
-          this.openProgress += 0.01;
-        }
-        this.opacity -= 0.005;
-      }
-      draw() {
-        if (this.opacity <= 0) return;
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.globalAlpha = this.opacity;
-        // Draw base of chest
-        ctx.fillStyle = "#8B0000"; // dark red
-        ctx.fillRect(-this.size/2, 0, this.size, this.size/2);
-        ctx.strokeStyle = "#ff6b6b";
-        ctx.lineWidth = 2;
-        ctx.strokeRect(-this.size/2, 0, this.size, this.size/2);
-        // Draw lid with rotation based on openProgress
-        ctx.save();
-        ctx.translate(0, 0);
-        ctx.rotate(-Math.PI/4 * this.openProgress);
-        ctx.fillStyle = "#A52A2A"; // slightly lighter for the lid
-        ctx.fillRect(-this.size/2, -this.size/4, this.size, this.size/4);
-        ctx.strokeRect(-this.size/2, -this.size/4, this.size, this.size/4);
-        ctx.restore();
-        ctx.restore();
-      }
-    }
-
-    // Class for a rotating compass in the top-right corner
-    class Compass {
-      constructor() {
-        this.x = width - 80;
-        this.y = 80;
-        this.radius = 50;
-        this.angle = 0;
-      }
-      update() {
-        this.angle += 0.005;
-      }
-      draw() {
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        // Draw compass circle
-        ctx.beginPath();
-        ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = "#ff0000";
-        ctx.lineWidth = 3;
-        ctx.stroke();
-        // Draw compass needle
-        ctx.rotate(this.angle);
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(0, -this.radius + 10);
-        ctx.strokeStyle = "#ff6b6b";
-        ctx.lineWidth = 4;
-        ctx.stroke();
-        ctx.restore();
-      }
-    }
-
-    let mapPaths = [];
-    let chests = [];
-    const compass = new Compass();
+    let lastTime = performance.now();
 
     function animate() {
-      // Create a fading effect
-      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-      ctx.fillRect(0, 0, width, height);
-
-      // Randomly add new map paths and treasure chests
-      if (Math.random() < 0.03) mapPaths.push(new MapPath());
-      if (Math.random() < 0.008) chests.push(new TreasureChest());
-
-      // Update and draw map trails
-      mapPaths.forEach(path => {
-        path.update();
-        path.draw();
+      const currentTime = performance.now();
+      const deltaTime = currentTime - lastTime;
+      lastTime = currentTime;
+      
+      // Clear the canvas with a semi-transparent fill for trailing effect
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Update and draw each music note
+      notes.forEach(note => {
+        // Move the note upward
+        note.y -= note.speedY * deltaTime * 0.05;
+        // Update the rotation angle
+        note.rotation += note.rotationSpeed * deltaTime;
+        // Compute horizontal oscillation for a dancing effect
+        const offsetX = note.amplitude * Math.sin(note.frequency * currentTime + note.phase);
+        const x = note.baseX + offsetX;
+        const y = note.y;
+        
+        // If the note moves above the canvas, reset it to the bottom with a new horizontal position
+        if (y < -50) {
+          note.y = canvas.height + 50;
+          note.baseX = Math.random() * canvas.width;
+        }
+        
+        // Draw the note with its rotation and styling, using the note's specific color
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(note.rotation);
+        ctx.font = `bold ${note.fontSize}px Arial`;
+        ctx.fillStyle = note.color; // Apply the color from VIBGYOR
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(note.char, 0, 0);
+        ctx.restore();
       });
-      mapPaths = mapPaths.filter(path => path.opacity > 0);
-
-      // Update and draw treasure chests
-      chests.forEach(chest => {
-        chest.update();
-        chest.draw();
-      });
-      chests = chests.filter(chest => chest.opacity > 0);
-
-      // Update and draw the compass
-      compass.update();
-      compass.draw();
-
+      
       requestAnimationFrame(animate);
     }
     animate();
+
+    // Reinitialize notes on window resize to maintain a consistent look
+    window.addEventListener('resize', initNotes);
   </script>
 </body>
 </html>
