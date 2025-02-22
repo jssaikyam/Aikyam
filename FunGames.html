@@ -2,88 +2,279 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fun Games</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Games 2024 | AIKYAM JSS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    /* Reset and base styles */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-      background: #000;
-      font-family: 'Arial', sans-serif;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-    /* Fullscreen canvas for animated background */
+
+    :root {
+      --primary: #ff3366;
+      --secondary: #000000;
+      --accent: #4caf50;
+      --text: #ffffff;
+      --bg: #0a0a0a;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
     canvas {
       position: fixed;
       top: 0;
       left: 0;
       z-index: 1;
+      pointer-events: none;
     }
-    /* Content container */
-    .content {
+
+    .container {
       position: relative;
       z-index: 2;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
       text-align: center;
-      top: 50%;
-      transform: translateY(-50%);
-      padding: 20px;
-      color: #fff;
+      padding: 4rem 1rem;
+      position: relative;
+      overflow: hidden;
     }
-    /* Gradient animated title */
-    .gradient-text {
-      font-size: 3em;
-      font-weight: bold;
-      background: linear-gradient(45deg, #ff0000, #ff6b6b, #ff0000);
-      background-size: 200% 200%;
+
+    .title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(120deg, var(--primary), var(--secondary), var(--accent));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: gradientShift 4s ease infinite;
+      background-clip: text;
+      color: transparent;
+      animation: gradient 8s ease infinite;
+      background-size: 200% 200%;
     }
-    @keyframes gradientShift {
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.5rem);
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 2rem;
+    }
+
+    .social {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50px;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .social:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .events {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+    }
+
+    .event-card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .event-card:hover::before {
+      opacity: 0.1;
+    }
+
+    .event-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+
+    .event-time {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .event-description {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1.5rem;
+    }
+
+    .event-rules {
+      list-style: none;
+    }
+
+    .event-rules li {
+      margin-bottom: 0.5rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .event-rules li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+
+    @keyframes gradient {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
-    /* Description styling */
-    .description {
-      font-size: 1.2em;
-      margin-top: 20px;
-      color: #ccc;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      header {
+        padding: 2rem 1rem;
+      }
+
+      .events {
+        grid-template-columns: 1fr;
+      }
     }
-    /* Call-to-action button */
-    .btn {
+
+    .register-btn {
       display: inline-block;
-      margin-top: 30px;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      color: #fff;
-      background: linear-gradient(45deg, #ff0000, #ff6b6b);
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
       border: none;
-      border-radius: 5px;
+      border-radius: 50px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
-    .btn:hover {
-      background: linear-gradient(45deg, #ff6b6b, #ff0000);
+
+    .register-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
   </style>
 </head>
 <body>
-  <!-- Canvas for animated background -->
   <canvas id="bgCanvas"></canvas>
+  
+  <div class="container">
+    <header>
+      <h1 class="title">FUN GAMES</h1>
 
-  <!-- Main content -->
-  <div class="content">
-    <h1 class="gradient-text">Treasure Hunt</h1>
-    <p class="description">
-      A thrilling adventure game where teams solve clues and search for hidden treasures in an outdoor or indoor location.
-    </p>
-    <button class="btn">Join the Adventure</button>
+      </a>
+    </header>
+
+    <div class="events">
+      <div class="event-card">
+        <h2 class="event-title">THE AI QUEST</h2>
+        <div class="event-time">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          7TH MARCH | 11AM
+        </div>
+        <p class="event-description">A tech-infused treasure hunt where participants scan QR codes hidden around the campus to solve riddles, complete challenges, and unlock clues leading to the final treasure!</p>
+        <ul class="event-rules">
+          <li>REGISTRATION & TEAMS: Participants form small teams (2-4 players)</li>
+          <li>FIRST QR CODE: Given at the starting point to all teams</li>
+          <li>SCANNING CLUES: Each scanned QR code reveals next clue</li>
+        </ul>
+      </div>
+
+      <div class="event-card">
+        <h2 class="event-title">WIN OR DARE</h2>
+        <div class="event-time">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          7TH MARCH | 11AM
+        </div>
+        <p class="event-description">A wheel with fun dares, trivia, or small prizes. WIN A FREE COUPON, OR DRINK OR ANYTHING FROM XYZ BRAND.</p>
+      </div>
+
+      <div class="event-card">
+        <h2 class="event-title">BLINDFOLD CATCH</h2>
+        <div class="event-time">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          7TH MARCH | 11AM
+        </div>
+        <p class="event-description">ONE PARTICIPANT THROWS GOODIES (WE HAVE GOOD SPONSORERS) AND THE OTHER HAS TO CATCH IT BLINDFOLDED.</p>
+      </div>
+
+      <div class="event-card">
+        <h2 class="event-title">FLIP IT OR DRINK IT</h2>
+        <div class="event-time">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          7TH MARCH | 11AM
+        </div>
+        <p class="event-description">A TWIST ON BOTTLE FLIPPING! Players flip a bottle and if it lands correctly, they win a point. If they fail, they have to drink a random (but safe) weird mix of drinks (e.g., COLA + LEMON + CHILI POWDER).</p>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <button class="register-btn">Register Now! 🎮</button>
+    </div>
   </div>
 
   <!-- JavaScript for treasure hunt themed animation -->
