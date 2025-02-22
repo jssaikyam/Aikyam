@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIKYAM Core Committee</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #ff6b0022 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6b00;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: #ff6b00;
+            box-shadow: 0 0 10px #ff6b00;
+        }
+
+        .core-head {
+            max-width: 500px;
+            margin: 0 auto 3rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .section {
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #ff6b0044;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.1);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
+            border-color: #ff6b00;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ff6b00;
+        }
+
+        .section-title {
+            color: #ff6b00;
+            font-size: 1.5rem;
+            margin-left: 1rem;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+        }
+
+        .members-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .member-card {
+            background: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .member-card:hover {
+            transform: scale(1.02);
+            border-color: #ff0000;
+            box-shadow: 0 0 15px rgba(255, 107, 0, 0.2);
+        }
+
+        .member-image-link {
+            display: block;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .member-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #ff6b00;
+            object-fit: cover;
+            box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .member-image-link:hover .member-image {
+            transform: scale(1.1);
+            border-color: #ff0000;
+        }
+
+        .member-info {
+            flex-grow: 1;
+        }
+
+        .member-info h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .member-roles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .role-tag {
+            background: rgba(255, 107, 0, 0.2);
+            color: #ff6b00;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 12px;
+            border: 1px solid #ff6b0044;
+            transition: all 0.3s ease;
+        }
+
+        .role-tag:hover {
+            background: rgba(255, 107, 0, 0.3);
+            border-color: #ff6b00;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1200px) {
+            .sections-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .member-roles {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            color: #ff6b00;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Know Us</h1>
+        <div id="sections-container"></div>
+    </div>
+
+    <script>
+        const committeeMembers = {
+            'Maroof M Shaikh': {
+                image: "posters/Team/Maroof.jpg",
+                email: 'https://www.instagram.com/mr.maroof_436?igsh=M2txMnFlZzVpdGMy',
+                primaryRole: { department: 'Core Committee', position: 'Head' },
+                otherRoles: []
+            },
+            'Aaditya Aaryan': {
+                image: "posters/Team/Aaditya.jpg",
+                email: 'https://www.instagram.com/aadik1ng?igsh=NTc4MTIwNjQ2YQ==',
+                primaryRole: { department: 'Hackathon', position: 'Co-Head' },
+                otherRoles: [{ department: 'WebPages', position: 'Co-Head' }]
+            },
+            'Pawan R': {
+                image: "posters/Team/Pawan.jpg",
+                email: 'https://www.instagram.com/pawan_ramachari?igsh=Z3lwMjI0cXVzd3Fh',
+                primaryRole: { department: 'Hackathon', position: 'Co-Head' },
+                otherRoles: [{ department: 'WebPages', position: 'Co-Head' }]
+            },
+            'Sathwik': {
+                image: "posters/Team/sathwik.jpg",
+                email: 'https://www.instagram.com/sathvvik_xo?igsh=MXRzNGZ0OTlydXg5Yg==',
+                primaryRole: { department: 'Sports', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'U Jayanth': {
+                image: "posters/Team/Jayanth.jpg",
+                email: 'https://www.instagram.com/j.a.y.a.n.t.h._007?igsh=MW02M3B3NjR4am5xcg==',
+                primaryRole: { department: 'Accounts', position: 'Co-Head' },
+                otherRoles: [{ department: 'Hospitality', position: 'Co-Head' }]
+            },
+            'Dikshith M L': {
+                image: "posters/Team/Dikshith.jpg",
+                email: '',
+                primaryRole: { department: 'Hospitality', position: 'Co-Head' },
+                otherRoles: [{ department: 'Accounts', position: 'Co-Head' }]
+            },
+            'Vaibhav': {
+                image: "posters/Team/Vaibhav.jpg",
+                email: 'https://www.instagram.com/vaibhav.0743_?igsh=azhjMGoxeWc3MnN4',
+                primaryRole: { department: 'esports', position: 'Head' },
+                otherRoles: [{ department: 'Design', position: 'Co-Head' }]
+            },
+            'Vallabha': {
+                image: "posters/Team/Vallabha.jpg",
+                email: 'https://www.instagram.com/vallabha_sharma?igsh=MXJtMTkxZHo3dWxvbg==',
+                primaryRole: { department: 'Anchoring', position: 'Co-Head' },
+                otherRoles: [{ department: 'Accounts', position: 'Co-Head' }]
+            },
+            'Danish Akhtar': {
+                image: "posters/Team/Danish.jpg",
+                email: 'https://www.instagram.com/imdanish_7?igsh=bDdxc3dmc2ZkazZ2',
+                primaryRole: { department: 'Design', position: 'Co-Head' },
+                otherRoles: [{ department: 'Social Media', position: 'Head' }]
+            },
+            'Prajwal Matti': {
+                image: "posters/Team/Prajwal.jpg",
+                email: 'https://www.instagram.com/prajwal_matti01?igsh=MWpiZjF2OGlhdWoxZg==',
+                primaryRole: { department: 'Marketing', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'Sushma': {
+                image: "posters/Team/Sushma.jpg",
+                email: 'https://www.instagram.com/soooshh_maa95?igsh=MTkxamlvYW5zbGVsbg==',
+                primaryRole: { department: 'Marketing', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'Deeksha': {
+                image: "posters/Team/Deeksha.jpg",
+                email: 'https://www.instagram.com/.deexha?igsh=MW96OXJleHBlZ2ZneA==',
+                primaryRole: { department: 'Marketing', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'Poornachandra': {
+                image: "posters/Team/Poornachandra.jpg",
+                email: 'https://www.instagram.com/poorna208?igsh=MTh1bWJvMzNvZDJkMw==',
+                primaryRole: { department: 'Sports', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'Sri Vishnu': {
+                image: "posters/Team/Sri Vishnu.jpg",
+                email: 'https://www.instagram.com/sri_vishnu_vs?igsh=MThvODJsZmhta202ZA==',
+                primaryRole: { department: 'Cultural', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'Pratheek': {
+                image: "posters/Team/Pratheek.jpg",
+                email: 'https://www.instagram.com/_pratheek_gowda?igsh=MWs1NW16bHptYWQ1NQ==',
+                primaryRole: { department: 'Sports', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'Shreya Reddy': {
+                image: "posters/Team/Shreya.jpg",
+                email: 'https://www.instagram.com/shreyeahhh_?igsh=MXVoODhsa2lmMGVqMg==',
+                primaryRole: { department: 'Cultural', position: 'Co-Head' },
+                otherRoles: []
+            },
+            'Dhruthi S': {
+                image: "posters/Team/Dhruthi.jpg",
+                email: 'https://www.instagram.com/dhruthiiiiiiiiii?igsh=MWkxNzk5NGZ5NWRsNA==',
+                primaryRole: { department: 'Cultural', position: 'Co-Head' },
+                otherRoles: []
+            }
+        };
+
+        const sections = [
+            { id: 'core', title: 'Core Committee Head', icon: '👑', isCore: true },
+            { id: 'accounts', title: 'Accounts', icon: '💰' },
+            { id: 'hospitality', title: 'Hospitality', icon: '🏨' },
+            { id: 'anchoring', title: 'Anchoring', icon: '🎤' },
+            { id: 'hackathon', title: 'Hackathon', icon: '💻' },
+            { id: 'design', title: 'Design', icon: '🎨' },
+            { id: 'marketing', title: 'Marketing', icon: '📢' },
+            { id: 'esports', title: 'E-Sports', icon: '🎮' },
+            { id: 'sports', title: 'Sports', icon: '⚽' },
+            { id: 'cultural', title: 'Cultural', icon: '🎭' },
+            
+        ];
+
+        function createMemberCard(name, memberData) {
+            const card = document.createElement('div');
+            card.className = 'member-card';
+            
+            const html = `
+                <a href="${memberData.email}" class="member-image-link" target="_blank">
+                    <img src="${memberData.image}" alt="${name}" class="member-image">
+                </a>
+                <div class="member-info">
+                    <h3>${name}</h3>
+                    <p>${memberData.primaryRole.position} - ${memberData.primaryRole.department}</p>
+                    ${memberData.otherRoles.length > 0 ? `
+                        <div class="member-roles">
+                            ${memberData.otherRoles.map(role => 
+                                `<span class="role-tag">${role.department} ${role.position}</span>`
+                            ).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            card.innerHTML = html;
+            return card;
+        }
+
+        function initializeSections() {
+            const container = document.getElementById('sections-container');
+            
+            // Create core section
+            const coreSection = document.createElement('div');
+            coreSection.className = 'section core-head';
+            coreSection.innerHTML = `
+                <div class="section-header">
+                    <span class="icon">👑</span>
+                    <h2 class="section-title">Core Committee Head</h2>
+                </div>
+                <div class="members-grid"></div>
+            `;
+            container.appendChild(coreSection);
+
+            // Create regular sections grid
+            const sectionsGrid = document.createElement('div');
+            sectionsGrid.className = 'sections-grid';
+            container.appendChild(sectionsGrid);
+
+            // Create and populate sections
+            sections.forEach(section => {
+                if (section.isCore) return;
+
+                const sectionElement = document.createElement('div');
+                sectionElement.className = 'section';
+                sectionElement.innerHTML = `
+                    <div class="section-header">
+                        <span class="icon">${section.icon}</span>
+                        <h2 class="section-title">${section.title}</h2>
+                    </div>
+                    <div class="members-grid" data-section="${section.id}"></div>
+                `;
+                sectionsGrid.appendChild(sectionElement);
+            });
+
+            // Populate members in their primary sections
+            Object.entries(committeeMembers).forEach(([name, data]) => {
+                const sectionId = data.primaryRole.department.toLowerCase().replace(/\s+/g, '-');
+                const targetSection = document.querySelector(
+                    data.primaryRole.department === 'Core Committee' 
+                        ? '.core-head .members-grid'
+                        : `[data-section="${sectionId}"]`
+                );
+                
+                if (targetSection) {
+                    targetSection.appendChild(createMemberCard(name, data));
+                }
+            });
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', initializeSections);
+    </script>
+</body>
+</html>
