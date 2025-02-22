@@ -1,200 +1,408 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valorant Event - Dynamic Image Animations</title>
-  <style>
-    /* Basic Reset & Dark Theme */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      /* background: #000000; */ */
-      font-family: Arial, sans-serif;
-    }
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #000000; */ */
-      font-family: Arial, sans-serif;
-    }
-    /* Canvas for Dynamic Animations */
-    #animationCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 100%;
-      height: 100%;
-    }
-    /* Content Container */
-    .container {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: #000000;
-      padding: 20px;
-    }
-    .animated-text {
-      font-size: 3rem;
-      font-weight: bold;
-      background: linear-gradient(270deg, #ff0000, #ffffff, #ff0000);
-      background-size: 400% 400%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: textGradient 5s ease infinite;
-      margin-bottom: 20px;
-    }
-    .description {
-      font-size: 1.5rem;
-      max-width: 800px;
-      margin-bottom: 40px;
-    }
-    @keyframes textGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    .cta-button {
-      font-size: 1.2rem;
-      padding: 15px 30px;
-      border: 2px solid #ff0000;
-      background: transparent;
-      color: #ff0000;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: background 0.3s, color 0.3s;
-      cursor: pointer;
-    }
-    .cta-button:hover {
-      background: #ff0000;
-      color: #000;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIML FEST 2024 - Esports Tournament</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            animation: scanline 2s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+            50% {
+                width: 100px;
+                opacity: 1;
+            }
+            100% {
+                width: 0;
+                opacity: 0;
+            }
+        }
+
+        h1 {
+            font-size: 4rem;
+            background: linear-gradient(90deg, #ff0000, #ff3333);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .card {
+            background: #0a0a0a;
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+            border-radius: 15px;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 0.5;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-image-container {
+            position: relative;
+            width: 100%;
+            padding-top: 177.78%; /* 16:9 Aspect Ratio */
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(30%) contrast(120%);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover img {
+            filter: grayscale(0%) contrast(100%);
+        }
+
+        .card h2 {
+            color: #ff0000;
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .card h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 2px;
+            background: #ff0000;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover h2::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .card p {
+            color: #cccccc;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .prize-pool {
+            text-align: center;
+            margin: 3rem auto;
+            padding: 2rem;
+            max-width: 500px;
+            background: #0a0a0a;
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-pool::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 0, 0, 0.1) 10px,
+                rgba(255, 0, 0, 0.1) 20px
+            );
+            animation: backgroundMove 20s linear infinite;
+        }
+
+        @keyframes backgroundMove {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .prize-pool h3 {
+            color: #ff0000;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .register-btn {
+            display: inline-block;
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            color: white;
+            background: #ff0000;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 2rem;
+        }
+
+        .register-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .register-btn:hover::before {
+            left: 100%;
+        }
+
+        .register-btn:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .card {
+                max-width: 280px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Canvas for Animated Images -->
-  <canvas id="animationCanvas"></canvas>
+    <canvas id="animationCanvas"></canvas>
+    <div class="content">
+        <header>
+            <h1>AIML FEST 2024</h1>
+            <div class="subtitle">Where AI Meets Competitive Gaming</div>
+        </header>
 
-  <!-- Main Content -->
-  <div class="container">
-    <h1 class="animated-text">Valorant</h1>
-    <p class="description">
-      A tactical team-based first-person shooter game, where strategy, teamwork, and individual skill come together to achieve victory.
-    </p>
-    <a href="#register" class="cta-button">Register Now</a>
-  </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card-image-container">
+                    <img src="posters\eSports\Valorant.png" 
+                         alt="Valorant Tournament">
+                </div>
+                <h2>VALORANT</h2>
+                <p>Enter the tactical shooter arena where precision meets strategy. Compete against the best teams and prove your worth in intense 5v5 combat.</p>
+            </div>
 
-  <script>
-    // Get the canvas and context
-    const canvas = document.getElementById('animationCanvas');
-    const ctx = canvas.getContext('2d');
+            <div class="card">
+                <div class="card-image-container">
+                    <img src="posters\eSports\BGMI.png" 
+                         alt="BGMI Tournament">
+                </div>
+                <h2>BGMI</h2>
+                <p>Battle it out in intense mobile warfare for ultimate supremacy. Show your tactical prowess and emerge victorious in this battle royale showdown.</p>
+            </div>
+        </div>
+    <script>
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
 
-    // Resize canvas to fill the window
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    // List of image URLs (your provided images)
-    const imageSources = [
-      'https://imgs.search.brave.com/Y_Jz0QcozZZTYohvfnTc1lTwDQVXA7FWPFmiqslmFQ0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/MmstNWstc2NyZWVu/c2hvdHMtZnJvbS1y/ZXZlbGF0aW9uLWVw/aXNvZGUtNi1jaW5l/bWF0aWMtdjAtd2M2/czdpc2Z2ZmFhMS5q/cGc_d2lkdGg9MTI4/MCZmb3JtYXQ9cGpw/ZyZhdXRvPXdlYnAm/cz1lYjcxMTRjN2Fk/ODEzZmQ0OTQ2Yzc1/MWFhMTVlZjAwMGNj/MDJmN2Nk',
-      'https://imgs.search.brave.com/_X3qfAQwXyVdIgtV4K-S7xdNail55Zop9Ly9Fpg7aVE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDg3MjMx/ODAuanBn',
-      'https://imgs.search.brave.com/TQa0YQdeRn9V_-yJhAYBqsU8r3Fz89ntRnVObzRhTiI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/b25lZXNwb3J0cy5n/Zy9jZG4tZGF0YS8y/MDIwLzA1L1ZhbG9y/YW50X1Bob2VuaXhP/ZmZpY2lhbEFydFdv/cmstMS0xMDI0eDU3/Ni5qcGc',
-      'https://imgs.search.brave.com/X-YpxlkKs2PQbrW_RWXQbDE_9i915tfkHi4H4C1TCOc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/b25lZXNwb3J0cy5n/Zy9jZG4tZGF0YS8y/MDIwLzA2L1ZhbG9y/YW50X1JleW5hX0hl/YWRlci0xLTEwMjR4/NTc2LmpwZw',
-      'https://imgs.search.brave.com/rXtIMwPERN-phNlIgluymOEGWiteG5DweVUywaNocQo/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Rl/c3BvcnRzLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMy8w/Ni9WQUxPUkFOVC1E/ZWFkbG9jay0zLmpw/Zz93PTY0MA',
-      'https://imgs.search.brave.com/-4M6EIymLy-J0j_YKfdpnWaeMgPvj3Mqd3ou2rCOW9w/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/MG1nYXpxdGJrdXA0/MS5qcGc_d2lkdGg9/Mzg0MCZmb3JtYXQ9/cGpwZyZhdXRvPXdl/YnAmcz0wOWE2N2Y3/N2I2MzE2ODY4YTg4/NDM2NGUxN2EzNWVk/YzE3YWM3NGY0',
-      'https://imgs.search.brave.com/_ez7sJ7A9qJoy7-_Q5uG-KZ6SARItkTT0wDDCdiHPeM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDYwMTIz/MjYuanBn'
-    ];
-
-    // Class for an animated image object
-    class AnimatedImage {
-      constructor(img) {
-        this.img = img;
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 2; // horizontal speed
-        this.vy = (Math.random() - 0.5) * 2; // vertical speed
-        this.angle = Math.random() * 2 * Math.PI;
-        this.angularSpeed = (Math.random() - 0.5) * 0.09;
-        this.scale = Math.random() * 0.5 + 0.5; // scale between 0.5 and 1
-        // Determine drawn width and height based on original image dimensions
-        this.width = this.img.width * this.scale;
-        this.height = this.img.height * this.scale;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.angle += this.angularSpeed;
-
-        // Bounce off the canvas edges
-        if (this.x < 0 || this.x + this.width > canvas.width) {
-          this.vx = -this.vx;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        if (this.y < 0 || this.y + this.height > canvas.height) {
-          this.vy = -this.vy;
-        }
-      }
-      draw() {
-        ctx.save();
-        // Move to the center of the image, rotate, then draw the image
-        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-        ctx.rotate(this.angle);
-        ctx.drawImage(this.img, -this.width / 2, -this.height / 2, this.width, this.height);
-        ctx.restore();
-      }
-    }
 
-    let animatedImages = [];
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
 
-    // Preload images and then create instances of AnimatedImage
-    let loadedImages = [];
-    let imagesToLoad = imageSources.length;
-
-    imageSources.forEach(src => {
-      const img = new Image();
-      img.crossOrigin = "Anonymous";
-      img.src = src;
-      img.onload = () => {
-        loadedImages.push(img);
-        if (loadedImages.length === imagesToLoad) {
-          // For a richer animation, create multiple instances of each image
-          loadedImages.forEach(image => {
-            for (let i = 0; i < 3; i++) {
-              animatedImages.push(new AnimatedImage(image));
+        class Circuit {
+            constructor() {
+                this.reset();
             }
-          });
-          animate();
-        }
-      };
-      img.onerror = () => {
-        console.error("Error loading image: " + src);
-        imagesToLoad--;
-        if (loadedImages.length === imagesToLoad && imagesToLoad > 0) {
-          animate();
-        }
-      };
-    });
 
-    // Animation loop
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      animatedImages.forEach(obj => {
-        obj.update();
-        obj.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-  </script>
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 30 + 20;
+                this.connections = Math.floor(Math.random() * 3) + 2;
+                this.points = this.generatePoints();
+                this.alpha = 0;
+                this.maxAlpha = Math.random() * 0.3 + 0.1;
+                this.fadeSpeed = Math.random() * 0.02 + 0.01;
+            }
+
+            generatePoints() {
+                const points = [];
+                for (let i = 0; i < this.connections; i++) {
+                    const angle = (Math.PI * 2 * i) / this.connections;
+                    points.push({
+                        x: this.x + Math.cos(angle) * this.size,
+                        y: this.y + Math.sin(angle) * this.size
+                    });
+                }
+                return points;
+            }
+
+            update() {
+                this.alpha += this.fadeSpeed;
+                if (this.alpha >= this.maxAlpha) {
+                    this.reset();
+                }
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.points[0].x, this.points[0].y);
+                
+                for (let i = 1; i < this.points.length; i++) {
+                    ctx.lineTo(this.points[i].x, this.points[i].y);
+                }
+                
+                ctx.closePath();
+                ctx.strokeStyle = `rgba(255, 0, 0, ${this.alpha})`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // Draw connection points
+                this.points.forEach(point => {
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(255, 0, 0, ${this.alpha})`;
+                    ctx.fill();
+                });
+            }
+        }
+
+        const circuits = Array.from({ length: 20 }, () => new Circuit());
+
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            circuits.forEach(circuit => {
+                circuit.update();
+                circuit.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
