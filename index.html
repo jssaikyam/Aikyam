@@ -20,7 +20,7 @@
     .banner-div {
       width: 100%;
       text-align: center;
-      background-color: #ffffff;
+      background-color: transparent;
       padding: 0px 0;
       margin-top: 0px;
       z-index: 10;
@@ -29,9 +29,6 @@
     .banner-image {
       max-width: 100%;
       height: auto;
-    }
-    .banner-div {
-      background-color: transparent;
     }
 
     h1 {
@@ -55,33 +52,33 @@
     }
 
     #countdown {
-            font-size: 70px;
-            margin-top: 20px;
-            width: 100%;
-            padding: 0px;
-            font-weight: italic;
-            /* background: linear-gradient(135deg, #A6A6A6, #ff4b2b); */
-            display: inline-block;
+      font-size: 70px;
+      margin-top: 20px;
+      width: 100%;
+      padding: 0px;
+      font-weight: bold;
+      color: #ff2600;
+      /* text-shadow: 0 0 10px #ff2600, 0 0 20px #ff2600, 0 0 30px #ff2600; */
+      display: inline-block;
+    }
 
-            box-shadow: 0 0 10px #ff2600; */
-            
-        }
+    #nnCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
 
-        #nnCanvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1; /* Keep it in the background */
-  }
-  .bg-black {
-    background-color: transparent !important; /* Remove black background */
-  }
-  .max-w-5xl, .max-w-7xl, .footer, .header {
-    position: relative;
-    z-index: 10; /* Bring content above the canvas */
-  }
+    .bg-black {
+      background-color: transparent !important;
+    }
+
+    .max-w-5xl, .max-w-7xl, .footer, .header {
+      position: relative;
+      z-index: 10;
+    }
 
     #carousel-inner {
       display: flex;
@@ -100,68 +97,80 @@
     }
 
     .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px 20px;
-        background-color: #000;
-        color: #fff;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: black; /* Adjust as needed */
+}
 
-    .header .logo img {
-        height: 50px;
-    }
+.logo img {
+    height: 60px; /* Adjust logo size */
+}
 
-    .header .nav {
-        display: flex;
-        gap: 20px;
-    }
+.nav {
+    flex-grow: 1;  /* Allows the nav to expand */
+    display: flex;
+    justify-content: center;  /* Centers the links */
+    gap: 20px; /* Spacing between links */
+}
 
-    .header .nav a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: bold;
-    }
+.nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
 
+.dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
     .header .profile-icon {
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        
-        background-color: #fff;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      background-color: #fff;
     }
 
-    /* Dropdown menu */
     .dropdown {
-        position: relative;
-        display: inline-block;
+      position: relative;
+      display: inline-block;
     }
 
     .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #222;
-        min-width: 150px;
-        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-        z-index: 1;
+      display: none;
+      position: absolute;
+      background-color: #222;
+      min-width: 150px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+      z-index: 1;
     }
 
     .dropdown-content a {
-        color: white;
-        padding: 10px 15px;
-        display: block;
-        text-decoration: none;
+      color: white;
+      padding: 10px 15px;
+      display: block;
+      text-decoration: none;
     }
 
     .dropdown-content a:hover {
-        background-color: #575757;
+      background-color: #575757;
     }
 
     .dropdown:hover .dropdown-content {
-        display: block;
+      display: block;
     }
 
     .footer {
@@ -182,6 +191,14 @@
       color: #fff;
       font-size: 24px;
     }
+
+    .about-us {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -192,146 +209,173 @@
   <!-- Header -->
   <header class="header">
     <div class="logo">
-        <img src="posters\Logo\Aikyam.png" alt="AIKYAM Logo" class="logo">
+      <img src="posters/Logo/Aikyam.png" alt="AIKYAM Logo" class="logo">
     </div>
     <nav class="nav">
-        <a href="#about">About Us</a>
-        <div class="dropdown">
-            <a href="#events" class="dropbtn">Events ▼</a>
-            <div class="dropdown-content">
-                <a href="Hackathon.html">Hackathon</a>
-                <a href="Sports.html">Sports</a>
-                <a href="eSports.html">e-Sports</a>
-                <a href="FunGames.html">Fun Games</a>
-                <a href="CulturalEvents.html">Cultural Events</a>
-            </div>
-        </div>
-        <a href="#sponsors">Sponsors</a>
-        <a href="#contact">Contact Us</a>
+      <a href="#about">About Us</a>
+      <a href="#events-section">Events</a> <!-- Updated link -->
+      <a href="#sponsors">Sponsors</a>
+      <a href="contactus.html">Contact Us</a>
     </nav>
-    <div class="logo">
-        <img src="posters\Logo\Aikyam.png" alt="AIKYAM Logo" class="logo">
-    </div>
-</header>
+  </header>
 
   <div class="bg-black text-gray-100 text-[15px]">
     <div class="max-w-5xl mx-auto text-center relative px-4 sm:px-10 mt-16">
       <h1 class="lg:text-7xl md:text-6xl text-4xl font-semibold mb-6 md:!leading-[80px]">AIKYAM-2025</h1>
       <div class="max-w-5xl mx-auto text-center mt-8">
-        <div id="countdown" class="text-xl font-bold text-red-500" style="font-family: 'Teko', serif;"></div>
+        <div id="countdown" class="text-xl font-bold" style="font-family: 'Teko', serif;"></div>
       </div>
       <p class="text-base text-gray-400">AIKYAM 2025 is the annual fest of the Department of AI & ML, JSS Academy of Technical Education, Bangalore. It is a vibrant celebration of technology, innovation, and culture, bringing together students, professionals, and enthusiasts. The fest features technical workshops, hackathons, e-sports tournaments, cultural performances, and engaging competitions. With a focus on collaboration and creativity, AIKYAM provides a platform for students to showcase their talents and connect with industry leaders.</p>
       <div class="banner-div">
-        <img src="posters\Logo\Aikyam.png" alt="Aikyam Banner" class="banner-image">
+        <img src="posters/Logo/Aikyam.png" alt="Aikyam Banner" class="banner-image">
       </div>
     </div>
 
-    <div class="px-4 sm:px-10">
+
+    <div id="events-section" class="px-4 sm:px-10">
       <div class="mt-32 max-w-7xl mx-auto">
-        <div class="mb-16 max-w-2xl text-center mx-auto">
-          <section id="aikyam-carousel" class="relative max-w-4xl mx-auto py-8">
-            <div class="overflow-hidden">
-              <div id="carousel-inner" class="flex transition-transform duration-500">
-                <div class="flex-shrink-0 w-full px-4">
-                  <div class="bg-gray-300 aspect-[4/5] flex items-center justify-center">
-                    <img src="posters\Hackathon.png" alt="JSS Navotthana" class="w-full h-full object-cover" loading="lazy"/>
-                  </div>
-                  <h3 class="mt-4 text-xl font-bold">JSS NAVOTTHANA</h3>
-                  <p>Step into the future of innovation at JSS Navotthana, a 24-hour AI Hackathon designed to push the boundaries of creativity and problem-solving. Collaborate with like-minded innovators, develop cutting-edge AI solutions, and put your skills to the test in a high-energy, competitive environment.</p>
-                </div>
-                <!-- Slide 2 -->
-                <div class="flex-shrink-0 w-full px-4">
-                  <div class="bg-gray-300 aspect-[4/5] flex items-center justify-center">
-                    <img src="posters\Sports.png" alt="Sports🏏" class="w-full h-full object-cover" loading="lazy"/>
-                  </div>
-                  <h3 class="mt-4 text-xl font-bold">Sports🏏</h3>
-                  <p>Get ready for a fast-paced cricket showdown with tennis balls and smaller teams! 🏏 Showcase your batting, bowling, and fielding skills. Compete for the championship trophy, experience thrilling matches, and embrace the spirit of sportsmanship.</p>
-                </div>
-                <!-- Slide 3 -->
-                <div class="flex-shrink-0 w-full px-4">
-                  <div class="bg-gray-300 aspect-[4/5] flex items-center justify-center">
-                    <img src="posters\ESports.png" alt="Carrom Tournament" class="w-full h-full object-cover" loading="lazy"/>
-                  </div>
-                  <h3 class="mt-4 text-xl font-bold">Esports</h3>
-                  <p>Test your precision and strategy in an exciting Carrom Tournament! An engaging indoor board game, carrom challenges players to flick discs into pockets using skill, focus, and accuracy.</p>
-                </div>
-                <!-- Slide 4 -->
-                
-            
-                <!-- Slide 5 -->
-                <div class="flex-shrink-0 w-full px-4">
-                  <div class="bg-gray-300 aspect-[4/5] flex items-center justify-center">
-                    <img src="posters\FunGames.png" alt="Treasure Hunt" class="w-full h-full object-cover" loading="lazy"/>
-                  </div>
-                  <h3 class="mt-4 text-xl font-bold">Fun Games 🔍</h3>
-                  <p>Embark on an exciting adventure where teams race against time to solve clues and uncover hidden treasures! This thrilling challenge will test your teamwork, problem-solving skills, and quick thinking as you navigate through a series of puzzles and riddles.</p>
-                </div>
-                <div class="flex-shrink-0 w-full px-4">
-                  <div class="bg-gray-300 aspect-[4/5] flex items-center justify-center">
-                    <img src="posters\Cultural Event.png" alt="Table Tennis Tournament" class="w-full h-full object-cover" loading="lazy"/>
-                  </div>
-                  <h3 class="mt-4 text-xl font-bold">Cultural Events</h3>
-                  <p>Get ready for a talent explosion! From soulful melodies to electrifying rap, dance, and instrumental magic—this stage is where culture meets creativity. A live band sets the vibe, comedy keeps you laughing, and performances leave you wanting more! 🎶🔥
-                  </p>
-                </div>
-              </div>
+        <h2 class="text-4xl font-bold text-center mb-12">Events</h2>
+    
+        <!-- First Row: Hackathon Poster in Middle Column -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+          <!-- Empty Column (1st Column) -->
+          <div class="hidden sm:block"></div>
+    
+          <!-- Hackathon Poster (2nd Column) -->
+          <div class="bg-black-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
+            <a href="hackathon.html" class="block">
+              <img src="posters/Hackathon.png" alt="JSS Navotthana" class="w-full h-96 object-contain">
+            </a>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold mb-2">JSS NAVOTTHANA</h3>
+              <p class="text-gray-400">
+                Step into the future of innovation at JSS Navotthana, a 24-hour AI Hackathon designed to push the boundaries of creativity and problem-solving.
+              </p>
+              <a href="hackathon.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
             </div>
-            <!-- Navigation Buttons -->
-            <button id="prev" class="absolute top-1/2 left-0 transform -translate-y-1/2 bg-red-600 text-white px-3 py-2">Prev</button>
-            <button id="next" class="absolute top-1/2 right-0 transform -translate-y-1/2 bg-red-600 text-white px-3 py-2">Next</button>
-          </section>
+          </div>
+    
+          <!-- Empty Column (3rd Column) -->
+          <div class="hidden sm:block"></div>
+        </div>
+    
+        <!-- Second Row: Three Posters in Three Columns -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+          <!-- Sports -->
+          <div class="bg-black-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
+            <a href="sports.html" class="block">
+              <img src="posters/Sports.png" alt="Sports🏏" class="w-full h-96 object-contain">
+            </a>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold mb-2">Sports🏏</h3>
+              <p class="text-gray-400">
+                Get ready for a fast-paced cricket showdown with tennis balls and smaller teams! Showcase your batting, bowling, and fielding skills.
+              </p>
+              <a href="sports.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+            </div>
+          </div>
+    
+          <!-- Esports -->
+          <div class="bg-black-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
+            <a href="esports.html" class="block">
+              <img src="posters/ESports.png" alt="Carrom Tournament" class="w-full h-96 object-contain">
+            </a>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold mb-2">Esports</h3>
+              <p class="text-gray-400">
+                Test your precision and strategy in an exciting Carrom Tournament! An engaging indoor board game that challenges players to flick discs into pockets.
+              </p>
+              <a href="esports.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+            </div>
+          </div>
+    
+          <!-- Fun Games -->
+          <div class="bg-black-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
+            <a href="fungames.html" class="block">
+              <img src="posters/FunGames.png" alt="Treasure Hunt" class="w-full h-96 object-contain">
+            </a>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold mb-2">Fun Games 🔍</h3>
+              <p class="text-gray-400">
+                Embark on an exciting adventure where teams race against time to solve clues and uncover hidden treasures!
+              </p>
+              <a href="fungames.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Third Row: Cultural Poster in Middle Column -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <!-- Empty Column (1st Column) -->
+          <div class="hidden sm:block"></div>
+    
+          <!-- Cultural Poster (2nd Column) -->
+          <div class="bg-black-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 h-full flex flex-col">
+            <a href="CulturalEvents.html" class="block">
+              <img src="posters/Cultural Event.png" alt="Cultural Events" class="w-full h-96 object-contain">
+            </a>
+            <div class="p-6 flex-grow">
+              <h3 class="text-xl font-bold mb-2">Cultural Events</h3>
+              <p class="text-gray-400">
+                Get ready for a talent explosion! From soulful melodies to electrifying rap, dance, and instrumental magic.
+              </p>
+              <a href="CulturalEvents.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+            </div>
+          </div>
+    
+          <!-- Empty Column (3rd Column) -->
+          <div class="hidden sm:block"></div>
         </div>
       </div>
     </div>
+    
 
-    <div class="flex justify-center items-center min-h-screen">
-      <div class="grid max-sm:grid-cols-1 max-lg:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-          <div>
-            <div class="max-w-5xl mx-auto text-center mt-8">
-              <div id="countdown" class="text-xl font-bold text-red-500" style="font-family: 'Teko', serif;"></div>
-            </div>
-              <h2 class="text-lg mb-6">About Us</h2>
-              <p class="text-gray-400 mb-3">
-                  JSS Academy of Technical Education, Bangalore (JSSATEB
-                  ) is a distinguished institution committed to delivering high-quality technical education. Offering a diverse range of undergraduate and postgraduate programs in engineering, management, and applied sciences, JSSATEB provides a dynamic and intellectually stimulating learning environment.
-              </p>
-          </div>
+          
+
+    
+
+    <div id="about" class="about-us">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 class="text-lg mb-6">About Us</h2>
+        <p class="text-gray-400 mb-3">
+          JSS Academy of Technical Education, Bangalore (JSSATEB) is a distinguished institution committed to delivering high-quality technical education. Offering a diverse range of undergraduate and postgraduate programs in engineering, management, and applied sciences, JSSATEB provides a dynamic and intellectually stimulating learning environment.
+        </p>
       </div>
-  </div>
-  
+    </div>
+
   <section class="py-12">
     <h2 class="text-3xl font-bold text-center text-orange-600 mb-8">Meet Our Co-ordinators</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
-        
-        <!-- Team Member Card -->
-        <div class="bg-black rounded-2xl shadow-md p-6 text-center">
-            <img src="posters\Faculty\Hod.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
-            <h3 class="mt-4 text-lg font-semibold">Dr. Anil B.C</h3>
-            <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p class="text-sm font-bold mt-3">Head of Dept, AIML</p>
-        </div>
+      <!-- Team Member Card -->
+      <div class="bg-black rounded-2xl shadow-md p-6 text-center">
+        <img src="posters/Faculty/Hod.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+        <h3 class="mt-4 text-lg font-semibold">Dr. Anil B.C</h3>
+        <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class="text-sm font-bold mt-3">Head of Dept, AIML</p>
+      </div>
 
-        <div class="bg-black rounded-2xl shadow-md p-6 text-center">
-            <img src="posters\Faculty\Chandana.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
-            <h3 class="mt-4 text-lg font-semibold">Mrs Chandana C</h3>
-            <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p class="text-sm font-bold mt-3">Faculty Co-ordinator</p>
-        </div>
+      <div class="bg-black rounded-2xl shadow-md p-6 text-center">
+        <img src="posters/Faculty/Chandana.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+        <h3 class="mt-4 text-lg font-semibold">Mrs Chandana C</h3>
+        <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class="text-sm font-bold mt-3">Faculty Co-ordinator</p>
+      </div>
 
-        <div class="bg-black rounded-2xl shadow-md p-6 text-center">
-            <img src="posters\Faculty\Manu.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
-            <h3 class="mt-4 text-lg font-semibold">Mr Manu</h3>
-            <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <p class="text-sm font-bold mt-3">Non Teaching Staff</p>
-        </div>
+      <div class="bg-black rounded-2xl shadow-md p-6 text-center">
+        <img src="posters/Faculty/Manu.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+        <h3 class="mt-4 text-lg font-semibold">Mr Manu</h3>
+        <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <p class="text-sm font-bold mt-3">Non Teaching Staff</p>
+      </div>
     </div>
-</section>
+  </section>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="social-icons">
       <a href="https://www.instagram.com/aikyam_jss?igsh=cTM5dnJyNHl4MW1l" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="mailto:aiml.aikyam@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a> 
-   </div>
+      <a href="mailto:aiml.aikyam@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+    </div>
     <p>&copy; 2025 AIKYAM. All rights reserved.</p>
   </footer>
 
