@@ -1,142 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Fest - Landing Page</title>
-  <style>
-    /* Reset & Base Styles */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Sports Fest</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: black;
-      color: white;
-      overflow-x: hidden;
-      position: relative;
-    }
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+        }
 
-    /* Canvas for Background Grid Animation */
-    #bgCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
 
-    /* Header Styling */
-    header {
-      text-align: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      font-size: 2rem;
-      position: relative;
-      z-index: 1;
-    }
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
 
-    /* Posters Grid */
-    .poster-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      padding: 40px;
-      position: relative;
-      z-index: 1;
-    }
+        h1 {
+            font-size: 4rem;
+            color: #ff0000;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
 
-    .poster {
-      width: 200px;
-      height: 300px;
-      background-size: cover;
-      background-position: center;
-      border: 2px solid #800000;
-      box-shadow: 0 4px 8px rgba(128, 0, 0, 0.5);
-      transition: transform 0.3s;
-    }
+        .poster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            position: relative;
+        }
 
-    .poster:hover {
-      transform: translateY(-5px);
-    }
-  </style>
+        .poster {
+            position: relative;
+            background: rgba(20, 20, 20, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+        }
+
+        .poster:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.4);
+        }
+
+        .poster.active {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 0, 0, 0.6);
+        }
+
+        .poster-image {
+            aspect-ratio: 2/3;
+            width: 100%;
+            size: small;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+            border-bottom: 2px solid #ff0000;
+        }
+
+        .poster-content {
+            padding: 1.5rem;
+        }
+
+        .poster-title {
+            font-size: 1.5rem;
+            color: #ff0000;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .poster-description {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .poster-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+            display: none;
+        }
+
+        .poster.active .poster-details {
+            display: block;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .poster-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Canvas for the digital stadium wave effect -->
-  <canvas id="bgCanvas"></canvas>
+    <canvas id="canvas"></canvas>
+    <div class="container">
+        <header>
+            <h1>AI Sports Fest</h1>
+            <p>Where Artificial Intelligence meets Athletic Excellence</p>
+        </header>
+        <div class="poster-grid">
+            <div class="poster" data-sport="chess">
+                <img class="poster-image" src="posters\Sports\Chess.png" alt="Chess Tournament">
+                <div class="poster-content">
+                    <h3 class="poster-title">AI Chess Championship</h3>
+                    <p class="poster-description">Strategic battles of minds and machines</p>
+                    <div class="poster-details">
+                        <p>Experience the ultimate fusion of human intuition and artificial intelligence in our premier chess championship.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="poster" data-sport="cricket">
+                <img class="poster-image" src="posters\Sports\MiniCricket.png" alt="Mini Cricket">
+                <div class="poster-content">
+                    <h3 class="poster-title">AI Mini Cricket</h3>
+                    <p class="poster-description">Cricket reimagined with artificial intelligence</p>
+                    <div class="poster-details">
+                        <p>Revolutionary cricket experience enhanced by AI-powered analysis and real-time strategy assistance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="poster" data-sport="tug">
+                <img class="poster-image" src="posters\Sports\TugOfWar.png" alt="Tug of War">
+                <div class="poster-content">
+                    <h3 class="poster-title">AI Tug of War</h3>
+                    <p class="poster-description">Test your strength against AI-powered opponents</p>
+                    <div class="poster-details">
+                        <p>Challenge AI-powered resistance systems in this modern take on the classic test of strength.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="poster" data-sport="basketball">
+                <img class="poster-image" src="posters\Sports\3V3Basketball.png" alt="3V3 Basketball">
+                <div class="poster-content">
+                    <h3 class="poster-title">AI 3V3 Basketball</h3>
+                    <p class="poster-description">Fast-paced action with AI analysis</p>
+                    <div class="poster-details">
+                        <p>Experience basketball like never before with AI-powered performance tracking and real-time gameplay analysis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <header>AI FEST 2025 - Sports & AI</header>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let activeAnimation = null;
+        let animationFrameId = null;
 
-  <div class="poster-container" id="posterContainer">
-    <!-- Posters will be inserted dynamically -->
-  </div>
-
-  <script>
-    /***** Digital Stadium Wave Grid Animation *****/
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    const cellSize = 40; // Size of each grid cell
-    let time = 0;
-    const speed = 0.05; // Controls the speed of the wave
-
-    // Adjust canvas size on window resize
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-
-    function animateGrid() {
-      // Clear canvas and apply blur effect
-      ctx.clearRect(0, 0, width, height);
-      ctx.filter = 'blur(5px)'; // Apply blur effect with a 5px blur radius
-
-      // Fill background with black
-      ctx.fillStyle = 'black';
-      ctx.fillRect(0, 0, width, height);
-
-      // Calculate grid dimensions
-      const cols = Math.ceil(width / cellSize);
-      const rows = Math.ceil(height / cellSize);
-
-      // Draw each cell with a wave effect based on its position and time
-      for (let row = 0; row < rows; row++) {
-        for (let col = 0; col < cols; col++) {
-          const x = col * cellSize;
-          const y = row * cellSize;
-          // Compute a wave intensity value (0 to 1) for a smooth diagonal wave
-          const intensity = (Math.sin(col * 0.5 + row * 0.25 + time) + 1) / 2;
-          // Multiply intensity to keep the effect subtle
-          const alpha = intensity * 0.4;
-          ctx.fillStyle = `rgba(255, 0, 0, ${alpha})`;
-          // Draw a slightly smaller cell to create a gap effect
-          ctx.fillRect(x, y, cellSize - 2, cellSize - 2);
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-      }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-      time += speed;
-      requestAnimationFrame(animateGrid);
-    }
+        const animations = {
+            chess: {
+                pieces: [],
+                init() {
+                    this.pieces = Array.from({length: 20}, () => ({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        type: Math.floor(Math.random() * 6),
+                        size: Math.random() * 30 + 20,
+                        speedX: (Math.random() - 0.5) * 1.5,
+                        speedY: (Math.random() - 0.5) * 1.5,
+                        rotation: Math.random() * Math.PI * 2,
+                        rotationSpeed: (Math.random() - 0.5) * 0.02,
+                        targetX: Math.random() * canvas.width,
+                        targetY: Math.random() * canvas.height,
+                        changeTargetCounter: 0
+                    }));
+                },
+                drawPiece(ctx, type, x, y, size, rotation) {
+                    ctx.save();
+                    ctx.translate(x, y);
+                    ctx.rotate(rotation);
+                    ctx.strokeStyle = '#ff0000';
+                    ctx.fillStyle = 'rgba(255, 0, 0, 0.1)';
+                    ctx.lineWidth = 2;
+                    
+                    switch(type) {
+                        case 0: // Pawn
+                            ctx.beginPath();
+                            ctx.arc(0, -size/3, size/4, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.stroke();
+                            ctx.beginPath();
+                            ctx.moveTo(-size/3, size/2);
+                            ctx.lineTo(size/3, size/2);
+                            ctx.lineTo(size/4, -size/4);
+                            ctx.lineTo(-size/4, -size/4);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.stroke();
+                            break;
+                        case 1: // Knight
+                            ctx.beginPath();
+                            ctx.moveTo(-size/2, size/2);
+                            ctx.lineTo(-size/2, -size/4);
+                            ctx.quadraticCurveTo(-size/4, -size/2, 0, -size/2);
+                            ctx.quadraticCurveTo(size/2, -size/2, size/2, 0);
+                            ctx.lineTo(size/2, size/2);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.stroke();
+                            // Add horse head detail
+                            ctx.beginPath();
+                            ctx.arc(size/4, -size/3, size/6, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.stroke();
+                            break;
+                        case 2: // Bishop
+                            ctx.beginPath();
+                            ctx.moveTo(0, -size/2);
+                            ctx.lineTo(size/2, size/2);
+                            ctx.lineTo(-size/2, size/2);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.stroke();
+                            // Add bishop's miter
+                            ctx.beginPath();
+                            ctx.arc(0, -size/3, size/6, 0, Math.PI * 2);
+                            ctx.fill();
+                            ctx.stroke();
+                            break;
+                        case 3: // Rook
+                            ctx.beginPath();
+                            ctx.moveTo(-size/2, size/2);
+                            ctx.lineTo(-size/2, -size/2);
+                            ctx.lineTo(-size/3, -size/2);
+                            ctx.lineTo(-size/3, -size/3);
+                            ctx.lineTo(size/3, -size/3);
+                            ctx.lineTo(size/3, -size/2);
+                            ctx.lineTo(size/2, -size/2);
+                            ctx.lineTo(size/2, size/2);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.stroke();
+                            break;
+                        case 4: // Queen
+                            ctx.beginPath();
+                            ctx.moveTo(0, -size/2);
+                            for(let i = 0; i < 8; i++) {
+                                const angle = (i / 8) * Math.PI * 2;
+                                const r = i % 2 === 0 ? size/2 : size/3;
+                                ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r + size/4);
+                            }
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.stroke();
+                            // Add crown points
+                            for(let i = 0; i < 5; i++) {
+                                ctx.beginPath();
+                                ctx.arc(-size/2 + i * size/4, -size/3, size/8, 0, Math.PI * 2);
+                                ctx.fill();
+                                ctx.stroke();
+                            }
+                            break;
+                        case 5: // King
+                            ctx.beginPath();
+                            ctx.moveTo(-size/2, size/2);
+                            ctx.lineTo(-size/2, -size/4);
+                            ctx.lineTo(-size/4, -size/4);
+                            ctx.lineTo(-size/4, -size/2);
+                            ctx.lineTo(size/4, -size/2);
+                            ctx.lineTo(size/4, -size/4);
+                            ctx.lineTo(size/2, -size/4);
+                            ctx.lineTo(size/2, size/2);
+                            ctx.closePath();
+                            ctx.fill();
+                            ctx.stroke();
+                            // Add cross
+                            ctx.beginPath();
+                            ctx.moveTo(0, -size/2 - size/4);
+                            ctx.lineTo(0, -size/2 + size/4);
+                            ctx.moveTo(-size/4, -size/2);
+                            ctx.lineTo(size/4, -size/2);
+                            ctx.stroke();
+                            break;
+                    }
+                    ctx.restore();
+                },
+                draw() {
+                    ctx.strokeStyle = '#ff0000';
+                    ctx.lineWidth = 2;
+                    
+                    this.pieces.forEach(piece => {
+                        // Update position based on target
+                        const dx = piece.targetX - piece.x;
+                        const dy = piece.targetY - piece.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance > 1) {
+                            piece.x += (dx / distance) * piece.speedX;
+                            piece.y += (dy / distance) * piece.speedY;
+                        }
+                        
+                        piece.rotation += piece.rotationSpeed;
+                        piece.changeTargetCounter++;
+                        
+                        // Change target periodically
+                        if (piece.changeTargetCounter > 200) {
+                            piece.targetX = Math.random() * canvas.width;
+                            piece.targetY = Math.random() * canvas.height;
+                            piece.changeTargetCounter = 0;
+                        }
+                        
+                        this.drawPiece(ctx, piece.type, piece.x, piece.y, piece.size, piece.rotation);
+                        
+                        // Wrap around screen
+                        if(piece.x < 0) piece.x = canvas.width;
+                        if(piece.x > canvas.width) piece.x = 0;
+                        if(piece.y < 0) piece.y = canvas.height;
+                        if(piece.y > canvas.height) piece.y = 0;
+                    });
+                }
+            },
+            cricket: {
+                elements: [],
+                init() {
+                    this.elements = Array.from({length: 15}, () => ({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        type: Math.random() < 0.7 ? 'ball' : 'stumps',
+                        rotation: Math.random() * Math.PI * 2,
+                        speedX: (Math.random() - 0.5) * 4,
+                        speedY: (Math.random() - 0.5) * 4,
+                        rotationSpeed: (Math.random() - 0.5) * 0.05
+                    }));
+                },
+                draw() {
+                    ctx.strokeStyle = '#ff0000';
+                    ctx.lineWidth = 2;
+                    
+                    this.elements.forEach(elem => {
+                        ctx.save();
+                        ctx.translate(elem.x, elem.y);
+                        ctx.rotate(elem.rotation);
+                        
+                        if(elem.type === 'ball') {
+                            ctx.beginPath();
+                            ctx.arc(0, 0, 10, 0, Math.PI * 2);
+                            ctx.stroke();
+                            // Add seam
+                            ctx.beginPath();
+                            ctx.arc(0, 0, 10, 0, Math.PI, true);
+                            ctx.stroke();
+                        } else {
+                            // Draw stumps
+                            for(let i = -1; i <= 1; i++) {
+                                ctx.beginPath();
+                                ctx.moveTo(i * 10, -30);
+                                ctx.lineTo(i * 10, 30);
+                                ctx.stroke();
+                            }
+                            // Draw bails
+                            ctx.beginPath();
+                            ctx.moveTo(-20, -30);
+                            ctx.lineTo(20, -30);
+                            ctx.stroke();
+                        }
+                        
+                        ctx.restore();
+                        
+                        elem.x += elem.speedX;
+                        elem.y += elem.speedY;
+                        elem.rotation += elem.rotationSpeed;
 
-    animateGrid();
+                        if(elem.x < 0 || elem.x > canvas.width) elem.speedX *= -1;
+                        if(elem.y < 0 || elem.y > canvas.height) elem.speedY *= -1;
+                    });
+                }
+            },
+            tug: {
+                ropes: [],
+                init() {
+                    this.ropes = Array.from({length: 10}, () => ({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        length: Math.random() * 200 + 100,
+                        segments: 10,
+                        amplitude: Math.random() * 20 + 10,
+                        phase: Math.random() * Math.PI * 2,
+                        speed: (Math.random() - 0.5) * 0.05,
+                        direction: Math.random() * Math.PI * 2
+                    }));
+                },
+                draw() {
+                    ctx.strokeStyle = '#ff0000';
+                    ctx.lineWidth = 3;
+                    
+                    this.ropes.forEach(rope => {
+                        ctx.save();
+                        ctx.translate(rope.x, rope.y);
+                        ctx.rotate(rope.direction);
+                        
+                        ctx.beginPath();
+                        for(let i = 0; i <= rope.segments; i++) {
+                            const x = (i / rope.segments) * rope.length;
+                            const y = Math.sin(i * 0.5 + rope.phase) * rope.amplitude;
+                            if(i === 0) ctx.moveTo(x, y);
+                            else ctx.lineTo(x, y);
+                        }
+                        ctx.stroke();
+                        
+                        // Draw knots
+                        for(let i = 0; i <= rope.segments; i += 2) {
+                            const x = (i / rope.segments) * rope.length;
+                            const y = Math.sin(i * 0.5 + rope.phase) * rope.amplitude;
+                            ctx.beginPath();
+                            ctx.arc(x, y, 5, 0, Math.PI * 2);
+                            ctx.stroke();
+                        }
+                        
+                        ctx.restore();
+                        
+                        rope.phase += rope.speed;
+                    });
+                }
+            },
+            basketball: {
+                balls: [],
+                init() {
+                    this.balls = Array.from({length: 12}, () => ({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 20 + 15,
+                        rotation: Math.random() * Math.PI * 2,
+                        speedX: (Math.random() - 0.5) * 4,
+                        speedY: (Math.random() - 0.5) * 4,
+                        rotationSpeed: (Math.random() - 0.5) * 0.05
+                    }));
+                },
+                draw() {
+                    ctx.strokeStyle = '#ff0000';
+                    ctx.lineWidth = 2;
+                    
+                    this.balls.forEach(ball => {
+                        ctx.save();
+                        ctx.translate(ball.x, ball.y);
+                        ctx.rotate(ball.rotation);
+                        
+                        // Draw ball outline
+                        ctx.beginPath();
+                        ctx.arc(0, 0, ball.radius, 0, Math.PI * 2);
+                        ctx.stroke();
+                        
+                        // Draw basketball lines
+                        ctx.beginPath();
+                        ctx.arc(0, 0, ball.radius, 0, Math.PI * 2);
+                        ctx.moveTo(-ball.radius, 0);
+                        ctx.lineTo(ball.radius, 0);
+                        ctx.moveTo(0, -ball.radius);
+                        ctx.lineTo(0, ball.radius);
+                        // Add curved lines for more basketball-like appearance
+                        ctx.arc(0, 0, ball.radius * 0.5, 0, Math.PI * 2);
+                        ctx.stroke();
+                        
+                        ctx.restore();
+                        
+                        ball.x += ball.speedX;
+                        ball.y += ball.speedY;
+                        ball.rotation += ball.rotationSpeed;
 
-    /***** Dynamic Posters Section *****/
-    const posters = [
-      "posters/Sports/3V3Basketball.png"
-    ];
-    const posterContainer = document.getElementById("posterContainer");
-    posters.forEach(src => {
-      const poster = document.createElement("div");
-      poster.className = "poster";
-      poster.style.backgroundImage = `url('${src}')`;
-      posterContainer.appendChild(poster);
-    });
-  </script>
+                        if(ball.x < 0 || ball.x > canvas.width) ball.speedX *= -1;
+                        if(ball.y < 0 || ball.y > canvas.height) ball.speedY *= -1;
+                    });
+                }
+            }
+        };
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if(activeAnimation) {
+                activeAnimation.draw();
+            }
+            animationFrameId = requestAnimationFrame(animate);
+        }
+
+        // Handle poster interactions
+        document.querySelectorAll('.poster').forEach(poster => {
+            poster.addEventListener('mouseenter', () => {
+                const sport = poster.dataset.sport;
+                if(animations[sport]) {
+                    if(activeAnimation !== animations[sport]) {
+                        activeAnimation = animations[sport];
+                        activeAnimation.init();
+                    }
+                }
+            });
+
+            poster.addEventListener('click', () => {
+                // Remove active class from all posters
+                document.querySelectorAll('.poster').forEach(p => p.classList.remove('active'));
+                // Add active class to clicked poster
+                poster.classList.add('active');
+            });
+        });
+
+        // Initialize with chess animation
+        activeAnimation = animations.chess;
+        activeAnimation.init();
+        animate();
+
+        // Close active poster when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.poster')) {
+                document.querySelectorAll('.poster').forEach(p => p.classList.remove('active'));
+            }
+        });
+    </script>
 </body>
 </html>
