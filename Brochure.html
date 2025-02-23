@@ -31,13 +31,13 @@
     }
 
     .container {
-      max-width: min(1000px, 95%);
-      margin: clamp(20px, 5vw, 40px) auto;
-      padding: clamp(15px, 3vw, 30px);
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 0, 0, 0.1);
-      border-radius: clamp(10px, 2vw, 20px);
+      border-radius: 20px;
       box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
       animation: fadeIn 1s ease-in-out;
     }
@@ -54,9 +54,9 @@
     }
 
     h1 {
-      font-size: clamp(2rem, 6vw, 3.5rem);
+      font-size: 3.5rem;
       text-align: center;
-      margin-bottom: clamp(5px, 2vw, 10px);
+      margin-bottom: 10px;
       background: linear-gradient(45deg, #ff0000, #ff6b6b);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -76,16 +76,16 @@
 
     .date {
       text-align: center;
-      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      font-size: 1.5rem;
       color: #ff6b6b;
-      margin-bottom: clamp(20px, 4vw, 30px);
+      margin-bottom: 30px;
       letter-spacing: 1px;
     }
 
     .pdf-container {
-      margin-top: clamp(15px, 3vw, 20px);
+      margin-top: 20px;
       border: 1px solid rgba(255, 0, 0, 0.2);
-      padding: clamp(15px, 3vw, 20px);
+      padding: 20px;
       border-radius: 10px;
       background: rgba(0, 0, 0, 0.5);
       position: relative;
@@ -106,7 +106,7 @@
 
     .pdf-container iframe {
       width: 100%;
-      height: clamp(400px, 80vh, 700px);
+      height: 700px;
       border: none;
       border-radius: 5px;
       background: #fff;
@@ -114,17 +114,17 @@
 
     .download-link {
       text-align: center;
-      margin-top: clamp(15px, 3vw, 20px);
+      margin-top: 20px;
     }
 
     .btn {
       display: inline-block;
-      padding: clamp(10px, 2vw, 12px) clamp(20px, 4vw, 30px);
+      padding: 12px 30px;
       background: linear-gradient(45deg, #ff0000, #ff6b6b);
       color: #fff;
       text-decoration: none;
       border-radius: 25px;
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-size: 1.2rem;
       letter-spacing: 1px;
       transition: all 0.3s ease;
       position: relative;
@@ -153,41 +153,16 @@
 
     @media (max-width: 768px) {
       .container {
-        margin: 10px;
-        padding: 15px;
+        margin: 20px;
+        padding: 20px;
       }
 
-      .pdf-container {
-        padding: 10px;
-      }
-
-      .pdf-container iframe {
-        height: clamp(300px, 60vh, 500px);
-      }
-
-      .btn {
-        width: 90%;
-        max-width: 300px;
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 480px) {
       h1 {
-        font-size: clamp(1.8rem, 5vw, 2.5rem);
-      }
-
-      .date {
-        font-size: clamp(1rem, 2.5vw, 1.2rem);
-      }
-
-      .pdf-container {
-        margin-top: 10px;
-        padding: 8px;
+        font-size: 2.5rem;
       }
 
       .pdf-container iframe {
-        height: clamp(250px, 50vh, 400px);
+        height: 500px;
       }
     }
   </style>
