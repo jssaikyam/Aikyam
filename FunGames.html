@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fun Games 2024 | AIKYAM JSS</title>
+  <title>Fun Games 2025 | AIKYAM JSS</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Russo+One&display=swap');
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Arial', sans-serif;
     }
 
     body {
@@ -17,6 +18,7 @@
       color: white;
       min-height: 100vh;
       overflow-x: hidden;
+      font-family: 'Russo One', sans-serif;
     }
 
     canvas {
@@ -40,69 +42,129 @@
       text-align: center;
       padding: 2rem 0;
       margin-bottom: 4rem;
+      position: relative;
+      animation: bounceIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes bounceIn {
+      0% { transform: scale(0.3); opacity: 0; }
+      50% { transform: scale(1.05); }
+      70% { transform: scale(0.9); }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     h1 {
+      font-family: 'Press Start 2P', cursive;
       font-size: clamp(2rem, 6vw, 4rem);
-      color: #ff0000;
+      color: #ff3333;
       text-transform: uppercase;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+      animation: wiggle 2s ease-in-out infinite;
+    }
+
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-2deg); }
+      50% { transform: rotate(2deg); }
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-shadow: 0 0 5px rgba(255, 51, 51, 0.2);
+      letter-spacing: 2px;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-      gap: clamp(1rem, 3vw, 2rem);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+      gap: clamp(1.5rem, 3vw, 2.5rem);
+      perspective: 1000px;
     }
 
     .card {
-      background: #0a0a0a;
-      border: 2px solid #ff0000;
+      background: rgba(15, 15, 15, 0.95);
+      border: 2px solid rgba(255, 51, 51, 0.3);
       border-radius: 15px;
       padding: 1.5rem;
       position: relative;
       overflow: hidden;
-      transition: transform 0.3s ease;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
       width: 100%;
       max-width: 400px;
       margin: 0 auto;
       text-decoration: none;
       color: inherit;
       cursor: pointer;
+      transform-style: preserve-3d;
+      backdrop-filter: blur(5px);
+      animation: cardFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes cardFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
     }
 
     .card::before {
-      content: '';
+      content: '🎮';
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
-      z-index: -1;
-      animation: borderGlow 3s linear infinite;
-      border-radius: 15px;
+      top: -20px;
+      left: -20px;
+      font-size: 2rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      transform: rotate(-45deg);
     }
 
-    @keyframes borderGlow {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
+    .card::after {
+      content: '🎲';
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      font-size: 2rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      transform: rotate(45deg);
+    }
+
+    .card:hover::before,
+    .card:hover::after {
+      opacity: 1;
+      transform: rotate(0deg);
     }
 
     .card:hover {
-      text-decoration: none;
-      color: inherit;
-      transform: translateY(-10px);
+      transform: translateY(-20px) rotateX(10deg) rotateY(5deg) scale(1.05);
+      box-shadow: 
+        0 15px 35px rgba(255, 51, 51, 0.2),
+        0 5px 15px rgba(0, 0, 0, 0.5);
+      border-color: rgba(255, 51, 51, 0.5);
+      animation: cardShake 0.5s ease-in-out;
+    }
+
+    @keyframes cardShake {
+      0%, 100% { transform: translateY(-20px) rotateX(10deg) rotateY(5deg) scale(1.05); }
+      25% { transform: translateY(-20px) rotateX(10deg) rotateY(-5deg) scale(1.05); }
+      50% { transform: translateY(-20px) rotateX(0deg) rotateY(5deg) scale(1.05); }
+      75% { transform: translateY(-20px) rotateX(10deg) rotateY(0deg) scale(1.05); }
     }
 
     .card-image-container {
       position: relative;
       width: 100%;
-      padding-top: 75%; /* 4:3 Aspect Ratio */
-      margin-bottom: 1rem;
+      padding-top: 75%;
+      margin-bottom: 1.5rem;
       overflow: hidden;
       border-radius: 10px;
+      border: 1px solid rgba(255, 51, 51, 0.2);
+      transform-style: preserve-3d;
     }
 
     .card img {
@@ -112,102 +174,115 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: grayscale(30%) contrast(120%);
-      transition: all 0.3s ease;
+      filter: grayscale(30%) contrast(110%) brightness(0.9);
+      transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     .card:hover img {
-      filter: grayscale(0%) contrast(100%);
+      filter: grayscale(0%) contrast(100%) brightness(1.1);
+      transform: scale(1.1) translateZ(20px) rotate(2deg);
     }
 
     .card h2 {
-      color: #ff0000;
-      font-size: clamp(1.25rem, 4vw, 1.75rem);
+      font-family: 'Press Start 2P', cursive;
+      color: #ffffff;
+      font-size: clamp(0.9rem, 4vw, 1.3rem);
       margin-bottom: 1rem;
       text-decoration: none;
+      text-shadow: 0 0 5px rgba(255, 51, 51, 0.2);
+      transition: all 0.3s ease;
+      transform-origin: left;
+    }
+
+    .card:hover h2 {
+      color: #ff3333;
+      transform: scale(1.1) translateX(10px);
     }
 
     .card p {
       color: #cccccc;
       line-height: 1.6;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       margin-bottom: 1rem;
+      transform: translateZ(10px);
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .card ul {
-      color: #cccccc;
-      list-style-position: inside;
-      margin-top: 1rem;
+    .card:hover p {
+      color: #ffffff;
+      transform: translateX(5px) translateZ(10px);
     }
 
-    .card li {
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
+    .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            backface-visibility: hidden;
+            /* background: rgba(197, 2, 2, 0.8); */
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgb(255, 0, 0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+
+    @keyframes buttonPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
     }
 
-    @media (max-width: 1200px) {
+
+
+    .game-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(20, 20, 20, 0.9);
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.6rem;
+      color: #ff3333;
+      text-transform: uppercase;
+      border: 1px solid rgba(255, 51, 51, 0.3);
+      transition: all 0.3s ease;
+      animation: tagBounce 2s infinite;
+    }
+
+    @keyframes tagBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1) rotate(5deg); }
+    }
+
+    .card:hover .game-tag {
+      background: rgba(255, 51, 51, 0.9);
+      color: white;
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    @media (max-width: 768px) {
       .content {
         padding: 1rem;
       }
 
-      h1 {
-        font-size: 3rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .cards {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-      }
-
-      h1 {
-        font-size: 2.5rem;
-      }
-
-      .card {
-        margin: 0 auto;
-        max-width: 400px;
-      }
-    }
-
-    @media (max-width: 480px) {
       h1 {
         font-size: 2rem;
       }
 
       .card {
-        padding: 1rem;
+        transform: none !important;
       }
 
-      .card h2 {
-        font-size: 1.5rem;
-      }
 
-      .card p {
-        font-size: 0.85rem;
-      }
-
-      .card ul {
-        font-size: 0.85rem;
-      }
-
-      .content {
-        padding: 1rem;
-      }
-      
-      .card-image-container {
-        padding-top: 66.67%; /* 3:2 aspect ratio */
-      }
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    .card img {
-      will-change: transform;
-      transform: translateZ(0);
     }
   </style>
 </head>
@@ -217,47 +292,48 @@
   <div class="content">
     <header>
       <h1>Fun Games</h1>
-      <p>Experience the Joy of Gaming at AIKYAM 2024</p>
+      <p>Experience the Joy of Gaming at AIKYAM 2025</p>
     </header>
 
     <div class="cards">
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog
-" target="_blank" class="card">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog" target="_blank" class="card">
+        <div class="game-tag">Adventure</div>
         <div class="card-image-container">
-          <img src="posters\Fun Games\TreasureHunt.png" alt="TreasureHunt">
+          <img src="posters/Fun Games/TreasureHunt.png" alt="TreasureHunt">
         </div>
         <h2>THE Treasure Hunt</h2>
         <p>A tech-infused treasure hunt where participants scan QR codes hidden around the campus to solve riddles!</p>
       </a>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog
-" target="_blank" class="card">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog" target="_blank" class="card">
+        <div class="game-tag">Chance</div>
         <div class="card-image-container">
-          <img src="posters\Fun Games\SpinTheWheel.png" alt="SpinTheWheel">
+          <img src="posters/Fun Games/SpinTheWheel.png" alt="SpinTheWheel">
         </div>
         <h2>Spin The Wheel</h2>
         <p>A wheel with fun dares, trivia, or small prizes. WIN A FREE COUPON, OR DRINK OR ANYTHING FROM XYZ BRAND.</p>
       </a>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog
-" target="_blank" class="card">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog" target="_blank" class="card">
+        <div class="game-tag">Challenge</div>
         <div class="card-image-container">
-          <img src="posters\Fun Games\BlindfoldCatch.png" alt="Blindfold Catch">
+          <img src="posters/Fun Games/BlindfoldCatch.png" alt="Blindfold Catch">
         </div>
         <h2>BLINDFOLD CATCH</h2>
-        <p>ONE PARTICIPANT THROWS GOODIES (WE HAVE GOOD SPONSORERS) AND THE OTHER HAS TO CATCH IT BLINDFOLDED.</p>
+        <p>One participant tosses the goodies (thanks to our generous sponsors), while the other attempts to catch them while blindfolded.</p>
       </a>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog
-" target="_blank" class="card">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSc6jURHsebnyGPWri8xfK1VKPDyJE_XL-tkQqUPIWuMGNy7tw/viewform?usp=dialog" target="_blank" class="card">
+        <div class="game-tag">Dare</div>
         <div class="card-image-container">
-          <img src="posters\Fun Games\FlipItOrDrinkIt.png" alt="Flip It or Drink It">
+          <img src="posters/Fun Games/FlipItOrDrinkIt.png" alt="Flip It or Drink It">
         </div>
         <h2>FLIP IT OR DRINK IT</h2>
         <p>A TWIST ON BOTTLE FLIPPING! Players flip a bottle and if it lands correctly, they win a point. If they fail, they have to drink a random (but safe) weird mix of drinks (e.g., COLA + LEMON + CHILI POWDER).</p>
       </a>
     </div>
   </div>
+  <a href="index.html" class="back-button">Home</a>
 
   <script>
     const canvas = document.getElementById('bgCanvas');
@@ -270,7 +346,6 @@
       height = canvas.height = window.innerHeight;
     });
 
-    // Class to animate dotted map trails (secret clues)
     class MapPath {
       constructor() {
         this.startX = Math.random() * width;
@@ -290,7 +365,7 @@
       draw() {
         if (this.opacity <= 0) return;
         ctx.save();
-        ctx.strokeStyle = `rgba(255, 0, 0, ${this.opacity})`;
+        ctx.strokeStyle = `rgba(255, 51, 51, ${this.opacity * 0.7})`;
         ctx.lineWidth = 2;
         ctx.setLineDash([5, 5]);
         ctx.beginPath();
@@ -301,17 +376,15 @@
       }
     }
 
-    // Class to animate a treasure chest that appears and "opens"
     class TreasureChest {
       constructor() {
         this.x = Math.random() * (width - 100) + 50;
         this.y = Math.random() * (height - 100) + 50;
         this.size = 40;
         this.opacity = 1;
-        this.openProgress = 0; // 0: closed, 1: fully open
+        this.openProgress = 0;
       }
       update() {
-        // Gradually "open" the chest and fade out
         if (this.openProgress < 1) {
           this.openProgress += 0.01;
         }
@@ -322,17 +395,15 @@
         ctx.save();
         ctx.translate(this.x, this.y);
         ctx.globalAlpha = this.opacity;
-        // Draw base of chest
-        ctx.fillStyle = "#8B0000"; // dark red
+        ctx.fillStyle = "#8B0000";
         ctx.fillRect(-this.size/2, 0, this.size, this.size/2);
         ctx.strokeStyle = "#ff6b6b";
         ctx.lineWidth = 2;
         ctx.strokeRect(-this.size/2, 0, this.size, this.size/2);
-        // Draw lid with rotation based on openProgress
         ctx.save();
         ctx.translate(0, 0);
         ctx.rotate(-Math.PI/4 * this.openProgress);
-        ctx.fillStyle = "#A52A2A"; // slightly lighter for the lid
+        ctx.fillStyle = "#A52A2A";
         ctx.fillRect(-this.size/2, -this.size/4, this.size, this.size/4);
         ctx.strokeRect(-this.size/2, -this.size/4, this.size, this.size/4);
         ctx.restore();
@@ -340,7 +411,6 @@
       }
     }
 
-    // Class for a rotating compass in the top-right corner
     class Compass {
       constructor() {
         this.x = width - 80;
@@ -354,18 +424,16 @@
       draw() {
         ctx.save();
         ctx.translate(this.x, this.y);
-        // Draw compass circle
         ctx.beginPath();
         ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = "#ff0000";
+        ctx.strokeStyle = "rgba(255, 51, 51, 0.7)";
         ctx.lineWidth = 3;
         ctx.stroke();
-        // Draw compass needle
         ctx.rotate(this.angle);
         ctx.beginPath();
         ctx.moveTo(0, 0);
         ctx.lineTo(0, -this.radius + 10);
-        ctx.strokeStyle = "#ff6b6b";
+        ctx.strokeStyle = "rgba(255, 51, 51, 0.9)";
         ctx.lineWidth = 4;
         ctx.stroke();
         ctx.restore();
@@ -377,29 +445,24 @@
     const compass = new Compass();
 
     function animate() {
-      // Create a fading effect
       ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
       ctx.fillRect(0, 0, width, height);
 
-      // Randomly add new map paths and treasure chests
       if (Math.random() < 0.03) mapPaths.push(new MapPath());
       if (Math.random() < 0.008) chests.push(new TreasureChest());
 
-      // Update and draw map trails
       mapPaths.forEach(path => {
         path.update();
         path.draw();
       });
       mapPaths = mapPaths.filter(path => path.opacity > 0);
 
-      // Update and draw treasure chests
       chests.forEach(chest => {
         chest.update();
         chest.draw();
       });
       chests = chests.filter(chest => chest.opacity > 0);
 
-      // Update and draw the compass
       compass.update();
       compass.draw();
 

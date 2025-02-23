@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIML FEST 2024 - Esports Tournament</title>
+    <title>AIML FEST 2025 - Esports Tournament</title>
     <style>
         * {
             margin: 0;
@@ -380,7 +380,8 @@
             bottom: 20px;
             right: 20px;
             padding: 10px 20px;
-            background: rgba(255, 0, 0, 0.8);
+            backface-visibility: hidden;
+            /* background: rgba(197, 2, 2, 0.8); */
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -390,7 +391,7 @@
         }
 
         .back-button:hover {
-            background: rgba(255, 0, 0, 1);
+            background: rgb(255, 0, 0);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
@@ -400,7 +401,7 @@
     <canvas id="animationCanvas"></canvas>
     <div class="content">
         <header>
-            <h1>AIML FEST 2024</h1>
+            <h1>AIML FEST 2025</h1>
             <div class="subtitle">Where AI Meets Competitive Gaming</div>
         </header>
 
@@ -424,7 +425,7 @@
             </a>
         </div>
     </div>
-    <a href="index.html" class="back-button">Back to Index</a>
+    <a href="index.html" class="back-button">Home</a>
     <script>
         const canvas = document.getElementById('animationCanvas');
         const ctx = canvas.getContext('2d');

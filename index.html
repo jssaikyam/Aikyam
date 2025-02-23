@@ -54,6 +54,65 @@
       border-bottom: 1px solid rgba(255, 0, 0, 0.1);
     }
 
+    /* Mobile Menu Styles */
+    #nav-menu {
+        transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    #nav-menu.mobile-open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.95); /* Semi-transparent black */
+        padding: 1rem;
+        gap: 1rem;
+        transform: translateY(0);
+        opacity: 1;
+        border-bottom: 2px solid #cec8c8; /* Red border */
+    }
+
+    #nav-menu.mobile-closed {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    /* Navigation Links in Mobile Menu */
+    #nav-menu.mobile-open a {
+        color: white;
+        padding: 0.5rem 1rem;
+        text-align: center;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #nav-menu.mobile-open a:hover {
+        color: #e3d7d7; /* Red hover */
+        background-color: rgba(255, 0, 0, 0.1); /* Light red background on hover */
+    }
+
+/* Hide the mobile menu by default on larger screens */
+@media (min-width: 768px) {
+    #nav-menu.mobile-open, #nav-menu.mobile-closed {
+        transform: translateY(0);
+        opacity: 1;
+        display: flex;
+        position: static;
+        background-color: transparent;
+        flex-direction: row;
+        border-bottom: none;
+    }
+
+    #nav-menu.mobile-open a {
+        padding: 0;
+        background-color: transparent;
+    }
+
+    #nav-menu.mobile-open a:hover {
+        background-color: transparent;
+    }
+}
     .nav a {
       position: relative;
       color: #fff;
@@ -71,7 +130,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, #ff0000, #ff6b6b);
+      background: linear-gradient(90deg, #d10e0e, #ff6b6b);
       transition: width 0.3s ease;
       border-radius: 2px;
     }
@@ -316,25 +375,36 @@
     .learn-more-btn:hover::before {
       left: 100%;
     }
+
   </style>
 </head>
 <body>
   <div id="particles-js"></div>
 
-  <header class="header fixed w-full top-0 z-50 px-4 py-2">
+  <header class="header fixed w-full top-0 z-50 px-4 py-2 bg-black border-b ">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <div class="logo">
-        <img src="posters/Logo/Aikyam.png" alt="AIKYAM Logo" class="h-16">
-      </div>
-      <nav class="nav hidden md:flex space-x-8">
-        <a href="#about">About Us</a>
-        <a href="#events-section">Events</a>
-        <a href="#sponsors">Sponsors</a>
-        <a href="cc.html">Know Us</a>
-        <a href="Brochure.html">Brochure</a>
-      </nav>
+        <!-- Logo -->
+        <div class="logo">
+            <img src="posters/Logo/Aikyam.png" alt="AIKYAM Logo" class="h-16">
+        </div>
+
+        <!-- Hamburger Icon for Mobile -->
+        <button id="hamburger" class="md:hidden text-red-600 hover:text-red-500 focus:outline-none">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+
+        <!-- Navigation Menu -->
+        <nav id="nav-menu" class="nav hidden md:flex space-x-8">
+            <a href="#about" class="text-white hover:text-red-600 transition-colors duration-300">About Us</a>
+            <a href="#events-section" class="text-white hover:text-red-600 transition-colors duration-300">Events</a>
+            <a href="#sponsors" class="text-white hover:text-red-600 transition-colors duration-300">Sponsors</a>
+            <a href="cc.html" class="text-white hover:text-red-600 transition-colors duration-300">Know Us</a>
+            <a href="Brochure.html" class="text-white hover:text-red-600 transition-colors duration-300">Brochure</a>
+        </nav>
     </div>
-  </header>
+</header>
 
   <main class="pt-24">
     <section class="hero min-h-screen flex items-center justify-center text-center px-4">
@@ -361,8 +431,6 @@
       </div>
     </section>
 
-
-
     <!-- Events Section -->
     <div id="events-section" class="px-4 sm:px-10">
       <div class="mt-32 max-w-7xl mx-auto">
@@ -381,7 +449,7 @@
               <img src="posters/Hackathon.png" alt="JSS Navotthana" class="w-full h-96 object-contain">
             </a>
             <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold mb-2">JSS NAVOTTHANA</h3>
+              <h3 class="text-xl font-bold mb-2" style="text-align: center;" >JSS NAVOTTHANA</h3>
               <p class="text-gray-400">
                 Step into the future of innovation at JSS Navotthana, a 24-hour AI Hackathon designed to push the boundaries of creativity and problem-solving.
               </p>
@@ -401,7 +469,7 @@
               <img src="posters/Sports.png" alt="Sports🏏" class="w-full h-96 object-contain">
             </a>
             <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold mb-2">Sports🏏</h3>
+              <h3 class="text-xl font-bold mb-2 "style="text-align: center;">Sports🏏</h3>
               <p class="text-gray-400">
                 Get ready for a fast-paced cricket showdown with tennis balls and smaller teams! Showcase your batting, bowling, and fielding skills.
               </p>
@@ -415,7 +483,7 @@
               <img src="posters/ESports.png" alt="Carrom Tournament" class="w-full h-96 object-contain">
             </a>
             <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold mb-2">Esports</h3>
+              <h3 class="text-xl font-bold mb-2" style="text-align: center;">Esports</h3>
               <p class="text-gray-400">
                 Test your precision and strategy in an exciting Carrom Tournament! An engaging indoor board game that challenges players to flick discs into pockets.
               </p>
@@ -429,7 +497,7 @@
               <img src="posters/FunGames.png" alt="Treasure Hunt" class="w-full h-96 object-contain">
             </a>
             <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold mb-2">Fun Games 🔍</h3>
+              <h3 class="text-xl font-bold mb-2" style="text-align: center;" >Fun Games 🔍</h3>
               <p class="text-gray-400">
                 Embark on an exciting adventure where teams race against time to solve clues and uncover hidden treasures!
               </p>
@@ -449,7 +517,7 @@
               <img src="posters/Cultural Event.png" alt="Cultural Events" class="w-full h-96 object-contain">
             </a>
             <div class="p-6 flex-grow">
-              <h3 class="text-xl font-bold mb-2">Cultural Events</h3>
+              <h3 class="text-xl font-bold mb-2" style="text-align: center;" >Cultural Events</h3>
               <p class="text-gray-400">
                 Get ready for a talent explosion! From soulful melodies to electrifying rap, dance, and instrumental magic.
               </p>
@@ -489,17 +557,45 @@
   </div>
 </section>
 
-      <footer class="footer py-4 px-2">
-        <div class="max-w-5xl mx-auto text-center">
-          <div class="social-icons mb-2">
-            <a href="https://www.instagram.com/aikyam_jss" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="mailto:aiml.aikyam@gmail.com"><i class="fas fa-envelope"></i></a>
-          </div>
-          <p class="text-gray-400 text-xs">&copy; 2025 AIKYAM. All rights reserved.</p>
-        </div>
-      </footer>
+<footer class="footer py-4 px-2">
+  <div class="max-w-5xl mx-auto text-center">
+    <div class="social-icons mb-2">
+      <a href="https://www.instagram.com/aikyam_jss" target="_blank">
+        <i class="fab fa-instagram icon-instagram"></i>
+      </a>
+      <a href="mailto:aiml.aikyam@gmail.com">
+        <i class="fas fa-envelope icon-envelope"></i>
+      </a>
+    </div>
+    <p class="text-gray-400 text-xs">&copy; 2025 AIKYAM. All rights reserved.</p>
+  </div>
+</footer>
 
   <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', function () {
+            if (navMenu.classList.contains('mobile-open')) {
+                navMenu.classList.remove('mobile-open');
+                navMenu.classList.add('mobile-closed');
+            } else {
+                navMenu.classList.remove('mobile-closed');
+                navMenu.classList.add('mobile-open');
+            }
+        });
+
+        // Close the menu when a link is clicked (optional)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('mobile-open');
+                navMenu.classList.add('mobile-closed');
+            });
+        });
+    });
+</script>
   <script>
     particlesJS('particles-js', {
       particles: {
@@ -512,7 +608,7 @@
           animation: { enable: true, speed: 1, minimumValue: 0.1, sync: false }
         },
         size: {
-          value: 3,
+          value: 6,
           random: true,
           animation: { enable: true, speed: 2, minimumValue: 0.1, sync: false }
         },
@@ -520,8 +616,8 @@
           enable: true,
           distance: 150,
           color: '#ff0000',
-          opacity: 0.4,
-          width: 1
+          opacity: 0.6,
+          width: 1.5
         },
         move: {
           enable: true,
@@ -565,7 +661,7 @@
       const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
       document.getElementById("countdown").innerHTML = 
-        `${days}D : ${hours}H : ${minutes}M : ${seconds}S`;
+        `${days} D : ${hours} H : ${minutes} M : ${seconds} S`;
     }
 
     setInterval(updateCountdown, 1000);

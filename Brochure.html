@@ -167,24 +167,25 @@
     }
 
     .back-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 10px 20px;
-      background: rgba(255, 0, 0, 0.8);
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-weight: bold;
-      z-index: 1000;
-      transition: all 0.3s ease;
-    }
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            backface-visibility: hidden;
+            /* background: rgba(197, 2, 2, 0.8); */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
 
-    .back-button:hover {
-      background: rgba(255, 0, 0, 1);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-    }
+        .back-button:hover {
+            background: rgb(255, 0, 0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
   </style>
 </head>
 <body>
@@ -199,6 +200,6 @@
       </div>
     </div>
   </div>
-  <a href="index.html" class="back-button">Back to Index</a>
+  <a href="index.html" class="back-button">Home</a>
 </body>
 </html>

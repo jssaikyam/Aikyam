@@ -43,7 +43,7 @@
 
         h1 {
             text-align: center;
-            color: #ff6b00;
+            color: #ff2f00;
             font-size: 2.5rem;
             margin-bottom: 3rem;
             position: relative;
@@ -59,8 +59,8 @@
             transform: translateX(-50%);
             width: 100px;
             height: 3px;
-            background: #ff6b00;
-            box-shadow: 0 0 10px #ff6b00;
+            background: #ff1900;
+            box-shadow: 0 0 10px #ff3c00;
         }
 
         .core-head {
@@ -88,7 +88,7 @@
         .section:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(255, 107, 0, 0.2);
-            border-color: #ff6b00;
+            border-color: #ff2200;
         }
 
         .section-header {
@@ -96,11 +96,11 @@
             align-items: center;
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid #ff6b00;
+            border-bottom: 2px solid #ff0000;
         }
 
         .section-title {
-            color: #ff6b00;
+            color: #ff1500;
             font-size: clamp(1.5rem, 4vw, 2rem);
             margin-left: 1rem;
             text-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
@@ -139,7 +139,7 @@
             width: clamp(80px, 20vw, 120px);
             height: clamp(80px, 20vw, 120px);
             border-radius: 50%;
-            border: 2px solid #ff6b00;
+            border: 2px solid #ff3300;
             object-fit: cover;
             box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
             transition: transform 0.3s ease;
@@ -170,7 +170,7 @@
 
         .role-tag {
             background: rgba(255, 107, 0, 0.2);
-            color: #ff6b00;
+            color: #ff0400;
             font-size: 0.75rem;
             padding: 2px 8px;
             border-radius: 12px;
@@ -180,7 +180,7 @@
 
         .role-tag:hover {
             background: rgba(255, 107, 0, 0.3);
-            border-color: #ff6b00;
+            border-color: #ff2600;
             transform: translateY(-2px);
         }
 
@@ -214,7 +214,7 @@
 
         .icon {
             font-size: 1.5rem;
-            color: #ff6b00;
+            color: #ff3300;
             text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
         }
 
@@ -223,7 +223,8 @@
             bottom: 20px;
             right: 20px;
             padding: 10px 20px;
-            background: rgba(255, 0, 0, 0.8);
+            backface-visibility: hidden;
+            /* background: rgba(197, 2, 2, 0.8); */
             color: white;
             text-decoration: none;
             border-radius: 5px;
@@ -233,7 +234,7 @@
         }
 
         .back-button:hover {
-            background: rgba(255, 0, 0, 1);
+            background: rgb(255, 0, 0);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
@@ -271,6 +272,12 @@
                 primaryRole: { department: 'Sports', position: 'Co-Head' },
                 otherRoles: []
             },
+            'Vaibhav': {
+                image: "posters/Team/Vaibhav.jpg",
+                email: 'https://www.instagram.com/vaibhav.0743_?igsh=azhjMGoxeWc3MnN4',
+                primaryRole: { department: 'esports', position: 'Head' },
+                otherRoles: [{ department: 'Design', position: 'Co-Head' }]
+            },
             'U Jayanth': {
                 image: "posters/Team/Jayanth.jpg",
                 email: 'https://www.instagram.com/j.a.y.a.n.t.h._007?igsh=MW02M3B3NjR4am5xcg==',
@@ -283,17 +290,17 @@
                 primaryRole: { department: 'Hospitality', position: 'Co-Head' },
                 otherRoles: [{ department: 'Accounts', position: 'Co-Head' }]
             },
-            'Vaibhav': {
-                image: "posters/Team/Vaibhav.jpg",
-                email: 'https://www.instagram.com/vaibhav.0743_?igsh=azhjMGoxeWc3MnN4',
-                primaryRole: { department: 'esports', position: 'Head' },
-                otherRoles: [{ department: 'Design', position: 'Co-Head' }]
+            'Hitesh N P': {
+                image: "posters/Team/Hitesh.jpg",
+                email: 'https://www.instagram.com/hitesh._.np?igsh=Yzgya3VuOWc0NGJm',
+                primaryRole: { department: 'Sports', position: 'Co-Head' },
+                otherRoles: []
             },
             'Vallabha': {
                 image: "posters/Team/Vallabha.jpg",
                 email: 'https://www.instagram.com/vallabha_sharma?igsh=MXJtMTkxZHo3dWxvbg==',
-                primaryRole: { department: 'Anchoring', position: 'Co-Head' },
-                otherRoles: [{ department: 'Accounts', position: 'Co-Head' }]
+                primaryRole: { department: 'Accounts', position: 'Head' },
+                otherRoles: [{ department: 'Hospitality', position: 'Co-Head' }]
             },
             'Danish Akhtar': {
                 image: "posters/Team/Danish.jpg",
@@ -355,7 +362,7 @@
             { id: 'core', title: 'Core Committee Head', icon: '👑', isCore: true },
             { id: 'accounts', title: 'Accounts', icon: '💰' },
             { id: 'hospitality', title: 'Hospitality', icon: '🏨' },
-            { id: 'anchoring', title: 'Anchoring', icon: '🎤' },
+            // { id: 'anchoring', title: 'Anchoring', icon: '🎤' },
             { id: 'hackathon', title: 'Hackathon', icon: '💻' },
             { id: 'design', title: 'Design', icon: '🎨' },
             { id: 'marketing', title: 'Marketing', icon: '📢' },
@@ -445,6 +452,6 @@
         document.addEventListener('DOMContentLoaded', initializeSections);
     </script>
 
-    <a href="index.html" class="back-button">Back to Index</a>
+    <a href="index.html" class="back-button">Home</a>
 </body>
 </html>
