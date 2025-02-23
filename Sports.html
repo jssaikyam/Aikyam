@@ -37,6 +37,7 @@
             text-transform: uppercase;
             margin-bottom: 1rem;
             text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            animation: sportsTitleAnimation 2s ease-in-out infinite;
         }
 
         .poster-grid {
@@ -88,12 +89,17 @@
             color: #ff0000;
             margin-bottom: 0.5rem;
             font-weight: bold;
+            animation: slideInRight 0.8s ease forwards;
+            opacity: 0;
         }
 
         .poster-description {
             color: #ccc;
             font-size: 0.9rem;
             line-height: 1.4;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.3s;
+            opacity: 0;
         }
 
         .poster-details {
@@ -123,6 +129,62 @@
             .poster {
                 min-height: 250px;
             }
+        }
+
+        @keyframes sportsTitleAnimation {
+            0% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.9),
+                             0 0 30px rgba(255, 0, 0, 0.7);
+            }
+            100% {
+                transform: scale(1);
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 0, 0, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -164,6 +226,8 @@
             </a>
         </div>
     </div>
+
+    <a href="index.html" class="back-button">Back to Index</a>
 
     <script>
         const canvas = document.getElementById('canvas');

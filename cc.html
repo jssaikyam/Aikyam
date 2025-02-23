@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AIKYAM Core Committee</title>
     <style>
+        
         * {
             margin: 0;
             padding: 0;
@@ -216,6 +217,26 @@
             color: #ff6b00;
             text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
         }
+
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 0, 0, 1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -423,5 +444,7 @@
         // Initialize the page
         document.addEventListener('DOMContentLoaded', initializeSections);
     </script>
+
+    <a href="index.html" class="back-button">Back to Index</a>
 </body>
 </html>

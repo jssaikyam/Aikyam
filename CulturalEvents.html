@@ -60,18 +60,65 @@
       background: linear-gradient(45deg, #ff0000, #ff6347, #ff1493); /* Neon Red, Neon Orange, and Neon Pink */
       -webkit-background-clip: text;
       color: transparent;
+      animation: culturalTitleAnimation 3s ease-in-out infinite;
     }
     .event-text p {
       font-size: clamp(1rem, 2.5vw, 1.2em);
       line-height: 1.4;
       max-width: min(800px, 90%);
       margin: 0 auto;
+      animation: wavyText 2s ease-in-out infinite;
     }
 
     @media (max-width: 768px) {
       .content {
         padding: 1rem;
       }
+    }
+
+    @keyframes culturalTitleAnimation {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+      25% {
+        transform: scale(1.1) rotate(-2deg);
+      }
+      75% {
+        transform: scale(1.1) rotate(2deg);
+      }
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes wavyText {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* Add this CSS in the <style> section */
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 0, 0, 0.8);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 0, 0, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
     }
   </style>
 </head>
@@ -90,6 +137,8 @@
       </p>
     </div>
   </div>
+
+  <a href="index.html" class="back-button">Back to Index</a>
 
   <script>
     // Set up canvas and context for dynamic background

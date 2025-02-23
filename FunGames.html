@@ -48,6 +48,8 @@
       text-transform: uppercase;
       margin-bottom: 1rem;
       text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      animation: bounceIn 1s ease forwards,
+                glowPulse 2s ease-in-out infinite;
     }
 
     .cards {
@@ -67,9 +69,6 @@
       width: 100%;
       max-width: 400px;
       margin: 0 auto;
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
     }
 
     .card::before {
@@ -91,8 +90,6 @@
     }
 
     .card:hover {
-      text-decoration: none;
-      color: inherit;
       transform: translateY(-10px);
     }
 
@@ -124,7 +121,8 @@
       color: #ff0000;
       font-size: clamp(1.25rem, 4vw, 1.75rem);
       margin-bottom: 1rem;
-      text-decoration: none;
+      animation: popIn 0.5s ease forwards;
+      opacity: 0;
     }
 
     .card p {
@@ -132,6 +130,8 @@
       line-height: 1.6;
       font-size: 0.9rem;
       margin-bottom: 1rem;
+      animation: slideUp 0.8s ease forwards;
+      opacity: 0;
     }
 
     .card ul {
@@ -209,6 +209,67 @@
       will-change: transform;
       transform: translateZ(0);
     }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 0.9;
+        transform: scale(1.1);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(0.89);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background: rgba(255, 0, 0, 0.8);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background: rgba(255, 0, 0, 1);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+    }
   </style>
 </head>
 <body>
@@ -221,39 +282,41 @@
     </header>
 
     <div class="cards">
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkodnhsFCNQiag2UlNxoNO5mxEcoPbEmCcT9AUNUQI9Gltvw/viewform?usp=dialog" target="_blank" class="card">
+      <div class="card">
         <div class="card-image-container">
           <img src="posters\Fun Games\TreasureHunt.png" alt="TreasureHunt">
         </div>
         <h2>THE Treasure Hunt</h2>
         <p>A tech-infused treasure hunt where participants scan QR codes hidden around the campus to solve riddles!</p>
-      </a>
+      </div>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkodnhsFCNQiag2UlNxoNO5mxEcoPbEmCcT9AUNUQI9Gltvw/viewform?usp=dialog" target="_blank" class="card">
+      <div class="card">
         <div class="card-image-container">
           <img src="posters\Fun Games\SpinTheWheel.png" alt="SpinTheWheel">
         </div>
         <h2>Spin The Wheel</h2>
         <p>A wheel with fun dares, trivia, or small prizes. WIN A FREE COUPON, OR DRINK OR ANYTHING FROM XYZ BRAND.</p>
-      </a>
+      </div>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkodnhsFCNQiag2UlNxoNO5mxEcoPbEmCcT9AUNUQI9Gltvw/viewform?usp=dialog" target="_blank" class="card">
+      <div class="card">
         <div class="card-image-container">
           <img src="posters\Fun Games\BlindfoldCatch.png" alt="Blindfold Catch">
         </div>
         <h2>BLINDFOLD CATCH</h2>
         <p>ONE PARTICIPANT THROWS GOODIES (WE HAVE GOOD SPONSORERS) AND THE OTHER HAS TO CATCH IT BLINDFOLDED.</p>
-      </a>
+      </div>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkodnhsFCNQiag2UlNxoNO5mxEcoPbEmCcT9AUNUQI9Gltvw/viewform?usp=dialog" target="_blank" class="card">
+      <div class="card">
         <div class="card-image-container">
           <img src="posters\Fun Games\FlipItOrDrinkIt.png" alt="Flip It or Drink It">
         </div>
         <h2>FLIP IT OR DRINK IT</h2>
         <p>A TWIST ON BOTTLE FLIPPING! Players flip a bottle and if it lands correctly, they win a point. If they fail, they have to drink a random (but safe) weird mix of drinks (e.g., COLA + LEMON + CHILI POWDER).</p>
-      </a>
+      </div>
     </div>
   </div>
+
+  <a href="index.html" class="back-button">Back to Index</a>
 
   <script>
     const canvas = document.getElementById('bgCanvas');
