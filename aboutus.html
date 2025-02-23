@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>About Us</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: system-ui, sans-serif;
+        color: rgba(255, 255, 255, 0.9);
+        background-color: #1e1d1d;
+        overflow-x: hidden;
+      }
+
+      main {
+        padding: 1rem;
+        position: relative;
+      }
+
+      .animated-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #000000, #0a0000, #120000, #0a0000);
+        z-index: -2;
+        animation: gradientBG 20s ease infinite;
+        background-size: 400% 400%;
+      }
+
+      .animated-bg::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 20% 30%, rgba(255, 0, 0, 0.02) 0%, transparent 20%),
+          radial-gradient(circle at 80% 70%, rgba(255, 0, 0, 0.02) 0%, transparent 30%),
+          radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.01) 0%, transparent 70%);
+        z-index: -1;
+        animation: pulseGlow 8s ease-in-out infinite;
+      }
+
+      @keyframes pulseGlow {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 1; }
+      }
+
+      .floating-elements {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .floating-element {
+        position: absolute;
+        opacity: 0.05;
+        font-size: 2rem;
+        animation: float 25s linear infinite;
+      }
+
+      .floating-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+      .floating-element:nth-child(2) { top: 30%; left: 80%; animation-delay: -6s; }
+      .floating-element:nth-child(3) { top: 70%; left: 20%; animation-delay: -12s; }
+      .floating-element:nth-child(4) { top: 50%; left: 60%; animation-delay: -18s; }
+
+      @keyframes float {
+        0% {
+          transform: translate(0, 0) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.05;
+        }
+        90% {
+          opacity: 0.05;
+        }
+        100% {
+          transform: translate(150px, -150px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .about-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        position: relative;
+      }
+
+      .about-section, .fest-section {
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      h1 {
+        font-weight: bold;
+        font-size: 2.5rem;
+        color: rgba(220, 20, 20, 0.8);
+        text-align: center;
+        margin-bottom: 2rem;
+        text-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+        animation: fadeIn 2s ease forwards;
+      }
+
+      h2 {
+        font-size: 2rem;
+        color: rgba(200, 20, 20, 0.8);
+        margin-bottom: 1.5rem;
+        text-shadow: 0 0 12px rgba(255, 0, 0, 0.2);
+        animation: fadeIn 2s ease forwards;
+      }
+
+      .content-box {
+        background-color: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(200, 12, 12, 0.3);
+        border-radius: 10px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.4s ease;
+        animation: fadeIn 2s ease forwards;
+      }
+
+      .content-box:hover {
+        transform: translateY(-2px);
+        background-color: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(200, 12, 12, 0.4);
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+      }
+
+      p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+        animation: fadeIn 2s ease forwards;
+      }
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      ul li {
+        margin-bottom: 0.5rem;
+        padding-left: 1.5rem;
+        position: relative;
+        color: rgba(255, 255, 255, 0.8);
+        animation: fadeIn 2s ease forwards;
+      }
+
+      ul li::before {
+        content: "•";
+        color: rgba(188, 13, 13, 0.6);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .about-container {
+          padding: 1rem;
+        }
+        
+        h1 {
+          font-size: 2rem;
+        }
+        
+        h2 {
+          font-size: 1.5rem;
+        }
+        
+        .content-box {
+          padding: 1rem;
+        }
+      }
+      .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            backface-visibility: hidden;
+            /* background: rgba(197, 2, 2, 0.8); */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgb(255, 0, 0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+    </style>
+  </head>
+  <body>
+    <main class="about-container">
+      <div class="animated-bg"></div>
+      <div class="floating-elements">
+        <div class="floating-element">🎓</div>
+        <div class="floating-element">💻</div>
+        <div class="floating-element">📚</div>
+        <div class="floating-element">🔬</div>
+      </div>
+      <section class="about-section">
+        <h1 style="text-align: center;">About Our College</h1>
+        <div class="content-box">
+          <p>JSS Academy of Technical Education (JSSATE) in Bengaluru, established in 1997 under the JSS Mahavidyapeetha umbrella, offers eight undergraduate and two postgraduate engineering programs, along with MBA and MCA courses. It is affiliated with Visvesvaraya Technological University (VTU) and has over 3000 students, including more than 120 research candidates. The campus spans 21.17 acres and features state-of-the-art facilities, Wi-Fi, and a well-equipped digital library. JSSATE is committed to excellence in teaching, research, and ethical standards, and was awarded an A+ grade by NAAC in 2022.</p>
+                    
+        </div>
+      </section>
+
+      <section class="fest-section">
+        <h2 style="text-align: center;">AIKYAM-2025</h2>
+        <div class="content-box">
+          <p>The AIML Department of JSS Academy of Technical Education, Bangalore (JSSATEB), is thrilled to announce its first-ever department fest, AIKYAM-2025, a groundbreaking celebration of innovation, technology, and creativity. This landmark event marks a significant milestone for the department, showcasing the immense potential of Artificial Intelligence and Machine Learning through a diverse array of activities. The fest will feature the JSS Navotthana Hackathon, where students will collaborate to solve real-world problems using cutting-edge AI solutions, an AI Exhibition to display groundbreaking projects and research, and sports events to foster teamwork and camaraderie. AIKYAM-2025 is not just a fest but a platform to inspire, innovate, and ignite the spirit of technological advancement, setting a new benchmark for future celebrations in the department.</p>
+          
+          <p>Join us this spring for an unforgettable celebration of technology and creativity!</p>
+        </div>
+      </section>
+    </main>
+    <a href="index.html" class="back-button">Home</a>
+
+  </body>
+</html>

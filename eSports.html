@@ -51,7 +51,7 @@
             width: 100px;
             height: 3px;
             background: linear-gradient(90deg, transparent, #ff0000, transparent);
-            animation: scanline 2s linear infinite;
+            animation: tagBounce 2s linear infinite;
         }
 
         @keyframes scanline {
@@ -76,7 +76,9 @@
             -webkit-text-fill-color: transparent;
             position: relative;
             margin-bottom: 1rem;
-            animation: glowPulse 2s ease-in-out infinite;
+            opacity: 0;
+            animation: titleFadeIn 1s ease forwards,
+                       glowPulse 2s ease-in-out infinite;
         }
 
         .subtitle {
@@ -84,8 +86,9 @@
             color: #cccccc;
             margin-bottom: 3rem;
             position: relative;
-            animation: fadeInUp 1s ease forwards;
             opacity: 0;
+            animation: subtitleSlideUp 1s ease forwards;
+            animation-delay: 0.5s;
         }
 
         .cards {
@@ -120,7 +123,7 @@
             bottom: -2px;
             background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
             z-index: -1;
-            animation: borderGlow 3s linear infinite;
+            animation: tagBounce 3s linear infinite;
             border-radius: 15px;
         }
 
@@ -395,13 +398,35 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
+
+        @keyframes titleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subtitleSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
     <canvas id="animationCanvas"></canvas>
     <div class="content">
         <header>
-            <h1>AIML FEST 2025</h1>
+            <h1> eSports </h1>
             <div class="subtitle">Where AI Meets Competitive Gaming</div>
         </header>
 

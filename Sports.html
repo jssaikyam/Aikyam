@@ -36,8 +36,17 @@
             color: #ff0000;
             text-transform: uppercase;
             margin-bottom: 1rem;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-            animation: sportsTitleAnimation 2s ease-in-out infinite;
+            opacity: 0;
+            animation: titleFadeIn 1s ease forwards,
+                       glowPulse 2s ease-in-out infinite;
+        }
+
+        header p {  /* This targets the subtitle */
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: #cccccc;
+            opacity: 0;
+            animation: subtitleSlideUp 1s ease forwards;
+            animation-delay: 0.5s;
         }
 
         .poster-grid {
@@ -131,18 +140,37 @@
             }
         }
 
-        @keyframes sportsTitleAnimation {
+        @keyframes titleFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subtitleSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowPulse {
             0% {
-                transform: scale(1);
                 text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
             }
             50% {
-                transform: scale(1.05);
                 text-shadow: 0 0 20px rgba(255, 0, 0, 0.9),
                              0 0 30px rgba(255, 0, 0, 0.7);
             }
             100% {
-                transform: scale(1);
                 text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
             }
         }
@@ -193,7 +221,7 @@
     <canvas id="canvas"></canvas>
     <div class="container">
         <header>
-            <h1>AI Sports Fest</h1>
+            <h1> Sports </h1>
             <p>Where Artificial Intelligence meets Athletic Excellence</p>
         </header>
         <div class="poster-grid">

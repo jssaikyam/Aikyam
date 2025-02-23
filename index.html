@@ -52,6 +52,27 @@
       background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .header.hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      z-index: 100;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    .header.hidden + .nav-toggle {
+      display: block;
     }
 
     /* Mobile Menu Styles */
@@ -376,6 +397,45 @@
       left: 100%;
     }
 
+    /* Update section padding to prevent text wrapping */
+    .snap-section {
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem 2rem 2rem; /* Increased top padding */
+    }
+
+    .event-section {
+      scroll-snap-align: start;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* Adjust content containers to prevent wrapping */
+    .hero-content, 
+    .about-content,
+    .event-content {
+      max-width: 90%;
+      margin: 0 auto;
+    }
+
+    .text-container {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Adjust grid layouts */
+    .grid {
+      grid-auto-rows: min-content;
+    }
+
   </style>
 </head>
 <body>
@@ -427,6 +487,7 @@
             JSS Academy of Technical Education, Bangalore (JSSATEB) is a distinguished institution 
             committed to delivering high-quality technical education.
           </p>
+          <a href="aboutus.html" class="learn-more-btn mt-6 inline-block text-red-500 hover:text-red-600">Learn More →</a>
         </div>
       </div>
     </section>
@@ -544,7 +605,7 @@
     <div class="rounded-2xl shadow-md p-6 text-center">
       <img src="posters/Faculty/Hod.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
       <h3 class="mt-4 text-lg font-semibold">Dr. Anil B.C</h3>
-      <p class="text-gray-500 text-sm mt-2"></p>
+      <p class="text-gray-500 text-sm mt-2">M.Tech , PhD Associate Professor</p>
       <p class="text-sm font-bold mt-3">Head of Dept, AIML</p>
     </div>
 
@@ -666,6 +727,61 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
+  </script>
+
+  <!-- Add this JavaScript for nav-bar behavior -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const header = document.querySelector('.header');
+        const navToggle = document.querySelector('.nav-toggle');
+        let lastScroll = 0;
+        let isNavVisible = true;
+
+        // Handle scroll events
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > lastScroll && isNavVisible && currentScroll > 100) {
+                // Scrolling down - hide header
+                header.classList.add('hidden');
+                isNavVisible = false;
+            } else if (currentScroll < lastScroll && !isNavVisible) {
+                // Scrolling up - show header
+                header.classList.remove('hidden');
+                isNavVisible = true;
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Handle nav toggle button click
+        navToggle.addEventListener('click', () => {
+            header.classList.remove('hidden');
+            isNavVisible = true;
+            navToggle.classList.add('hidden');
+        });
+
+        // Existing hamburger menu code
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', function() {
+            if (navMenu.classList.contains('mobile-open')) {
+                navMenu.classList.remove('mobile-open');
+                navMenu.classList.add('mobile-closed');
+            } else {
+                navMenu.classList.remove('mobile-closed');
+                navMenu.classList.add('mobile-open');
+            }
+        });
+
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('mobile-open');
+                navMenu.classList.add('mobile-closed');
+            });
+        });
+    });
   </script>
 </body>
 </html>

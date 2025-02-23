@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSS NAVOTTHANA - Hackathon</title>
+    <title>JSS NAVOTTHANA - </title>
     <style>
         * {
             margin: 0;
@@ -40,12 +40,15 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-            width: 100%;
-            max-width: 500px;
+            width: 90%;
+            max-width: 450px;
             text-decoration: none;
             color: inherit;
             cursor: pointer;
-            z-index: 1;
+            z-index: 3;
+            margin-top: 180px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .card::before {
@@ -57,24 +60,24 @@
             bottom: -2px;
             background: linear-gradient(45deg, #000000, transparent, #000000);
             z-index: -1;
-            animation: borderGlow 3s linear infinite;
+            animation: borderGlow 30s linear infinite;
             border-radius: 15px;
         }
 
         @keyframes borderGlow {
-            0%, 100% { opacity: 0.5; }
+            0%, 100% { opacity: 1.5; }
             50% { opacity: 1; }
         }
 
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-100px);
             box-shadow: 0 8px 25px rgb(255, 0, 0);
         }
 
         .card-image-container {
             position: relative;
             width: 100%;
-            padding-top: 141.42%; /* Maintain aspect ratio for A4 */
+            padding-top: 130%;
             margin-bottom: 1rem;
             overflow: hidden;
             border-radius: 1px;
@@ -95,13 +98,25 @@
             transform: scale(1.05);
         }
 
+        .title-container {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 15px 30px;
+            border-radius: 10px;
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 1rem;
             }
 
             .card {
-                margin: 1rem;
+                margin: 150px 1rem 1rem 1rem;
             }
         }
 
@@ -125,10 +140,64 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
+
+        h1 {
+            color: #ff0000;
+            font-size: 1.5rem;
+            margin-bottom: 0rem;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            opacity: 0; /* Ensure initial state is invisible */
+            animation: fadeInDown 10s ease-out forwards, glowPulse 20s ease-in-out infinite;
+        }
+
+        .subtitle {
+            color: #ffffff;
+            font-size: .2rem;
+            opacity: 0; /* Ensure initial state is invisible */
+            animation: fadeInUp 10s ease-out 5s forwards;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            }
+        }
     </style>
 </head>
 <body>
     <canvas id="matrixCanvas"></canvas>
+    <div class="title-container">
+        <h1>JSS NAVOTTHANA</h1>
+        <div class="subtitle">HACKATHON 2024</div>
+    </div>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPhy1lyyHSV6ti1-aWfW2R6RtHBpFgZ4aOsIAkabrpbytCcw/viewform?usp=dialog" 
        target="_blank" 
        class="card">
