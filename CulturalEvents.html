@@ -37,12 +37,12 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 20px;
+      padding: clamp(1rem, 5vw, 2rem);
       color: #fff;
     }
     /* Hover effect for image */
     .content img {
-      max-width: 300px;
+      max-width: min(300px, 90%);
       width: 100%;
       height: auto;
       border: 5px solid #ff0000;
@@ -55,17 +55,23 @@
 
     /* Neon Gradient Text without Glow */
     .event-text h1 {
-      font-size: 3em;
+      font-size: clamp(2rem, 8vw, 3em);
       margin-bottom: 10px;
       background: linear-gradient(45deg, #ff0000, #ff6347, #ff1493); /* Neon Red, Neon Orange, and Neon Pink */
       -webkit-background-clip: text;
       color: transparent;
     }
     .event-text p {
-      font-size: 1.2em;
+      font-size: clamp(1rem, 2.5vw, 1.2em);
       line-height: 1.4;
-      max-width: 800px;
+      max-width: min(800px, 90%);
       margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        padding: 1rem;
+      }
     }
   </style>
 </head>

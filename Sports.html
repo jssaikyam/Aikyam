@@ -32,7 +32,7 @@
         }
 
         h1 {
-            font-size: 4rem;
+            font-size: clamp(2rem, 6vw, 4rem);
             color: #ff0000;
             text-transform: uppercase;
             margin-bottom: 1rem;
@@ -41,9 +41,9 @@
 
         .poster-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            position: relative;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: clamp(1rem, 3vw, 2rem);
+            padding: clamp(1rem, 3vw, 2rem);
         }
 
         .poster {
@@ -54,6 +54,11 @@
             transition: all 0.4s ease;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            aspect-ratio: 2/3;
+            min-height: 300px;
         }
 
         .poster:hover {
@@ -67,7 +72,6 @@
         }
 
         .poster-image {
-            aspect-ratio: 2/3;
             width: 100%;
             size: small;
             object-fit: cover;
@@ -76,7 +80,7 @@
         }
 
         .poster-content {
-            padding: 1.5rem;
+            padding: clamp(1rem, 3vw, 1.5rem);
         }
 
         .poster-title {
@@ -112,12 +116,12 @@
         }
 
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+            .container {
+                padding: 1rem;
             }
             
-            .poster-grid {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            .poster {
+                min-height: 250px;
             }
         }
     </style>
@@ -130,46 +134,34 @@
             <p>Where Artificial Intelligence meets Athletic Excellence</p>
         </header>
         <div class="poster-grid">
-            <div class="poster" data-sport="chess">
-                <img class="poster-image" src="posters\Sports\Chess.png" alt="Chess Tournament">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSedz7hUBcVn1NsK91WOgcGK6bM1UFDxNsGts2DDX-GGOc3z4w/viewform?usp=header" target="_blank" class="poster">
+                <img src="posters/Sports/Chess.png" alt="Chess Tournament" class="poster-image">
                 <div class="poster-content">
-                    <h3 class="poster-title">AI Chess Championship</h3>
-                    <p class="poster-description">Strategic battles of minds and machines</p>
-                    <div class="poster-details">
-                        <p>Experience the ultimate fusion of human intuition and artificial intelligence in our premier chess championship.</p>
-                    </div>
+                    <h3>Chess</h3>
+                    <p>Strategic mind battles on the checkered battlefield.</p>
                 </div>
-            </div>
-            <div class="poster" data-sport="cricket">
-                <img class="poster-image" src="posters\Sports\MiniCricket.png" alt="Mini Cricket">
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSclOsrdNNAwVkdceEra-BWE4P0x2yi7tbLP_qHZ__6dL-YTTw/viewform?usp=header" target="_blank" class="poster">
+                <img src="posters/Sports/TugOfWar.png" alt="Tug of War" class="poster-image">
                 <div class="poster-content">
-                    <h3 class="poster-title">AI Mini Cricket</h3>
-                    <p class="poster-description">Cricket reimagined with artificial intelligence</p>
-                    <div class="poster-details">
-                        <p>Revolutionary cricket experience enhanced by AI-powered analysis and real-time strategy assistance.</p>
-                    </div>
+                    <h3>Tug of War</h3>
+                    <p>Test your team's strength and coordination.</p>
                 </div>
-            </div>
-            <div class="poster" data-sport="tug">
-                <img class="poster-image" src="posters\Sports\TugOfWar.png" alt="Tug of War">
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSclaOiHk5WxSlsWZVf8svRHVzus9KHp7H-GdhtgBYu4y3BiVw/viewform?usp=header" target="_blank" class="poster">
+                <img src="posters/Sports/3V3Basketball.png" alt="Basketball Tournament" class="poster-image">
                 <div class="poster-content">
-                    <h3 class="poster-title">AI Tug of War</h3>
-                    <p class="poster-description">Test your strength against AI-powered opponents</p>
-                    <div class="poster-details">
-                        <p>Challenge AI-powered resistance systems in this modern take on the classic test of strength.</p>
-                    </div>
+                    <h3>Basketball</h3>
+                    <p>Show off your skills on the court.</p>
                 </div>
-            </div>
-            <div class="poster" data-sport="basketball">
-                <img class="poster-image" src="posters\Sports\3V3Basketball.png" alt="3V3 Basketball">
+            </a>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSflMuFNmAhsgMWlxVRnJb77D0iVFeYhWlEem0_z3j_7leXVMg/viewform?usp=header" target="_blank" class="poster">
+                <img src="posters/Sports/MiniCricket.png" alt="Mini Cricket Tournament" class="poster-image">
                 <div class="poster-content">
-                    <h3 class="poster-title">AI 3V3 Basketball</h3>
-                    <p class="poster-description">Fast-paced action with AI analysis</p>
-                    <div class="poster-details">
-                        <p>Experience basketball like never before with AI-powered performance tracking and real-time gameplay analysis.</p>
-                    </div>
+                    <h3>Mini Cricket</h3>
+                    <p>Experience the thrill of cricket in a compact format.</p>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 

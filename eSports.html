@@ -70,7 +70,7 @@
         }
 
         h1 {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 8vw, 4rem);
             background: linear-gradient(90deg, #ff0000, #ff3333);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -79,7 +79,7 @@
         }
 
         .subtitle {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 3vw, 1.5rem);
             color: #cccccc;
             margin-bottom: 3rem;
             position: relative;
@@ -87,11 +87,9 @@
 
         .cards {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+            gap: clamp(1.5rem, 4vw, 3rem);
+            padding: clamp(1rem, 3vw, 2rem);
         }
 
         .card {
@@ -102,8 +100,12 @@
             position: relative;
             overflow: hidden;
             transition: transform 0.3s ease;
-            max-width: 300px;
+            width: 100%;
+            max-width: 400px;
             margin: 0 auto;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .card::before {
@@ -130,6 +132,10 @@
 
         .card:hover {
             transform: translateY(-10px);
+        }
+
+        .card:hover .card-image-container img {
+            transform: scale(1.05);
         }
 
         .card-image-container {
@@ -275,18 +281,13 @@
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+        @media (max-width: 640px) {
+            .content {
+                padding: 1rem;
             }
-
-            .cards {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .card {
-                max-width: 280px;
+            
+            .card-image-container {
+                padding-top: 56.25%; /* 16:9 aspect ratio */
             }
         }
     </style>
@@ -300,23 +301,23 @@
         </header>
 
         <div class="cards">
-            <div class="card">
+            <a href="https://forms.gle/VdUhn9Yn5kRbVXU9A" target="_blank" class="card">
                 <div class="card-image-container">
                     <img src="posters\eSports\Valorant.png" 
                          alt="Valorant Tournament">
                 </div>
                 <h2>VALORANT</h2>
                 <p>Enter the tactical shooter arena where precision meets strategy. Compete against the best teams and prove your worth in intense 5v5 combat.</p>
-            </div>
+            </a>
 
-            <div class="card">
+            <a href="https://forms.gle/ZrcLyH2RpWfgwuJv8" target="_blank" class="card">
                 <div class="card-image-container">
                     <img src="posters\eSports\BGMI.png" 
                          alt="BGMI Tournament">
                 </div>
                 <h2>BGMI</h2>
                 <p>Battle it out in intense mobile warfare for ultimate supremacy. Show your tactical prowess and emerge victorious in this battle royale showdown.</p>
-            </div>
+            </a>
         </div>
     <script>
         const canvas = document.getElementById('animationCanvas');

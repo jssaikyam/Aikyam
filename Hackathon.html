@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AI/ML Hackathon</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
@@ -39,7 +39,9 @@
 
         .content {
             z-index: 2;
-            max-width: 700px;
+            padding: clamp(1rem, 5vw, 2rem);
+            width: 90%;
+            max-width: 800px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 1.5s ease-out forwards;
@@ -57,10 +59,10 @@
         }
 
         h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 8vw, 4rem);
             text-transform: uppercase;
             font-weight: 600;
-            margin-bottom: 10px;
+            margin-bottom: clamp(1rem, 3vw, 2rem);
             background: linear-gradient(90deg, #ff00ff, #00ffff);
             -webkit-background-clip: text;
             color: transparent;
@@ -77,8 +79,9 @@
         }
 
         p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            max-width: 600px;
+            margin: 0 auto 2rem;
             opacity: 0;
             animation: fadeIn 2s ease-in-out 1s forwards;
         }
@@ -94,8 +97,8 @@
 
         .btn {
             display: inline-block;
-            padding: 12px 24px;
-            font-size: 1rem;
+            padding: clamp(0.8rem, 2vw, 1.2rem) clamp(1.5rem, 4vw, 2.4rem);
+            font-size: clamp(0.9rem, 2vw, 1rem);
             font-weight: 600;
             color: white;
             background: #ff0055;
@@ -110,6 +113,8 @@
 
         .btn:hover {
             background: #ff3385;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
         }
 
         /* AI Matrix Animation */
@@ -121,6 +126,16 @@
             height: 100vh;
             z-index: -1;
         }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 1rem;
+            }
+            
+            canvas {
+                opacity: 0.15; /* Improve text readability on mobile */
+            }
+        }
     </style>
 </head>
 <body>
@@ -130,7 +145,9 @@
     <div class="content">
         <h1>JSS Navotthana</h1>
         <p>A team-based programming and innovation competition where participants collaborate to solve challenging problems and build creative solutions.</p>
-        <a href="#register" class="btn">Register Now</a>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfPhy1lyyHSV6ti1-aWfW2R6RtHBpFgZ4aOsIAkabrpbytCcw/viewform?usp=dialog" 
+           target="_blank" 
+           class="btn">Register Now</a>
     </div>
 
     <script>

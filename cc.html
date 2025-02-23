@@ -100,20 +100,21 @@
 
         .section-title {
             color: #ff6b00;
-            font-size: 1.5rem;
+            font-size: clamp(1.5rem, 4vw, 2rem);
             margin-left: 1rem;
             text-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
         }
 
         .members-grid {
             display: grid;
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+            gap: clamp(1rem, 3vw, 2rem);
         }
 
         .member-card {
             background: rgba(30, 30, 30, 0.8);
             border-radius: 10px;
-            padding: 1rem;
+            padding: clamp(1rem, 3vw, 1.5rem);
             display: flex;
             align-items: center;
             gap: 1rem;
@@ -134,8 +135,8 @@
         }
 
         .member-image {
-            width: 60px;
-            height: 60px;
+            width: clamp(80px, 20vw, 120px);
+            height: clamp(80px, 20vw, 120px);
             border-radius: 50%;
             border: 2px solid #ff6b00;
             object-fit: cover;
@@ -196,6 +197,17 @@
             .member-roles {
                 flex-direction: column;
                 gap: 0.25rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .member-image {
+                width: clamp(80px, 20vw, 120px);
+                height: clamp(80px, 20vw, 120px);
             }
         }
 
@@ -282,7 +294,7 @@
             },
             'Deeksha': {
                 image: "posters/Team/Deeksha.jpg",
-                email: 'https://www.instagram.com/.deexha?igsh=MW96OXJleHBlZ2ZneA==',
+                email: 'https://www.instagram.com/_.deexha_/?utm_source=ig_web_button_share_sheet',
                 primaryRole: { department: 'Marketing', position: 'Co-Head' },
                 otherRoles: []
             },
@@ -294,7 +306,7 @@
             },
             'Sri Vishnu': {
                 image: "posters/Team/Sri Vishnu.jpg",
-                email: 'https://www.instagram.com/sri_vishnu_vs?igsh=MThvODJsZmhta202ZA==',
+                email: 'https://www.instagram.com/_sri_vishnu_vs_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
                 primaryRole: { department: 'Cultural', position: 'Co-Head' },
                 otherRoles: []
             },
@@ -306,7 +318,7 @@
             },
             'Shreya Reddy': {
                 image: "posters/Team/Shreya.jpg",
-                email: 'https://www.instagram.com/shreyeahhh_?igsh=MXVoODhsa2lmMGVqMg==',
+                email: 'https://www.instagram.com/_shreyeahhh__?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
                 primaryRole: { department: 'Cultural', position: 'Co-Head' },
                 otherRoles: []
             },

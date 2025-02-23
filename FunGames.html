@@ -4,280 +4,251 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fun Games 2024 | AIKYAM JSS</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    :root {
-      --primary: #ff3366;
-      --secondary: #000000;
-      --accent: #4caf50;
-      --text: #ffffff;
-      --bg: #0a0a0a;
+      font-family: 'Arial', sans-serif;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: black;
+      color: white;
+      min-height: 100vh;
       overflow-x: hidden;
-      line-height: 1.6;
     }
 
     canvas {
       position: fixed;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 1;
-      pointer-events: none;
     }
 
-    .container {
+    .content {
       position: relative;
       z-index: 2;
+      padding: 2rem;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem;
     }
 
     header {
       text-align: center;
-      padding: 4rem 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .title {
-      font-size: clamp(3rem, 8vw, 6rem);
-      font-weight: 800;
-      margin-bottom: 1rem;
-      background: linear-gradient(120deg, var(--primary), var(--secondary), var(--accent));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradient 8s ease infinite;
-      background-size: 200% 200%;
-    }
-
-    .subtitle {
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 2rem;
-    }
-
-    .social {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50px;
-      backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: var(--text);
-    }
-
-    .social:hover {
-      background: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-    }
-
-    .events {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
       padding: 2rem 0;
+      margin-bottom: 4rem;
     }
 
-    .event-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      padding: 2rem;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    h1 {
+      font-size: clamp(2rem, 6vw, 4rem);
+      color: #ff0000;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: clamp(1rem, 3vw, 2rem);
+    }
+
+    .card {
+      background: #0a0a0a;
+      border: 2px solid #ff0000;
+      border-radius: 15px;
+      padding: 1.5rem;
       position: relative;
       overflow: hidden;
+      transition: transform 0.3s ease;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
     }
 
-    .event-card::before {
+    .card::before {
       content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
+      z-index: -1;
+      animation: borderGlow 3s linear infinite;
+      border-radius: 15px;
+    }
+
+    @keyframes borderGlow {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .card-image-container {
+      position: relative;
+      width: 100%;
+      padding-top: 75%; /* 4:3 Aspect Ratio */
+      margin-bottom: 1rem;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .card img {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      z-index: -1;
+      object-fit: cover;
+      filter: grayscale(30%) contrast(120%);
+      transition: all 0.3s ease;
     }
 
-    .event-card:hover {
-      transform: translateY(-10px);
-      border-color: rgba(255, 255, 255, 0.2);
+    .card:hover img {
+      filter: grayscale(0%) contrast(100%);
     }
 
-    .event-card:hover::before {
-      opacity: 0.1;
-    }
-
-    .event-title {
-      font-size: 1.5rem;
-      font-weight: 600;
+    .card h2 {
+      color: #ff0000;
+      font-size: clamp(1.25rem, 4vw, 1.75rem);
       margin-bottom: 1rem;
-      color: var(--primary);
     }
 
-    .event-time {
+    .card p {
+      color: #cccccc;
+      line-height: 1.6;
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.6);
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
     }
 
-    .event-description {
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.8);
-      margin-bottom: 1.5rem;
+    .card ul {
+      color: #cccccc;
+      list-style-position: inside;
+      margin-top: 1rem;
     }
 
-    .event-rules {
-      list-style: none;
-    }
-
-    .event-rules li {
+    .card li {
       margin-bottom: 0.5rem;
-      padding-left: 1.5rem;
-      position: relative;
+      font-size: 0.9rem;
     }
 
-    .event-rules li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-    }
-
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @media (max-width: 768px) {
-      .container {
+    @media (max-width: 1200px) {
+      .content {
         padding: 1rem;
       }
 
-      header {
-        padding: 2rem 1rem;
+      h1 {
+        font-size: 3rem;
       }
+    }
 
-      .events {
+    @media (max-width: 768px) {
+      .cards {
         grid-template-columns: 1fr;
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .card {
+        margin: 0 auto;
+        max-width: 400px;
       }
     }
 
-    .register-btn {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 1rem 2rem;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      border: none;
-      border-radius: 50px;
-      color: white;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      cursor: pointer;
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .card {
+        padding: 1rem;
+      }
+
+      .card h2 {
+        font-size: 1.5rem;
+      }
+
+      .card p {
+        font-size: 0.85rem;
+      }
+
+      .card ul {
+        font-size: 0.85rem;
+      }
+
+      .content {
+        padding: 1rem;
+      }
+      
+      .card-image-container {
+        padding-top: 66.67%; /* 3:2 aspect ratio */
+      }
     }
 
-    .register-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    html {
+      scroll-behavior: smooth;
+    }
+
+    .card img {
+      will-change: transform;
+      transform: translateZ(0);
     }
   </style>
 </head>
 <body>
   <canvas id="bgCanvas"></canvas>
   
-  <div class="container">
+  <div class="content">
     <header>
-      <h1 class="title">FUN GAMES</h1>
-
-      </a>
+      <h1>Fun Games</h1>
+      <p>Experience the Joy of Gaming at AIKYAM 2024</p>
     </header>
 
-    <div class="events">
-      <div class="event-card">
-        <h2 class="event-title">THE AI QUEST</h2>
-        <div class="event-time">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          7TH MARCH | 11AM
+    <div class="cards">
+      <div class="card">
+        <div class="card-image-container">
+          <img src="posters\Fun Games\TreasureHunt.png" alt="TreasureHunt">
         </div>
-        <p class="event-description">A tech-infused treasure hunt where participants scan QR codes hidden around the campus to solve riddles, complete challenges, and unlock clues leading to the final treasure!</p>
-        <ul class="event-rules">
-          <li>REGISTRATION & TEAMS: Participants form small teams (2-4 players)</li>
-          <li>FIRST QR CODE: Given at the starting point to all teams</li>
-          <li>SCANNING CLUES: Each scanned QR code reveals next clue</li>
-        </ul>
+        <h2>THE Treasure Hunt</h2>
+        <p>A tech-infused treasure hunt where participants scan QR codes hidden around the campus to solve riddles!</p>
       </div>
 
-      <div class="event-card">
-        <h2 class="event-title">WIN OR DARE</h2>
-        <div class="event-time">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          7TH MARCH | 11AM
+      <div class="card">
+        <div class="card-image-container">
+          <img src="posters\Fun Games\SpinTheWheel.png" alt="SpinTheWheel">
         </div>
-        <p class="event-description">A wheel with fun dares, trivia, or small prizes. WIN A FREE COUPON, OR DRINK OR ANYTHING FROM XYZ BRAND.</p>
+        <h2>Spin The Wheel</h2>
+        <p>A wheel with fun dares, trivia, or small prizes. WIN A FREE COUPON, OR DRINK OR ANYTHING FROM XYZ BRAND.</p>
       </div>
 
-      <div class="event-card">
-        <h2 class="event-title">BLINDFOLD CATCH</h2>
-        <div class="event-time">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          7TH MARCH | 11AM
+      <div class="card">
+        <div class="card-image-container">
+          <img src="posters\Fun Games\BlindfoldCatch.png" alt="Blindfold Catch">
         </div>
-        <p class="event-description">ONE PARTICIPANT THROWS GOODIES (WE HAVE GOOD SPONSORERS) AND THE OTHER HAS TO CATCH IT BLINDFOLDED.</p>
+        <h2>BLINDFOLD CATCH</h2>
+        <p>ONE PARTICIPANT THROWS GOODIES (WE HAVE GOOD SPONSORERS) AND THE OTHER HAS TO CATCH IT BLINDFOLDED.</p>
       </div>
 
-      <div class="event-card">
-        <h2 class="event-title">FLIP IT OR DRINK IT</h2>
-        <div class="event-time">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"></circle>
-            <polyline points="12 6 12 12 16 14"></polyline>
-          </svg>
-          7TH MARCH | 11AM
+      <div class="card">
+        <div class="card-image-container">
+          <img src="posters\Fun Games\FlipItOrDrinkIt.png" alt="Flip It or Drink It">
         </div>
-        <p class="event-description">A TWIST ON BOTTLE FLIPPING! Players flip a bottle and if it lands correctly, they win a point. If they fail, they have to drink a random (but safe) weird mix of drinks (e.g., COLA + LEMON + CHILI POWDER).</p>
+        <h2>FLIP IT OR DRINK IT</h2>
+        <p>A TWIST ON BOTTLE FLIPPING! Players flip a bottle and if it lands correctly, they win a point. If they fail, they have to drink a random (but safe) weird mix of drinks (e.g., COLA + LEMON + CHILI POWDER).</p>
       </div>
-    </div>
-
-    <div style="text-align: center;">
-      <button class="register-btn">Register Now! 🎮</button>
     </div>
   </div>
 
-  <!-- JavaScript for treasure hunt themed animation -->
   <script>
     const canvas = document.getElementById('bgCanvas');
     const ctx = canvas.getContext('2d');

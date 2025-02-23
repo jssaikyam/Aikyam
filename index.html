@@ -1,240 +1,374 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
 <head>
+  <title>AIKYAM 2025</title>
   <meta charset="UTF-8">
   <meta name="description" content="AIKYAM 2025 is the annual tech and cultural fest of JSSATEB, featuring hackathons, gaming tournaments, and sports competitions.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Teko:wght@300..700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
   <style>
-    .banner-div {
-      width: 100%;
-      text-align: center;
-      background-color: transparent;
-      padding: 0px 0;
-      margin-top: 0px;
-      z-index: 10;
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      overflow-x: hidden;
+      background: #000;
+      color: #fff;
     }
 
-    .banner-image {
-      max-width: 100%;
-      height: auto;
-    }
-
-    h1 {
-      position: relative;
-      z-index: 10;
-      color: #ff0000;
-      font-family: 'Courier New', Courier, monospace;
-      overflow: hidden;
-      white-space: nowrap;
-      width: 0;
-      animation: typing 2s steps(30) 1s forwards, blink 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-right: 2px solid #ff0000; }
-    }
-
-    #countdown {
-      font-size: 70px;
-      margin-top: 20px;
-      width: 100%;
-      padding: 0px;
-      font-weight: bold;
-      color: #ff2600;
-      /* text-shadow: 0 0 10px #ff2600, 0 0 20px #ff2600, 0 0 30px #ff2600; */
-      display: inline-block;
-    }
-
-    #nnCanvas {
+    #particles-js {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
+      background: linear-gradient(45deg, #000000, #000000);
     }
 
-    .bg-black {
-      background-color: transparent !important;
+    .glow-text {
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.7),
+                   0 0 20px rgba(255, 0, 0, 0.5),
+                   0 0 30px rgba(255, 0, 0, 0.3);
     }
 
-    .max-w-5xl, .max-w-7xl, .footer, .header {
-      position: relative;
-      z-index: 10;
+    .card {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 0, 0, 0.1);
+      transition: all 0.3s ease;
     }
 
-    #carousel-inner {
-      display: flex;
-      width: 100%;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    #carousel-inner > div {
-      min-width: 100%;
-    }
-
-    body {
-      font-family: Poppins, sans-serif;
-      margin: 0;
-      overflow-x: hidden;
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
     }
 
     .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: black; /* Adjust as needed */
-}
-
-.logo img {
-    height: 60px; /* Adjust logo size */
-}
-
-.nav {
-    flex-grow: 1;  /* Allows the nav to expand */
-    display: flex;
-    justify-content: center;  /* Centers the links */
-    gap: 20px; /* Spacing between links */
-}
-
-.nav a {
-    text-decoration: none;
-    color: white;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.dropdown {
-    position: relative;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    min-width: 150px;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-    .header .profile-icon {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
-      background-color: #fff;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 0, 0, 0.1);
     }
 
-    .dropdown {
+    .nav a {
+      position: relative;
+      color: #fff;
+      text-decoration: none;
+      padding: 5px 10px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #ff0000, #ff6b6b);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    #countdown {
+      font-family: 'Teko', sans-serif;
+      font-size: 4.5rem;
+      background: linear-gradient(45deg, #ff0000, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      letter-spacing: 2px;
+    }
+
+    .social-icons a {
+      color: #fff;
+      font-size: 1.5rem;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+      opacity: 0.8;
+    }
+
+    .social-icons a:hover {
+      color: #ff0000;
+      transform: scale(1.2) rotate(5deg);
+      opacity: 1;
+    }
+
+    .footer {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 0, 0, 0.1);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .event-card {
+      position: relative;
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .event-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .event-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .event-card:hover .event-content {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .featured-event {
+      grid-column: 1 / -1;
+      height: 600px;
+    }
+
+    @media (max-width: 1024px) {
+      .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .featured-event {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .events-grid {
+        grid-template-columns: 1fr;
+      }
+      .event-card {
+        height: 400px;
+      }
+      .featured-event {
+        height: 500px;
+      }
+    }
+
+    .coordinator-card {
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .coordinator-card:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: translateY(-5px);
+    }
+
+    .section-title {
+      font-family: 'Teko', sans-serif;
+      font-size: 3.5rem;
+      background: linear-gradient(45deg, #ff0000, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      letter-spacing: 2px;
       position: relative;
       display: inline-block;
     }
 
-    .dropdown-content {
-      display: none;
+    .section-title::after {
+      content: '';
       position: absolute;
-      background-color: #222;
-      min-width: 150px;
-      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-      z-index: 1;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #ff0000, transparent);
+      border-radius: 2px;
     }
 
-    .dropdown-content a {
-      color: white;
-      padding: 10px 15px;
-      display: block;
-      text-decoration: none;
+    .hero-description {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
     }
 
-    .dropdown-content a:hover {
-      background-color: #575757;
+    .hero-description::before,
+    .hero-description::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ff0000);
     }
 
-    .dropdown:hover .dropdown-content {
-      display: block;
+    .hero-description::before {
+      left: 0;
+      top: 50%;
     }
 
-    .footer {
-      background-color: #000;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
+    .hero-description::after {
+      right: 0;
+      top: 50%;
+      transform: rotate(180deg);
     }
 
-    .footer .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 10px;
+    .about-content {
+      position: relative;
+      padding: 2rem;
+      border-radius: 15px;
+      background: rgba(255, 0, 0, 0.05);
+      border: 1px solid rgba(255, 0, 0, 0.1);
     }
 
-    .footer .social-icons a {
-      color: #fff;
-      font-size: 24px;
+    .about-content::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, transparent, rgba(255, 0, 0, 0.2), transparent);
+      border-radius: 16px;
+      z-index: -1;
     }
 
-    .about-us {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
+    .coordinator-image {
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .coordinator-image::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, #ff0000, #ff6b6b);
+      z-index: -1;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .coordinator-card:hover .coordinator-image::after {
+      opacity: 1;
+    }
+
+    .learn-more-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .learn-more-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .learn-more-btn:hover::before {
+      left: 100%;
     }
   </style>
 </head>
+<body>
+  <div id="particles-js"></div>
 
-<body class="max-w-[1920px] mx-auto">
-  <!-- Canvas for Animation -->
-  <canvas id="nnCanvas"></canvas>
-
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">
-      <img src="posters/Logo/Aikyam.png" alt="AIKYAM Logo" class="logo">
+  <header class="header fixed w-full top-0 z-50 px-4 py-2">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="logo">
+        <img src="posters/Logo/Aikyam.png" alt="AIKYAM Logo" class="h-16">
+      </div>
+      <nav class="nav hidden md:flex space-x-8">
+        <a href="#about">About Us</a>
+        <a href="#events-section">Events</a>
+        <a href="#sponsors">Sponsors</a>
+        <a href="cc.html">Know Us</a>
+        <a href="Brochure.html">Brochure</a>
+      </nav>
     </div>
-    <nav class="nav">
-      <a href="#about">About Us</a>
-      <a href="#events-section">Events</a> <!-- Updated link -->
-      <a href="#sponsors">Sponsors</a>
-      <a href="cc.html">Know Us</a>
-    </nav>
   </header>
 
-  <div class="bg-black text-gray-100 text-[15px]">
-    <div class="max-w-5xl mx-auto text-center relative px-4 sm:px-10 mt-16">
-      <h1 class="lg:text-7xl md:text-6xl text-4xl font-semibold mb-6 md:!leading-[80px]">AIKYAM-2025</h1>
-      <div class="max-w-5xl mx-auto text-center mt-8">
-        <div id="countdown" class="text-xl font-bold" style="font-family: 'Teko', serif;"></div>
+  <main class="pt-24">
+    <section class="hero min-h-screen flex items-center justify-center text-center px-4">
+      <div class="max-w-5xl mx-auto">
+        <h1 class="text-6xl md:text-8xl font-bold mb-8 glow-text floating">AIKYAM-2025</h1>
+        <div id="countdown" class="mb-12"></div>
+        <p class="hero-description text-gray-300">
+          AIKYAM 2025 is the annual fest of the Department of AI & ML, JSS Academy of Technical Education, Bangalore. 
+          A vibrant celebration of technology, innovation, and culture.
+        </p>
       </div>
-      <p class="text-base text-gray-400">AIKYAM 2025 is the annual fest of the Department of AI & ML, JSS Academy of Technical Education, Bangalore. It is a vibrant celebration of technology, innovation, and culture, bringing together students, professionals, and enthusiasts. The fest features technical workshops, hackathons, e-sports tournaments, cultural performances, and engaging competitions. With a focus on collaboration and creativity, AIKYAM provides a platform for students to showcase their talents and connect with industry leaders.</p>
-      <div class="banner-div">
-        <img src="posters/Logo/Aikyam.png" alt="Aikyam Banner" class="banner-image">
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 class="section-title mb-12">About Us</h2>
+        <div class="about-content">
+          <p class="text-lg text-gray-300">
+            JSS Academy of Technical Education, Bangalore (JSSATEB) is a distinguished institution 
+            committed to delivering high-quality technical education.
+          </p>
+        </div>
       </div>
-    </div>
+    </section>
 
 
+
+    <!-- Events Section -->
     <div id="events-section" class="px-4 sm:px-10">
       <div class="mt-32 max-w-7xl mx-auto">
-        <h2 class="text-4xl font-bold text-center mb-12">Events</h2>
+        <div class="max-w-5xl mx-auto text-center">
+        <h2 class="section-title mb-12">Events</h2>
+        </div>
     
         <!-- First Row: Hackathon Poster in Middle Column -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
@@ -251,7 +385,7 @@
               <p class="text-gray-400">
                 Step into the future of innovation at JSS Navotthana, a 24-hour AI Hackathon designed to push the boundaries of creativity and problem-solving.
               </p>
-              <a href="Hackathon.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+              <a href="Hackathon.html" class="learn-more-btn mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
             </div>
           </div>
     
@@ -271,7 +405,7 @@
               <p class="text-gray-400">
                 Get ready for a fast-paced cricket showdown with tennis balls and smaller teams! Showcase your batting, bowling, and fielding skills.
               </p>
-              <a href="Sports.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+              <a href="Sports.html" class="learn-more-btn mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
             </div>
           </div>
     
@@ -285,7 +419,7 @@
               <p class="text-gray-400">
                 Test your precision and strategy in an exciting Carrom Tournament! An engaging indoor board game that challenges players to flick discs into pockets.
               </p>
-              <a href="eSports.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+              <a href="eSports.html" class="learn-more-btn mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
             </div>
           </div>
     
@@ -299,7 +433,7 @@
               <p class="text-gray-400">
                 Embark on an exciting adventure where teams race against time to solve clues and uncover hidden treasures!
               </p>
-              <a href="FunGames.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+              <a href="FunGames.html" class="learn-more-btn mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
             </div>
           </div>
         </div>
@@ -319,7 +453,7 @@
               <p class="text-gray-400">
                 Get ready for a talent explosion! From soulful melodies to electrifying rap, dance, and instrumental magic.
               </p>
-              <a href="CulturalEvents.html" class="mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+              <a href="CulturalEvents.html" class="learn-more-btn mt-4 inline-block text-red-500 hover:text-red-600">Learn More →</a>
             </div>
           </div>
     
@@ -328,195 +462,114 @@
         </div>
       </div>
     </div>
-    
+  </main>
 
-          
-
-    
-
-    <div id="about" class="about-us">
-      <div class="max-w-5xl mx-auto text-center">
-        <h2 class="text-lg mb-6">About Us</h2>
-        <p class="text-gray-400 mb-3">
-          JSS Academy of Technical Education, Bangalore (JSSATEB) is a distinguished institution committed to delivering high-quality technical education. Offering a diverse range of undergraduate and postgraduate programs in engineering, management, and applied sciences, JSSATEB provides a dynamic and intellectually stimulating learning environment.
-        </p>
-      </div>
+     
+    <!-- Team Section -->
+<section class="py-12">
+  <div class="max-w-5xl mx-auto text-center">
+    <h2 class="section-title mb-12">Meet Our Co-ordinators</h2>
+  </div>
+  
+  <div class="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-6xl mx-auto px-4">
+    <!-- Team Member Card -->
+    <div class="rounded-2xl shadow-md p-6 text-center">
+      <img src="posters/Faculty/Hod.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+      <h3 class="mt-4 text-lg font-semibold">Dr. Anil B.C</h3>
+      <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p class="text-sm font-bold mt-3">Head of Dept, AIML</p>
     </div>
 
-  <section class="py-12">
-    <h2 class="text-3xl font-bold text-center text-orange-600 mb-8">Meet Our Co-ordinators</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-6xl mx-auto px-4">
-      <!-- Team Member Card -->
-      <div class="bg-black rounded-2xl shadow-md p-6 text-center">
-        <img src="posters/Faculty/Hod.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
-        <h3 class="mt-4 text-lg font-semibold">Dr. Anil B.C</h3>
-        <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <p class="text-sm font-bold mt-3">Head of Dept, AIML</p>
-      </div>
-
-      <div class="bg-black rounded-2xl shadow-md p-6 text-center">
-        <img src="posters/Faculty/Chandana.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
-        <h3 class="mt-4 text-lg font-semibold">Mrs Chandana C</h3>
-        <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        <p class="text-sm font-bold mt-3">Faculty Co-ordinator</p>
-      </div>
-
-    
+    <div class="rounded-2xl shadow-md p-6 text-center">
+      <img src="posters/Faculty/Chandana.png" class="w-24 h-24 mx-auto rounded-full border-4 border-orange-400">
+      <h3 class="mt-4 text-lg font-semibold">Mrs Chandana C</h3>
+      <p class="text-gray-500 text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p class="text-sm font-bold mt-3">Faculty Co-ordinator</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="social-icons">
-      <a href="https://www.instagram.com/aikyam_jss?igsh=cTM5dnJyNHl4MW1l" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="mailto:aiml.aikyam@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
-    </div>
-    <p>&copy; 2025 AIKYAM. All rights reserved.</p>
-  </footer>
+      <footer class="footer py-4 px-2">
+        <div class="max-w-5xl mx-auto text-center">
+          <div class="social-icons mb-2">
+            <a href="https://www.instagram.com/aikyam_jss" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:aiml.aikyam@gmail.com"><i class="fas fa-envelope"></i></a>
+          </div>
+          <p class="text-gray-400 text-xs">&copy; 2025 AIKYAM. All rights reserved.</p>
+        </div>
+      </footer>
 
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const carouselInner = document.getElementById('carousel-inner');
-      const totalSlides = carouselInner.children.length;
-      let currentIndex = 0;
-
-      document.getElementById('next').addEventListener('click', function() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        updateCarousel();
-      });
-
-      document.getElementById('prev').addEventListener('click', function() {
-        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-        updateCarousel();
-      });
-
-      function updateCarousel() {
-        const translateX = -currentIndex * 100;
-        carouselInner.style.transform = 'translateX(' + translateX + '%)';
-      }
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 80, density: { enable: true, value_area: 800 } },
+        color: { value: '#ff0000' },
+        shape: { type: 'circle' },
+        opacity: {
+          value: 0.5,
+          random: true,
+          animation: { enable: true, speed: 1, minimumValue: 0.1, sync: false }
+        },
+        size: {
+          value: 3,
+          random: true,
+          animation: { enable: true, speed: 2, minimumValue: 0.1, sync: false }
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: '#ff0000',
+          opacity: 0.4,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 2,
+          direction: 'none',
+          random: false,
+          straight: false,
+          outMode: 'bounce',
+          attract: { enable: false, rotateX: 600, rotateY: 1200 }
+        }
+      },
+      interactivity: {
+        detectOn: 'canvas',
+        events: {
+          onhover: { enable: true, mode: 'repulse' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true
+        },
+        modes: {
+          repulse: { distance: 100, duration: 0.4 },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
     });
 
-    (function() {
-      const canvas = document.getElementById("nnCanvas");
-      const ctx = canvas.getContext("2d");
-      let width, height;
-
-      function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-      }
-
-      window.addEventListener("resize", resize);
-      resize();
-
-      class Particle {
-        constructor() {
-          this.x = Math.random() * width;
-          this.y = Math.random() * height;
-          this.vx = (Math.random() - 0.5) * 1.5;
-          this.vy = (Math.random() - 0.5) * 1.5;
-          this.radius = 6;
-        }
-
-        update() {
-          this.x += this.vx;
-          this.y += this.vy;
-
-          if (this.x < 0 || this.x > width) this.vx *= -1;
-          if (this.y < 0 || this.y > height) this.vy *= -1;
-        }
-
-        draw() {
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = "red";
-          ctx.fill();
-        }
-      }
-
-      const particles = [];
-      const particleCount = 50;
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
-      }
-
-      function connectParticles() {
-        for (let i = 0; i < particleCount; i++) {
-          for (let j = i + 1; j < particleCount; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            if (distance < 150) {
-              ctx.strokeStyle = "rgba(255, 0, 0," + (1 - distance / 150) + ")";
-              ctx.lineWidth = 1;
-              ctx.beginPath();
-              ctx.moveTo(particles[i].x, particles[i].y);
-              ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.stroke();
-            }
-          }
-        }
-      }
-
-      function animate() {
-        ctx.fillStyle = "black";
-        ctx.fillRect(0, 0, width, height);
-
-        particles.forEach(p => {
-          p.update();
-          p.draw();
-        });
-        connectParticles();
-        requestAnimationFrame(animate);
-      }
-
-      animate();
-    })();
-
-    (function() {
+    // Countdown Timer
+    function updateCountdown() {
       const targetDate = new Date("Mar 6, 2025 11:00:00").getTime();
+      const now = new Date().getTime();
+      const difference = targetDate - now;
 
-      function updateCountdown() {
-        const now = new Date().getTime();
-        const difference = targetDate - now;
-
-        if (difference < 0) {
-          document.getElementById("countdown").innerHTML = "00d 00h 00m 00s";
-          clearInterval(timerInterval);
-          return;
-        }
-
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        document.getElementById("countdown").innerHTML =
-          (days < 10 ? "0" + days : days) + "D " + ": " +
-          (hours < 10 ? "0" + hours : hours) + "H " + ": " +
-          (minutes < 10 ? "0" + minutes : minutes) + "M " + ": " +
-          (seconds < 10 ? "0" + seconds : seconds) + "s ";
+      if (difference < 0) {
+        document.getElementById("countdown").innerHTML = "Event Started!";
+        return;
       }
 
-      const timerInterval = setInterval(updateCountdown, 1000);
-      updateCountdown();
-    })();
+      const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-    var toggleOpen = document.getElementById('toggleOpen');
-    var toggleClose = document.getElementById('toggleClose');
-    var collapseMenu = document.getElementById('collapseMenu');
-
-    function handleClick() {
-      if (collapseMenu.style.display === 'block') {
-        collapseMenu.style.display = 'none';
-      } else {
-        collapseMenu.style.display = 'block';
-      }
+      document.getElementById("countdown").innerHTML = 
+        `${days}D : ${hours}H : ${minutes}M : ${seconds}S`;
     }
 
-    toggleOpen.addEventListener('click', handleClick);
-    toggleClose.addEventListener('click', handleClick);
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
-
 </html>
