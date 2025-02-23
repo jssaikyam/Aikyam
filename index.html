@@ -276,6 +276,17 @@
       .featured-event {
         height: 500px;
       }
+      .hero-content h1 {
+        font-size: 2.5rem; /* 40px */
+        line-height: 1.2;
+        padding: 0 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 2rem; /* 32px */
+      }
     }
 
     .coordinator-card {
@@ -446,6 +457,57 @@
       grid-auto-rows: min-content;
     }
 
+    /* Add/update responsive styles */
+    @media (max-width: 1200px) {
+      .event-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      
+      .hero-content h1 {
+        font-size: 3.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .event-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .hero-content h1 {
+        font-size: 2.5rem;
+        padding: 0 1rem;
+      }
+      
+      .nav a {
+        padding: 0.5rem;
+      }
+      
+      .event-card {
+        min-height: 300px;
+      }
+      
+      .text-container {
+        white-space: normal;
+        overflow: visible;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .section-title {
+        font-size: 2.5rem;
+      }
+      
+      .coordinator-card {
+        padding: 1rem;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -479,7 +541,9 @@
   <main class="pt-24">
     <section class="hero min-h-screen flex items-center justify-center text-center px-4">
       <div class="max-w-5xl mx-auto">
-        <h1 class="text-6xl md:text-8xl font-bold mb-8 glow-text floating">AIKYAM-2025</h1>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 glow-text floating break-words">
+          AIKYAM-2025
+        </h1>
         <div id="countdown" class="mb-12"></div>
         <p class="hero-description text-gray-300">
           AIKYAM 2025 is the annual fest of the Department of AI & ML, JSS Academy of Technical Education, Bangalore. 

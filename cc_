@@ -21,6 +21,18 @@
             position: relative;
         }
 
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #ff6b0022 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -31,28 +43,12 @@
 
         h1 {
             text-align: center;
-            color: #ff0000;
+            color: #ff2f00;
             font-size: 2.5rem;
             margin-bottom: 3rem;
             position: relative;
             text-transform: uppercase;
-            text-shadow: 0 0 20px #ff0000;
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0% {
-                text-shadow: 0 0 20px #ff0000;
-                transform: scale(1);
-            }
-            50% {
-                text-shadow: 0 0 40px #ff0000;
-                transform: scale(1.05);
-            }
-            100% {
-                text-shadow: 0 0 20px #ff0000;
-                transform: scale(1);
-            }
+            text-shadow: 0 0 20px rgba(255, 107, 0, 0.5);
         }
 
         h1::after {
@@ -92,9 +88,6 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
         .section {
@@ -108,9 +101,7 @@
             height: fit-content;
             opacity: 0;
             transform: translateY(30px);
-            animation: sectionFadeIn 0.8s ease forwards;
-            position: relative;
-            overflow: hidden;
+            animation: sectionFadeIn 0.6s ease forwards;
         }
 
         @keyframes sectionFadeIn {
@@ -146,13 +137,13 @@
             margin-bottom: 1.5rem;
             padding-bottom: 1rem;
             border-bottom: 2px solid #ff0000;
-            gap: 1rem;
         }
 
         .section-title {
-            color: #ff0000;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+            color: #ff1500;
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            margin-left: 1rem;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
         }
 
         .members-grid {
@@ -206,14 +197,12 @@
             border: 2px solid #ff3300;
             object-fit: cover;
             box-shadow: 0 0 10px rgba(255, 107, 0, 0.3);
-            transition: all 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
         .member-image-link:hover .member-image {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 
-                0 0 20px rgba(255, 0, 0, 0.5),
-                0 0 40px rgba(255, 0, 0, 0.3);
+            transform: scale(1.1);
+            border-color: #ff0000;
         }
 
         .member-info {
@@ -279,10 +268,9 @@
         }
 
         .icon {
-            font-size: 3rem;
-            color: #ff0000;
-            text-shadow: 0 0 15px rgba(255, 0, 0, 0.7),
-                        0 0 30px rgba(255, 0, 0, 0.5);
+            font-size: 1.5rem;
+            color: #ff3300;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
         }
 
         .back-button {
@@ -305,264 +293,11 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
-
-        /* Update balloon styles */
-        .balloon-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 3;
-        }
-
-        .floating-balloon {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            cursor: pointer;
-            pointer-events: auto;
-            transition: transform 0.3s ease;
-            animation: floatAround 15s linear infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .floating-balloon .icon {
-            font-size: 4rem;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8),
-                        0 0 40px rgba(255, 0, 0, 0.6);
-            animation: iconPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes floatAround {
-            0% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            25% {
-                transform: translate(50px, -50px) rotate(90deg);
-            }
-            50% {
-                transform: translate(0, -100px) rotate(180deg);
-            }
-            75% {
-                transform: translate(-50px, -50px) rotate(270deg);
-            }
-            100% {
-                transform: translate(0, 0) rotate(360deg);
-            }
-        }
-
-        @keyframes burst {
-            0% { 
-                transform: scale(1); 
-                opacity: 1; 
-            }
-            50% { 
-                transform: scale(1.5); 
-                opacity: 0.8;
-                filter: brightness(1.5);
-            }
-            100% { 
-                transform: scale(2.5); 
-                opacity: 0;
-                filter: brightness(2);
-            }
-        }
-
-        /* Add these new styles for particles and updated burst animation */
-        .particle {
-            position: absolute;
-            pointer-events: none;
-            background: #ff0000;
-            border-radius: 50%;
-            width: 8px;
-            height: 8px;
-        }
-
-        @keyframes particle {
-            0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(0);
-            }
-        }
-
-        @keyframes burst {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-            20% {
-                transform: scale(1.2);
-                opacity: 0.9;
-                filter: brightness(1.5);
-            }
-            100% {
-                transform: scale(0.1);
-                opacity: 0;
-                filter: brightness(2);
-            }
-        }
-
-        /* Add new tech overlay animation */
-        .tech-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            background: 
-                linear-gradient(45deg, transparent 48%, rgba(255, 0, 0, 0.1) 50%, transparent 52%) center / 3em 3em,
-                linear-gradient(-45deg, transparent 48%, rgba(255, 0, 0, 0.1) 50%, transparent 52%) center / 3em 3em;
-            animation: techMove 30s linear infinite;
-        }
-
-        @keyframes techMove {
-            from { background-position: 0 0; }
-            to { background-position: 100% 100%; }
-        }
-
-        /* Update section hover effects */
-        .section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 0, 0, 0.1),
-                transparent
-            );
-            transform: translateX(-100%) translateY(-100%) rotate(45deg);
-            animation: techScan 3s linear infinite;
-        }
-
-        @keyframes techScan {
-            0% {
-                transform: translateX(-100%) translateY(-100%) rotate(45deg);
-            }
-            100% {
-                transform: translateX(100%) translateY(100%) rotate(45deg);
-            }
-        }
-
-        /* Add pulsing effect to member cards */
-        .member-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 10px;
-            border: 2px solid transparent;
-            background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
-            background-size: 200% 200%;
-            animation: borderPulse 3s ease infinite;
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        @keyframes borderPulse {
-            0% { background-position: 0% 0%; }
-            50% { background-position: 100% 100%; }
-            100% { background-position: 0% 0%; }
-        }
-
-        /* Update floating balloon effects */
-        .floating-balloon .icon {
-            animation: iconPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { 
-                transform: scale(1);
-                text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            }
-            50% { 
-                transform: scale(1.1);
-                text-shadow: 
-                    0 0 30px rgba(255, 0, 0, 0.8),
-                    0 0 50px rgba(255, 0, 0, 0.4);
-            }
-        }
-
-        .tech-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.3;
-        }
-
-        .geometric-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(30deg, transparent 40%, rgba(255, 0, 0, 0.2) 40.5%, transparent 41%) 0 0 / 8em 8em,
-                linear-gradient(-30deg, transparent 40%, rgba(255, 0, 0, 0.2) 40.5%, transparent 41%) 0 0 / 8em 8em;
-            animation: shapeMove 20s linear infinite;
-        }
-
-        .pcb-traces {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, transparent 49%, rgba(255, 0, 0, 0.2) 50%, transparent 51%) 0 0 / 6em 6em,
-                linear-gradient(0deg, transparent 49%, rgba(255, 0, 0, 0.2) 50%, transparent 51%) 0 0 / 6em 6em;
-            animation: pcbMove 15s linear infinite;
-        }
-
-        .fourier-waves {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 40px,
-                rgba(255, 0, 0, 0.15) 40px,
-                rgba(255, 0, 0, 0.15) 80px
-            );
-            animation: waveMove 10s linear infinite;
-        }
-
-        .binary-overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                repeating-linear-gradient(
-                    90deg,
-                    transparent 0,
-                    transparent 30px,
-                    rgba(255, 0, 0, 0.1) 30px,
-                    rgba(255, 0, 0, 0.1) 60px
-                );
-            animation: binaryFlow 20s linear infinite;
-        }
     </style>
 </head>
 <body>
-    <div class="tech-overlay"></div>
     <div class="container">
         <h1>Know Us</h1>
-        <div class="balloon-container"></div>
         <div id="sections-container"></div>
     </div>
 
@@ -671,11 +406,11 @@
                 otherRoles: []
             }
         };
- 
+
         const sections = [
             { id: 'core', title: 'Core Committee  ', icon: '👑', isCore: true },
             { id: 'accounts', title: 'Accounts', icon: '💰' },
-            { id: 'hospitality', title: 'Hospitality', icon: '🫂' },
+            { id: 'hospitality', title: 'Hospitality', icon: '🏨' },
             { id: 'tech', title: 'Tech', icon: '💻' },
             { id: 'social-media', title: 'Social Media', icon: '📱' },
             { id: 'marketing', title: 'Marketing', icon: '📢' },
@@ -711,87 +446,41 @@
 
         function initializeSections() {
             const container = document.getElementById('sections-container');
-            const balloonContainer = document.querySelector('.balloon-container');
             
-            // Create sections grid
+            // Create core section
+            const coreSection = document.createElement('div');
+            coreSection.className = 'section core-head';
+            coreSection.innerHTML = `
+                <div class="section-header">
+                    <span class="icon">👑</span>
+                    <h2 class="section-title"> </h2>
+                </div>
+                <div class="members-grid"></div>
+            `;
+            container.appendChild(coreSection);
+
+            // Create regular sections grid
             const sectionsGrid = document.createElement('div');
             sectionsGrid.className = 'sections-grid';
             container.appendChild(sectionsGrid);
 
-            // Create floating balloons
-            sections.forEach((section, index) => {
-                // Create floating balloon
-                const balloon = document.createElement('div');
-                balloon.className = 'floating-balloon';
-                balloon.style.animationDelay = `${index * -2}s`;
-                balloon.style.left = `${Math.random() * 60 + 20}%`;
-                balloon.style.top = `${Math.random() * 60 + 20}%`;
+            // Create and populate sections
+            sections.forEach(section => {
+                if (section.isCore) return;
 
-                // Simplified balloon content - just the icon
-                balloon.innerHTML = `<span class="icon">${section.icon}</span>`;
-
-                // Create hidden section in grid
-                const gridSection = document.createElement('div');
-                gridSection.className = section.isCore ? 'section core-head' : 'section';
-                gridSection.style.display = 'none';
-                gridSection.innerHTML = `
+                const sectionElement = document.createElement('div');
+                sectionElement.className = 'section';
+                sectionElement.innerHTML = `
                     <div class="section-header">
                         <span class="icon">${section.icon}</span>
                         <h2 class="section-title">${section.title}</h2>
                     </div>
                     <div class="members-grid" data-section="${section.id}"></div>
                 `;
-                sectionsGrid.appendChild(gridSection);
-
-                // Add click handler
-                balloon.addEventListener('click', () => {
-                    // Create explosion particles
-                    const particleCount = 20;
-                    const colors = ['#ff0000', '#ff4d00', '#ff9900'];
-                    
-                    for (let i = 0; i < particleCount; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'particle';
-                        
-                        // Random position within the balloon
-                        const x = balloon.offsetLeft + balloon.offsetWidth / 2;
-                        const y = balloon.offsetTop + balloon.offsetHeight / 2;
-                        
-                        // Random angle and distance for particle trajectory
-                        const angle = (Math.random() * Math.PI * 2);
-                        const velocity = 100 + Math.random() * 150;
-                        
-                        particle.style.left = `${x}px`;
-                        particle.style.top = `${y}px`;
-                        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                        particle.style.setProperty('--tx', `${Math.cos(angle) * velocity}px`);
-                        particle.style.setProperty('--ty', `${Math.sin(angle) * velocity}px`);
-                        
-                        particle.style.animation = `particle 0.8s ease-out forwards`;
-                        
-                        document.body.appendChild(particle);
-                        
-                        // Clean up particles
-                        setTimeout(() => particle.remove(), 800);
-                    }
-
-                    // Trigger the burst animation on the balloon
-                    balloon.style.animation = 'burst 0.4s ease-out forwards';
-                    
-                    setTimeout(() => {
-                        balloon.remove();
-                        gridSection.style.display = 'block';
-                        requestAnimationFrame(() => {
-                            sectionsGrid.style.opacity = '1';
-                            sectionsGrid.style.transform = 'scale(1)';
-                        });
-                    }, 400);
-                });
-
-                balloonContainer.appendChild(balloon);
+                sectionsGrid.appendChild(sectionElement);
             });
 
-            // Populate members
+            // Populate members in their primary sections
             Object.entries(committeeMembers).forEach(([name, data]) => {
                 const sectionId = data.primaryRole.department.toLowerCase().replace(/\s+/g, '-');
                 const targetSection = document.querySelector(

@@ -130,13 +130,40 @@
             opacity: 0.2;
         }
 
+        @media (max-width: 1200px) {
+            .poster-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
+            .poster-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             
             .poster {
+                height: auto;
                 min-height: 250px;
+            }
+            
+            .poster img {
+                height: 200px;
+                object-fit: contain;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .poster-content h3 {
+                font-size: 1.5rem;
+            }
+            
+            .poster-content p {
+                font-size: 1rem;
+                white-space: normal;
             }
         }
 
