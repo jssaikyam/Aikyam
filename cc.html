@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AIKYAM Core Committee</title>
+    <title>AIKYAM-25 Core Committee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         
         * {
@@ -30,41 +31,32 @@
         }
 
         h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
             text-align: center;
-            color: #ff0000;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            color: #fff;
+            margin-bottom: 2rem;
             position: relative;
             text-transform: uppercase;
-            text-shadow: 0 0 20px #ff0000;
-            animation: glowPulse 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            letter-spacing: 2px;
+            font-weight: 700;
         }
 
-        @keyframes glowPulse {
-            0% {
-                text-shadow: 0 0 20px #ff0000;
-                transform: scale(1);
-            }
-            50% {
-                text-shadow: 0 0 40px #ff0000;
-                transform: scale(1.05);
-            }
-            100% {
-                text-shadow: 0 0 20px #ff0000;
-                transform: scale(1);
-            }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7),
+                         0 0 20px rgba(255, 0, 0, 0.5),
+                         0 0 30px rgba(255, 0, 0, 0.3);
         }
 
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: #ff1900;
-            box-shadow: 0 0 10px #ff3c00;
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
         }
 
         .core-head {
@@ -457,6 +449,35 @@
                 transform: translateX(100%) translateY(100%) rotate(45deg);
             }
         }
+        @keyframes neonGlow {
+    0% {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+    }
+    50% {
+        text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000, 0 0 50px #ff0000;
+    }
+    100% {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+    }
+}
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.neon-effect {
+    color: #ff0000; /* Cyan color */
+    animation: neonGlow 1.5s infinite alternate;
+}
+
+.fade-effect {
+    animation: fadeInOut 3s infinite alternate;
+}
 
         /* Add pulsing effect to member cards */
         .member-card::after {
@@ -561,7 +582,10 @@
 <body>
     <div class="tech-overlay"></div>
     <div class="container">
-        <h1>Know Us</h1>
+        <h1 class="text-2xl sm:text-2xl md:text-6xl lg:text-7xl xl:text-8xl font-bold mb-8 neon-effect fade-effect break-words">
+
+            AIKYAM-2025
+        </h1>
         <div class="balloon-container"></div>
         <div id="sections-container"></div>
     </div>
@@ -652,6 +676,7 @@
                 primaryRole: { department: 'Sports', position: ' ' },
                 otherRoles: []
             },
+            
             'Sri Vishnu': {
                 image: "posters/Team/Sri Vishnu.jpg",
                 email: 'https://www.instagram.com/_sri_vishnu_vs_?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==',
@@ -673,7 +698,7 @@
         };
  
         const sections = [
-            { id: 'core', title: 'Core Committee  ', icon: '👑', isCore: true },
+            { id: 'core', title: 'Head  ', icon: '👑', isCore: true },
             { id: 'accounts', title: 'Accounts', icon: '💰' },
             { id: 'hospitality', title: 'Hospitality', icon: '🫂' },
             { id: 'tech', title: 'Tech', icon: '💻' },
@@ -694,11 +719,11 @@
                 </a>
                 <div class="member-info">
                     <h3>${name}</h3>
-                    <p>${memberData.primaryRole.position} - ${memberData.primaryRole.department}</p>
+                    <p>${memberData.primaryRole.position}</p>
                     ${memberData.otherRoles.length > 0 ? `
                         <div class="member-roles">
                             ${memberData.otherRoles.map(role => 
-                                `<span class="role-tag">${role.department} ${role.position}</span>`
+                                `<span class="role-tag">${role.position}</span>`
                             ).join('')}
                         </div>
                     ` : ''}

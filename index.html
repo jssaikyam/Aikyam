@@ -97,12 +97,14 @@
         top: 100%;
         left: 0;
         right: 0;
-        background-color: rgba(0, 0, 0, 0.95); /* Semi-transparent black */
+        background-color: rgba(0, 0, 0, 0.95);
         padding: 1rem;
         gap: 1rem;
         transform: translateY(0);
         opacity: 1;
-        border-bottom: 2px solid #cec8c8; /* Red border */
+        border-bottom: 2px solid #cec8c8;
+        align-items: center;
+        width: 100%;
     }
 
     #nav-menu.mobile-closed {
@@ -115,6 +117,7 @@
         color: white;
         padding: 0.5rem 1rem;
         text-align: center;
+        width: 100%;
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -508,6 +511,53 @@
       }
     }
 
+    .sponsor-slideshow {
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    #sponsor-container {
+      display: flex;
+      justify-content: center;
+      
+      align-items: center;
+      gap: 30px; /* Increased gap for better spacing */
+      transition: transform 0.5s ease-out; /* Smooth transition for movement */
+    }
+
+    #sponsor-container img {
+      width: 150px;
+      height: 150px;
+      object-fit: contain;
+      padding: 10px;
+      flex-shrink: 0;
+      opacity: 0.9; /* Slight transparency */
+      transition: all 0.3s ease; /* Smooth transition for hover effects */
+    }
+
+    #sponsor-container img:hover {
+      opacity: 1;
+      transform: scale(1.5); /* Slight zoom on hover */
+    }
+
+    /* Responsive sizes remain the same */
+    @media (max-width: 768px) {
+      #sponsor-container img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #sponsor-container img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -562,6 +612,18 @@
             committed to delivering high-quality technical education.
           </p>
           <a href="aboutus.html" class="learn-more-btn mt-6 inline-block text-red-500 hover:text-red-600">Learn More →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsors Section -->
+    <section id="sponsors" class="py-20 px-4">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 class="section-title mb-12">Our Sponsors</h2>
+        <div class="sponsor-slideshow">
+          <div id="sponsor-container" class="flex transition-transform duration-500">
+            <!-- Sponsor images will be dynamically added here -->
+          </div>
         </div>
       </div>
     </section>
@@ -853,6 +915,103 @@
                 navMenu.classList.remove('mobile-open');
                 navMenu.classList.add('mobile-closed');
             });
+        });
+    });
+  </script>
+
+  <!-- Place this script at the end of your body tag, just before </body> -->
+  <script>
+    // Wait for the DOM to be fully loaded
+    window.addEventListener('DOMContentLoaded', function() {
+        const sponsorContainer = document.getElementById('sponsor-container');
+        
+        // Check if the container exists before proceeding
+        if (!sponsorContainer) {
+            console.error('Sponsor container not found!');
+            return;
+        }
+        
+        async function loadSponsors() {
+            try {
+                // Fetch the sponsors.json file
+                const response = await fetch('posters/Sponsors/sponsors.json');
+                if (!response.ok) {
+                    throw new Error('Failed to load sponsors.json');
+                }
+                
+                const sponsorsList = await response.json();
+                
+                // Create and append sponsor images
+                sponsorsList.sponsors.forEach(sponsorFile => {
+                    const img = document.createElement('img');
+                    img.src = `posters/Sponsors/${sponsorFile}`;
+                    img.alt = 'Sponsor';
+                    img.loading = 'lazy';
+                    
+                    img.onerror = () => {
+                        console.log(`Failed to load sponsor image: ${sponsorFile}`);
+                        img.remove();
+                    };
+                    
+                    sponsorContainer.appendChild(img);
+                });
+
+                // Only clone and start slideshow if we have images
+                if (sponsorContainer.children.length > 0) {
+                    const images = sponsorContainer.innerHTML;
+                    sponsorContainer.innerHTML = images + images;
+                    startSlideshow();
+                }
+            } catch (error) {
+                console.error('Error loading sponsors:', error);
+            }
+        }
+
+        function startSlideshow() {
+            let position = 0;
+            const speed = 0.5; // Reduced speed for smoother movement
+            let animationFrameId;
+            let isPaused = false;
+
+            // Add hover pause functionality
+            sponsorContainer.addEventListener('mouseenter', () => {
+                isPaused = true;
+            });
+
+            sponsorContainer.addEventListener('mouseleave', () => {
+                isPaused = false;
+            });
+
+            function animate() {
+                if (!isPaused) {
+                    position -= speed;
+                    const firstImageWidth = sponsorContainer.firstElementChild?.offsetWidth || 0;
+                    const gap = 30; // Match the gap from CSS
+
+                    if (-position >= (firstImageWidth + gap) && firstImageWidth > 0) {
+                        position += (firstImageWidth + gap);
+                        sponsorContainer.appendChild(sponsorContainer.firstElementChild);
+                    }
+
+                    sponsorContainer.style.transform = `translateX(${position}px)`;
+                }
+                animationFrameId = requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Cleanup function
+            return () => {
+                cancelAnimationFrame(animationFrameId);
+            };
+        }
+
+        // Initialize the sponsors slideshow
+        loadSponsors().then(() => {
+            const cleanup = startSlideshow();
+            
+            // Cleanup on page unload
+            window.addEventListener('unload', cleanup);
         });
     });
   </script>
