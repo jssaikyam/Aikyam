@@ -973,6 +973,21 @@
             const speed = 0.5; // Reduced speed for smoother movement
             let animationFrameId;
             let isPaused = false;
+            
+            // Calculate total width of all sponsor images initially
+            let totalWidth = 0;
+            const sponsorImages = Array.from(sponsorContainer.children);
+            sponsorImages.forEach(img => {
+                totalWidth += img.offsetWidth + 30; // 30 is the gap from CSS
+            });
+            
+            // Clone all images for seamless looping (if we have images)
+            if (sponsorImages.length > 0) {
+                sponsorImages.forEach(img => {
+                    const clone = img.cloneNode(true);
+                    sponsorContainer.appendChild(clone);
+                });
+            }
 
             // Add hover pause functionality
             sponsorContainer.addEventListener('mouseenter', () => {
@@ -985,13 +1000,10 @@
 
             function animate() {
                 if (!isPaused) {
-                    position -= speed;
-                    const firstImageWidth = sponsorContainer.firstElementChild?.offsetWidth || 0;
-                    const gap = 30; // Match the gap from CSS
-
-                    if (-position >= (firstImageWidth + gap) && firstImageWidth > 0) {
-                        position += (firstImageWidth + gap);
-                        sponsorContainer.appendChild(sponsorContainer.firstElementChild);
+                    position += speed;
+                    
+                    if (position >= totalWidth && totalWidth > 0) {
+                        position = 0;
                     }
 
                     sponsorContainer.style.transform = `translateX(${position}px)`;
