@@ -12,6 +12,10 @@
             padding: 0;
             box-sizing: border-box;
         }
+        html {
+  scroll-behavior: smooth;
+}
+
 
         body {
             font-family: 'Arial', sans-serif;
@@ -806,6 +810,7 @@
                     setTimeout(() => {
                         balloon.remove();
                         gridSection.style.display = 'block';
+                        gridSection.scrollIntoView({ behavior: 'smooth' });
                         requestAnimationFrame(() => {
                             sectionsGrid.style.opacity = '1';
                             sectionsGrid.style.transform = 'scale(1)';
