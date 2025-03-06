@@ -1,349 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Clock Disintegration</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #000;
-      overflow: hidden;
-      font-family: 'Courier New', monospace;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
 
-    .container {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+        body {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-    .digital-clock {
-      position: relative;
-      width: 400px;
-      height: 200px;
-      margin: 50px auto;
-      transform-style: preserve-3d;
-      perspective: 1000px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        .container {
+            position: relative;
+            z-index: 2;
+        }
 
-    .clock-face {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(30, 30, 30, 0.8);
-      border: 4px solid #ff0000;
-      border-radius: 20px;
-      box-shadow: 0 0 20px #ff0000, inset 0 0 30px rgba(255, 0, 0, 0.3);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
+        .countdown {
+            display: flex;
+            gap: 40px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            position: relative;
+        }
 
-    .clock-display {
-      font-size: 5rem;
-      color: #ff0000;
-      text-shadow: 0 0 15px #ff0000;
-      font-family: 'Digital-7', 'Courier New', monospace;
-      letter-spacing: 5px;
-      position: relative;
-      z-index: 2;
-    }
+        .countdown::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
+            z-index: -1;
+            animation: borderGlow 3s linear infinite;
+        }
 
-    .clock-buttons {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #ff0000;
-    }
+        .time-segment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+        }
 
-    .button-1 { top: 20px; left: 20px; }
-    .button-2 { top: 20px; right: 20px; }
-    .button-3 { bottom: 20px; left: 20px; }
-    .button-4 { bottom: 20px; right: 20px; }
+        .time-value {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            animation: pulse 2s infinite;
+        }
 
-    .clock-circuit {
-      position: absolute;
-      background-color: transparent;
-      border: 1px solid rgba(255, 0, 0, 0.5);
-      box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
-      z-index: 1;
-    }
+        .time-label {
+            font-size: 1.2rem;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
 
-    .circuit-1 {
-      width: 80%;
-      height: 2px;
-      top: 40px;
-      left: 10%;
-    }
+        .binary-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
 
-    .circuit-2 {
-      width: 80%;
-      height: 2px;
-      bottom: 40px;
-      left: 10%;
-    }
+        .title {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff0000;
+            font-size: 2.5rem;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            white-space: nowrap;
+            animation: glitch 5s infinite;
+        }
 
-    .circuit-3 {
-      width: 2px;
-      height: 60%;
-      top: 20%;
-      left: 30px;
-    }
+        .date-display {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ff0000;
+            font-size: 1.2rem;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            white-space: nowrap;
+        }
 
-    .circuit-4 {
-      width: 2px;
-      height: 60%;
-      top: 20%;
-      right: 30px;
-    }
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
 
-    .timer {
-      font-size: 2.5rem;
-      color: #ff0000;
-      margin-top: 20px;
-      text-shadow: 0 0 10px #ff0000;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 2px;
-    }
+        @keyframes borderGlow {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
 
-    .burst-particle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
-      opacity: 0;
-      pointer-events: none;
-    }
+        @keyframes glitch {
+            0% {
+                transform: translateX(-50%) skew(0deg);
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            }
+            2% {
+                transform: translateX(-50%) skew(20deg);
+                text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #0000ff;
+            }
+            4% {
+                transform: translateX(-50%) skew(0deg);
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            }
+            52% {
+                text-shadow: 3px 3px 0 #ff0000, -3px -3px 0 #0000ff;
+            }
+            54% {
+                text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            }
+        }
 
-    .shard {
-      position: absolute;
-      background-color: rgba(255, 0, 0, 0.3);
-      border: 1px solid #ff0000;
-      box-shadow: 0 0 10px #ff0000;
-      transform-origin: center;
-      opacity: 1;
-      pointer-events: none;
-    }
+        @media (max-width: 768px) {
+            .countdown {
+                gap: 20px;
+                padding: 20px;
+            }
 
-    .disintegrate {
-      animation: disintegrate 1.5s forwards;
-    }
+            .time-segment {
+                min-width: 70px;
+            }
 
-    @keyframes disintegrate {
-      0% {
-        transform: scale(1) rotate(0);
-        opacity: 1;
-        filter: blur(0);
-      }
-      100% {
-        transform: scale(0.2) rotate(15deg);
-        opacity: 0;
-        filter: blur(10px);
-      }
-    }
+            .time-value {
+                font-size: 2.5rem;
+            }
 
-    .message {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 4rem;
-      color: #ff0000;
-      text-shadow: 0 0 20px #ff0000;
-      opacity: 0;
-      transition: opacity 1s;
-      font-family: 'Impact', sans-serif;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
+            .time-label {
+                font-size: 0.9rem;
+            }
 
-    .show-message {
-      opacity: 1;
-      animation: pulse 2s infinite;
-    }
+            .title {
+                font-size: 1.8rem;
+                top: -80px;
+            }
 
-    @keyframes pulse {
-      0% {
-        text-shadow: 0 0 20px #ff0000;
-        transform: translate(-50%, -50%) scale(1);
-      }
-      50% {
-        text-shadow: 0 0 40px #ff0000, 0 0 60px #ff0000;
-        transform: translate(-50%, -50%) scale(1.05);
-      }
-      100% {
-        text-shadow: 0 0 20px #ff0000;
-        transform: translate(-50%, -50%) scale(1);
-      }
-    }
+            .date-display {
+                font-size: 1rem;
+                top: -30px;
+            }
+        }
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            backface-visibility: hidden;
+            /* background: rgba(197, 2, 2, 0.8); */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-size: 1.5rem ;
+        }
 
-    .background-effect {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 1s;
-    }
-
-    .background-effect.active {
-      opacity: 1;
-    }
-
-    .vignette {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      box-shadow: inset 0 0 150px 50px #000;
-      background: radial-gradient(circle, transparent 50%, #000 100%);
-    }
-
-    .dust {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      box-shadow: 0 0 5px #ff0000;
-      opacity: 0;
-    }
-
-    .spark {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #ff0000, 0 0 12px #ff0000;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .circuit-spark {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background-color: #ff0000;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #ff0000;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .glitch {
-      animation: glitch 0.3s infinite;
-    }
-
-    @keyframes glitch {
-      0% {
-        transform: translate(0);
-        opacity: 1;
-      }
-      20% {
-        transform: translate(-5px, 5px);
-        opacity: 0.8;
-      }
-      40% {
-        transform: translate(5px, -5px);
-        opacity: 1;
-      }
-      60% {
-        transform: translate(-3px, 2px);
-        opacity: 0.8;
-      }
-      80% {
-        transform: translate(3px, -2px);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(0);
-        opacity: 1;
-      }
-    }
-  </style>
+        .back-button:hover {
+            background: rgb(255, 0, 0);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="digital-clock">
-      <div class="clock-face">
-        <div class="clock-display">10:00</div>
-        <div class="clock-buttons button-1"></div>
-        <div class="clock-buttons button-2"></div>
-        <div class="clock-buttons button-3"></div>
-        <div class="clock-buttons button-4"></div>
-        <div class="clock-circuit circuit-1"></div>
-        <div class="clock-circuit circuit-2"></div>
-        <div class="clock-circuit circuit-3"></div>
-        <div class="clock-circuit circuit-4"></div>
-      </div>
+    <canvas class="binary-rain" id="binaryRain"></canvas>
+    <div class="container">
+        <h1 class="title">HACKATHON COUNTDOWN</h1>
+        <div class="date-display">March 6, 2025 12:00 PM - March 7, 2025 12:00 PM</div>
+        <div class="countdown">
+            <div class="time-segment">
+                <div class="time-value" id="hours">24</div>
+                <div class="time-label">Hours</div>
+            </div>
+            <div class="time-segment">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-segment">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
     </div>
-    <div class="message">TIME'S UP!</div>
-  </div>
-  
-  <div class="background-effect">
-    <div class="vignette"></div>
-  </div>
+    <a href="index.html" class="back-button">Home</a>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const clockDisplay = document.querySelector('.clock-display');
-  
-      // Set the start time to March 6, 12:00 PM
-      const startTime = new Date(new Date().getFullYear(), 2, 6, 12, 30, 0).getTime(); // March = 2 (zero-based index)
-      
-      // Set the end time to March 7, 12:00 PM (24 hours from start)
-      const endTime = startTime + 24 * 60 * 60 * 1000;
-  
-      function updateClock() {
-        const now = new Date().getTime();
-        
-        // Ensure we don't go negative
-        const timeLeft = Math.max(0, endTime - now);
-  
-        const hours = Math.floor((timeLeft / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((timeLeft / (1000 * 60)) % 60);
-        const seconds = Math.floor((timeLeft / 1000) % 60);
-  
-        clockDisplay.textContent = 
-          `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-  
-        if (timeLeft <= 0) {
-          clearInterval(timerInterval);
-          disintegrateClock();
+    <script>
+        // Binary Rain Animation
+        const canvas = document.getElementById('binaryRain');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const binary = '10'.split('');
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawBinaryRain() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#ff0000';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = binary[Math.floor(Math.random() * binary.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
         }
-      }
-  
-      // Update the clock every second
-      const timerInterval = setInterval(updateClock, 1000);
-      updateClock(); // Run immediately to avoid 1-second delay
-  
-      function disintegrateClock() {
-        alert("Time is up! The countdown has ended.");
-        // Add your clock disintegration animation here
-      }
-    });
-  </script>
-  
-  
+
+        // Countdown Timer
+        function updateCountdown() {
+            const startDate = new Date('2025-03-06T12:00:00');
+            const endDate = new Date('2025-03-07T12:00:00');
+
+            function update() {
+                const now = new Date();
+                
+                // Before the event starts
+                if (now < startDate) {
+                    document.getElementById('hours').textContent = '24';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+                
+                // After the event ends
+                if (now >= endDate) {
+                    document.getElementById('hours').textContent = '00';
+                    document.getElementById('minutes').textContent = '00';
+                    document.getElementById('seconds').textContent = '00';
+                    return;
+                }
+                
+                // During the event
+                const timeLeft = endDate - now;
+                
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+
+            // Update countdown every second
+            setInterval(update, 1000);
+            update(); // Initial call
+        }
+
+        // Start animations and countdown
+        setInterval(drawBinaryRain, 50);
+        updateCountdown();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
 </body>
 </html>
