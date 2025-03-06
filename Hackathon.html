@@ -140,6 +140,27 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
         }
+        .back-button1 {
+    position: fixed;
+    bottom: 60px; /* Adjusted to be above the .back-button */
+    right: 20px;
+    padding: 10px 20px;
+    backface-visibility: hidden;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    background: rgba(0, 102, 255, 0.8); /* Different color for distinction */
+}
+
+.back-button1:hover {
+    background: rgb(0, 72, 204);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 72, 204, 0.3);
+}
+
 
         h1 {
             color: #ff0000;
@@ -207,6 +228,7 @@
         </div>
     </a>
     <a href="index.html" class="back-button">Home</a>
+    <a href="Hackathon-timer.html" class="back-button1">Timer</a>
 
     <script>
         const canvas = document.getElementById("matrixCanvas");
